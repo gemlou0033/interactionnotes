@@ -121,17 +121,19 @@
 
       <fieldset style="margin-top: 15px;">
         <legend><strong>Reminders</strong></legend>
-        <label><input type="checkbox"> Bill paid</label><br>
-        <div style="margin: 10px 0;">
-          <strong>Fault:</strong>
-          <button type="button" style="margin-left: 10px; padding: 5px 10px; font-size: 14px;">Open</button>
-          <button type="button" style="margin-left: 5px; padding: 5px 10px; font-size: 14px;">Close</button>
-        </div>
-        <div style="margin: 10px 0;">
-          <strong>Complaint:</strong>
-          <button type="button" style="margin-left: 10px; padding: 5px 10px; font-size: 14px;">Open</button>
-          <button type="button" style="margin-left: 5px; padding: 5px 10px; font-size: 14px;">Close</button>
-        </div>
+        <ul style="list-style-type: disc; margin: 10px 0; padding-left: 20px;">
+          <li>Bill paid <input type="checkbox" style="margin-left: 10px;"></li>
+          <li>
+            <strong>Fault:</strong>
+            Open <input type="checkbox" style="margin-left: 5px;">
+            Close <input type="checkbox" style="margin-left: 10px;">
+          </li>
+          <li>
+            <strong>Complaint:</strong>
+            Open <input type="checkbox" style="margin-left: 5px;">
+            Close <input type="checkbox" style="margin-left: 10px;">
+          </li>
+        </ul>
       </fieldset>
 
       <fieldset style="margin-top: 15px;">
