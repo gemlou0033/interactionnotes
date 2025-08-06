@@ -58,9 +58,12 @@
       vertical-align: middle;
       margin-right: 6px;
     }
-    .checkin-row input[type="text"],
-    .initials-row input[type="text"] {
+    .checkin-row input[type="text"] {
       flex: 1;
+    }
+    .initials-row input[type="text"] {
+      width: 60px;
+      flex: none;
     }
     .button-row {
       display: flex;
@@ -76,7 +79,7 @@
   <!-- Initials Row -->
   <div class="initials-row">
     <label for="initials">Initials:</label>
-    <input type="text" id="initials" placeholder="Enter your initials" maxlength="5">
+    <input type="text" id="initials" maxlength="5">
   </div>
 
   <!-- Validation Row -->
@@ -254,7 +257,6 @@
     }
 
     function clearAll() {
-      document.getElementById('initials').value = '';
       document.getElementById('issue').value = '';
       actionsField.value = '';
       nextField.value = '';
@@ -267,7 +269,7 @@
       document.getElementById('valLow').checked = false;
       actionsField.disabled = true;
       nextField.disabled = true;
-      document.getElementById('output').textContent = '';
+      updateFormattedNote();
     }
 
     // Initialize with empty note
