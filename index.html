@@ -105,7 +105,7 @@
 
       <div class="checkin-row">
         <input type="checkbox" id="checkin">
-        <label for="checkin">#checkin?</label>
+        <label for="checkin">#checkin</label>
         <input type="text" id="number" placeholder="Phone number">
       </div>
 
@@ -121,8 +121,27 @@
 
       <fieldset style="margin-top: 15px;">
         <legend><strong>Reminders</strong></legend>
-        <label><input type="checkbox"> Bills paid/account active in consumer</label><br>
-        <label><input type="checkbox"> Open faults/complaints in consumer</label>
+        <label><input type="checkbox"> Bill paid</label><br>
+        <div style="margin: 10px 0;">
+          <strong>Fault:</strong>
+          <button type="button" style="margin-left: 10px; padding: 5px 10px; font-size: 14px;">Open</button>
+          <button type="button" style="margin-left: 5px; padding: 5px 10px; font-size: 14px;">Close</button>
+        </div>
+        <div style="margin: 10px 0;">
+          <strong>Complaint:</strong>
+          <button type="button" style="margin-left: 10px; padding: 5px 10px; font-size: 14px;">Open</button>
+          <button type="button" style="margin-left: 5px; padding: 5px 10px; font-size: 14px;">Close</button>
+        </div>
+      </fieldset>
+
+      <fieldset style="margin-top: 15px;">
+        <legend><strong>Order of Close</strong></legend>
+        <ol style="margin: 10px 0; padding-left: 20px;">
+          <li>Albert Flow/I'm Done</li>
+          <li>Consumer Interaction Notes</li>
+          <li>HomeView/Smart Assistant</li>
+          <li>Albert I'm Finished</li>
+        </ol>
       </fieldset>
     </div>
   </div>
