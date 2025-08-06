@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>BT/EE HomeTech Interaction Note Helper</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .main {
+      flex: 1;
+      min-width: 300px;
+    }
+    .extra {
+      width: 300px;
+    }
+    textarea, input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    #output {
+      white-space: pre-wrap;
+      background: #f5f5f5;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-top: 20px;
+    }
+    label {
+      font-weight: bold;
+    }
+    .checkin-row, .validation-row, .complaint-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    input[type="radio"],
+    input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    .checkin-row input[type="text"] {
+      flex: 1;
+    }
+    .button-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>BT/EE HomeTech Interaction Note Helper</h2>
+
+  <!-- Validation Row -->
+  <div class="validation-row">
+    <label>Validation:</label>
+    <input type="radio" name="validation" id="valLow">
+    <label for="valLow">Low</label>
+    <input type="radio" name="validation" id="valHigh">
+    <label for="valHigh">High</label>
+  </div>
+
+  <div class="container">
+    <!-- Left side (Main form) -->
+    <div class="main">
+      <label for="issue">Issue (shorthand allowed):</label>
+      <textarea id="issue" rows="3"></textarea>
+
+      <div class="complaint-row">
+        <input type="checkbox" id="complaintRaised">
+        <label for="complaintRaised">Complaint raised (or not needed)</label>
+      </div>
+
+      <label for="actions">Actions (shorthand allowed):</label>
+      <textarea id="actions" rows="3" disabled></textarea>
+
+      <label for="next">Next Actions (shorthand allowed):</label>
+      <textarea id="next" rows="3" disabled></textarea>
+
+      <div class="complaint-row">
+        <input type="checkbox" id="complaintClosed">
+        <label for="complaintClosed">Complaint closed (or not needed)</label>
+      </div>
+
+      <div class="checkin-row">
+        <input type="checkbox" id="checkin">
+        <label for="checkin">#checkin?</label>
+        <input type="text" id="number" placeholder="Phone number">
+      </div>
+
+      <div class="button-row">
+        <button id="copyBtn" onclick="generateAndCopy()" disabled>COPY</button>
+        <button onclick="clearAll()">CLEAR</button>
+      </div>
+    </div>
+
+    <!-- Right side (Extra info) -->
+    <div class="extra">
+      <label for="extra">Extra Info (not included in notes):</label>
+      <textarea id="extra" rows="10" placeholder="Add any extra context or reminders here..."></textarea>
+
+      <fieldset style="margin-top: 15px;">
+        <legend><strong>Reminders</strong></legend>
+        <label><input type="checkbox"> Bills paid/account active in consumer</label><br>
+        <label><input type="checkbox"> Open faults/complaints in consumer</label>
+      </fieldset>
+    </div>
+  </div>
+
+  <h3>Formatted Note:</h3>
+  <div id="output"></div>
+
+  <script>
+    const replacements = {
+      "cust": "customer",
+      "rtr": "router",
+      "bb": "broadband",
+      "conn": "connection",
+      "res": "resolution",
+      "adv": "advised",
+      "chk": "checked",
+      "rep": "replaced",
+      "cfg": "configured",
+      "appt": "appointment",
+      "nfa": "no further action",
+      "eng": "engineer",
+      "sw": "software",
+      "hw": "hardware",
+      "cx": "customer",
+      "escal": "escalated",
+      "rebt": "rebooted",
+      "hc": "home checks completed",
+      "sa": "smart assistant"
+    };
+
+    const complaintRaised = document.getElementById('complaintRaised');
+    const complaintClosed = document.getElementById('complaintClosed');
+    const copyBtn = document.getElementById('copyBtn');
+    const actionsField = document.getElementById('actions');
+    const nextField = document.getElementById('next');
+
+    // Enable/Disable Actions and Next Actions based on complaintRaised
+    complaintRaised.addEventListener('change', function () {
+      const enabled = this.checked;
+      actionsField.disabled = !enabled;
+      nextField.disabled = !enabled;
+      updateCopyButton();
+    });
+
+    // Enable/Disable COPY button based on both checkboxes
+    complaintClosed.addEventListener('change', updateCopyButton);
+    complaintRaised.addEventListener('change', updateCopyButton);
+
+    function updateCopyButton() {
+      copyBtn.disabled = !(complaintRaised.checked && complaintClosed.checked);
+    }
+
+    function expandShorthand(text) {
+      return text.replace(/\b\w+\b/g, word => {
+        const lower = word.toLowerCase();
+        return replacements[lower] || word;
+      });
+    }
+
+    // Convert text to sentence case
+    function toSentenceCase(text) {
+      return text
+        .toLowerCase()
+        .replace(/(^\s*\w|[\.\!\?]\s*\w)/g, c => c.toUpperCase());
+    }
+
+    function getValidationLabel() {
+      if (document.getElementById('valHigh').checked) return "Highly validated";
+      if (document.getElementById('valLow').checked) return "Lowly validated";
+      return "";
+    }
+
+    function generateAndCopy() {
+      // Get raw inputs, trim whitespace
+      const rawIssue = document.getElementById('issue').value.trim();
+      const rawActions = document.getElementById('actions').value.trim();
+      const rawNext = document.getElementById('next').value.trim();
+
+      // Expand shorthand first
+      const issueExpanded = expandShorthand(rawIssue);
+      const actionsExpanded = expandShorthand(rawActions);
+      const nextExpanded = expandShorthand(rawNext);
+
+      // Then sentence case all
+      const issue = toSentenceCase(issueExpanded);
+      const actions = toSentenceCase(actionsExpanded);
+      const next = toSentenceCase(nextExpanded);
+
+      const validationLabel = getValidationLabel();
+      const validationPrefix = validationLabel ? validationLabel + ". " : "";
+
+      const checkinChecked = document.getElementById('checkin').checked;
+      const number = document.getElementById('number').value.trim();
+
+      let note = `GM@HomeTech\nIssue - ${issue}\nActions - ${validationPrefix}${actions}\nNext Actions - ${next}`;
+
+      if (checkinChecked && number) {
+        note += `\n#checkin #${number}`;
+      }
+
+      document.getElementById('output').textContent = note;
+
+      navigator.clipboard.writeText(note)
+        .then(() => alert("Note copied to clipboard."))
+        .catch(err => alert("Failed to copy: " + err));
+    }
+
+    function clearAll() {
+      document.getElementById('issue').value = '';
+      actionsField.value = '';
+      nextField.value = '';
+      document.getElementById('extra').value = '';
+      document.getElementById('checkin').checked = false;
+      document.getElementById('number').value = '';
+      complaintRaised.checked = false;
+      complaintClosed.checked = false;
+      document.getElementById('valHigh').checked = false;
+      document.getElementById('valLow').checked = false;
+      actionsField.disabled = true;
+      nextField.disabled = true;
+      copyBtn.disabled = true;
+      document.getElementById('output').textContent = '';
+    }
+  </script>
+
+</body>
+</html>
