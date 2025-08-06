@@ -8,18 +8,58 @@
       font-family: Arial, sans-serif;
       margin: 20px;
     }
+
+    /* EE Theme */
+    body.ee-theme {
+      background-color: #f0fff0;
+      color: #003F2D;
+    }
+
+    body.ee-theme textarea,
+    body.ee-theme input[type="text"] {
+      border: 2px solid #00E100;
+      background-color: white;
+    }
+
+    body.ee-theme button {
+      background-color: #00E100;
+      color: #003F2D;
+      border: none;
+    }
+
+    /* BT Theme */
+    body.bt-theme {
+      background-color: #f5f0fa;
+      color: #2E004F;
+    }
+
+    body.bt-theme textarea,
+    body.bt-theme input[type="text"] {
+      border: 2px solid #6400AA;
+      background-color: white;
+    }
+
+    body.bt-theme button {
+      background-color: #6400AA;
+      color: white;
+      border: none;
+    }
+
     .container {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
     }
+
     .main {
       flex: 1;
       min-width: 300px;
     }
+
     .extra {
       width: 350px;
     }
+
     textarea, input[type="text"] {
       width: 100%;
       padding: 10px;
@@ -27,12 +67,14 @@
       font-size: 16px;
       box-sizing: border-box;
     }
+
     button {
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
       margin-right: 10px;
     }
+
     #output {
       white-space: pre-wrap;
       background: #f5f5f5;
@@ -41,15 +83,18 @@
       margin-top: 20px;
       min-height: 100px;
     }
+
     label {
       font-weight: bold;
     }
+
     .checkin-row, .validation-row, .complaint-row, .initials-row {
       display: flex;
       align-items: center;
       gap: 10px;
       margin-bottom: 15px;
     }
+
     input[type="radio"],
     input[type="checkbox"] {
       width: 22px;
@@ -58,13 +103,16 @@
       vertical-align: middle;
       margin-right: 6px;
     }
+
     .checkin-row input[type="text"] {
       flex: 1;
     }
+
     .initials-row input[type="text"] {
       width: 60px;
       flex: none;
     }
+
     .button-row {
       display: flex;
       gap: 10px;
@@ -93,6 +141,15 @@
 </head>
 <body>
 
+  <!-- Theme selector -->
+  <div style="margin-bottom: 15px;">
+    <label for="themeSelect"><strong>Theme:</strong></label>
+    <select id="themeSelect">
+      <option value="bt">BT</option>
+      <option value="ee">EE</option>
+    </select>
+  </div>
+
   <h2>BT/EE HomeTech Interaction Note Helper</h2>
 
   <!-- Initials Row -->
@@ -113,13 +170,13 @@
   <div class="container">
     <!-- Left side (Main form) -->
     <div class="main">
-      <label for="issue">Issue:</label>
+      <label for="issue">Issue (shorthand allowed):</label>
       <textarea id="issue" rows="3"></textarea>
 
-      <label for="actions">Actions:</label>
+      <label for="actions">Actions (shorthand allowed):</label>
       <textarea id="actions" rows="3"></textarea>
 
-      <label for="next">Next Actions:</label>
+      <label for="next">Next Actions (shorthand allowed):</label>
       <textarea id="next" rows="3" placeholder="Check if issue resolved"></textarea>
 
       <div class="checkin-row">
@@ -141,14 +198,10 @@
       <fieldset style="margin-top: 15px;">
         <legend><strong>Reminders</strong></legend>
         <div style="margin: 10px 0;">
-
-          <!-- Bill Paid -->
           <div class="reminder-row">
             <span class="reminder-label">Bill paid</span>
             <input type="checkbox" id="billPaidCheckbox">
           </div>
-
-          <!-- Fault -->
           <div class="reminder-row">
             <span class="reminder-label">Fault</span>
             <span class="reminder-sub-label">Open</span>
@@ -156,8 +209,6 @@
             <span class="reminder-sub-label">Close</span>
             <input type="checkbox" id="faultCloseCheckbox">
           </div>
-
-          <!-- Complaint -->
           <div class="reminder-row">
             <span class="reminder-label">Complaint</span>
             <span class="reminder-sub-label">Open</span>
@@ -165,7 +216,6 @@
             <span class="reminder-sub-label">Close</span>
             <input type="checkbox" id="complaintCloseCheckbox">
           </div>
-
         </div>
       </fieldset>
 
@@ -265,11 +315,11 @@
       const number = document.getElementById('number').value.trim();
 
       let note = `${initials}@HomeTech\nIssue - ${issue}`;
-      
+
       if (actions) {
         note += `\nActions - ${validationPrefix}${actions}`;
       }
-      
+
       note += `\nNext Actions - ${next}`;
 
       if (checkinChecked && number) {
@@ -296,10 +346,23 @@
       updateFormattedNote();
     }
 
-    updateFormattedNote();
+    // Theme selector logic
+    document.getElementById('themeSelect').addEventListener('change', function () {
+      document.body.classList.remove('bt-theme', 'ee-theme');
+      if (this.value === 'bt') {
+        document.body.classList.add('bt-theme');
+      } else {
+        document.body.classList.add('ee-theme');
+      }
+    });
+
+    // Default to EE theme
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('themeSelect').value = 'ee';
+      document.body.classList.add('ee-theme');
+      updateFormattedNote();
+    });
   </script>
 
 </body>
 </html>
-
-
