@@ -86,7 +86,7 @@
   <div class="validation-row">
     <label>Validation:</label>
     <input type="radio" name="validation" id="valLow">
-    <label for="valLow">Low</label>
+    <label for="valLow">None</label>
     <input type="radio" name="validation" id="valHigh">
     <label for="valHigh">High</label>
   </div>
@@ -97,21 +97,11 @@
       <label for="issue">Issue (shorthand allowed):</label>
       <textarea id="issue" rows="3"></textarea>
 
-      <div class="complaint-row">
-        <input type="checkbox" id="complaintRaised">
-        <label for="complaintRaised">Complaint raised (or not needed)</label>
-      </div>
-
       <label for="actions">Actions (shorthand allowed):</label>
-      <textarea id="actions" rows="3" disabled></textarea>
+      <textarea id="actions" rows="3"></textarea>
 
       <label for="next">Next Actions (shorthand allowed):</label>
-      <textarea id="next" rows="3" disabled></textarea>
-
-      <div class="complaint-row">
-        <input type="checkbox" id="complaintClosed">
-        <label for="complaintClosed">Complaint closed (or not needed)</label>
-      </div>
+      <textarea id="next" rows="3" placeholder="Check if issue resolved"></textarea>
 
       <div class="checkin-row">
         <input type="checkbox" id="checkin">
@@ -163,18 +153,8 @@
       "sa": "smart assistant"
     };
 
-    const complaintRaised = document.getElementById('complaintRaised');
-    const complaintClosed = document.getElementById('complaintClosed');
     const actionsField = document.getElementById('actions');
     const nextField = document.getElementById('next');
-
-    // Enable/Disable Actions and Next Actions based on complaintRaised
-    complaintRaised.addEventListener('change', function () {
-      const enabled = this.checked;
-      actionsField.disabled = !enabled;
-      nextField.disabled = !enabled;
-      updateFormattedNote();
-    });
 
     // Add event listeners for auto-updating
     const fieldsToWatch = ['initials', 'issue', 'actions', 'next', 'number'];
@@ -183,7 +163,6 @@
     });
 
     // Add listeners for checkboxes and radio buttons
-    document.getElementById('complaintClosed').addEventListener('change', updateFormattedNote);
     document.getElementById('checkin').addEventListener('change', updateFormattedNote);
     document.getElementById('valLow').addEventListener('change', updateFormattedNote);
     document.getElementById('valHigh').addEventListener('change', updateFormattedNote);
@@ -204,7 +183,7 @@
 
     function getValidationLabel() {
       if (document.getElementById('valHigh').checked) return "Highly validated";
-      if (document.getElementById('valLow').checked) return "Lowly validated";
+      if (document.getElementById('valLow').checked) return "Not able to validate";
       return "";
     }
 
@@ -226,12 +205,13 @@
       // Expand shorthand first
       const issueExpanded = expandShorthand(rawIssue);
       const actionsExpanded = expandShorthand(rawActions);
-      const nextExpanded = expandShorthand(rawNext);
+      const nextExpanded = rawNext || "Check if issue resolved";
+      const nextExpandedShorthand = expandShorthand(nextExpanded);
 
       // Then sentence case all
       const issue = toSentenceCase(issueExpanded);
       const actions = toSentenceCase(actionsExpanded);
-      const next = toSentenceCase(nextExpanded);
+      const next = toSentenceCase(nextExpandedShorthand);
 
       const validationLabel = getValidationLabel();
       const validationPrefix = validationLabel ? validationLabel + ". " : "";
@@ -245,9 +225,7 @@
         note += `\nActions - ${validationPrefix}${actions}`;
       }
       
-      if (next) {
-        note += `\nNext Actions - ${next}`;
-      }
+      note += `\nNext Actions - ${next}`;
 
       if (checkinChecked && number) {
         note += `\n#checkin #${number}`;
@@ -263,12 +241,8 @@
       document.getElementById('extra').value = '';
       document.getElementById('checkin').checked = false;
       document.getElementById('number').value = '';
-      complaintRaised.checked = false;
-      complaintClosed.checked = false;
       document.getElementById('valHigh').checked = false;
       document.getElementById('valLow').checked = false;
-      actionsField.disabled = true;
-      nextField.disabled = true;
       updateFormattedNote();
     }
 
