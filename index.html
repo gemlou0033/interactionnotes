@@ -39,11 +39,12 @@
       padding: 10px;
       border: 1px solid #ccc;
       margin-top: 20px;
+      min-height: 100px;
     }
     label {
       font-weight: bold;
     }
-    .checkin-row, .validation-row, .complaint-row {
+    .checkin-row, .validation-row, .complaint-row, .initials-row {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -57,7 +58,8 @@
       vertical-align: middle;
       margin-right: 6px;
     }
-    .checkin-row input[type="text"] {
+    .checkin-row input[type="text"],
+    .initials-row input[type="text"] {
       flex: 1;
     }
     .button-row {
@@ -70,6 +72,12 @@
 <body>
 
   <h2>BT/EE HomeTech Interaction Note Helper</h2>
+
+  <!-- Initials Row -->
+  <div class="initials-row">
+    <label for="initials">Initials:</label>
+    <input type="text" id="initials" placeholder="Enter your initials" maxlength="5">
+  </div>
 
   <!-- Validation Row -->
   <div class="validation-row">
@@ -109,7 +117,6 @@
       </div>
 
       <div class="button-row">
-        <button id="copyBtn" onclick="generateAndCopy()" disabled>COPY</button>
         <button onclick="clearAll()">CLEAR</button>
       </div>
     </div>
@@ -155,7 +162,6 @@
 
     const complaintRaised = document.getElementById('complaintRaised');
     const complaintClosed = document.getElementById('complaintClosed');
-    const copyBtn = document.getElementById('copyBtn');
     const actionsField = document.getElementById('actions');
     const nextField = document.getElementById('next');
 
@@ -164,16 +170,20 @@
       const enabled = this.checked;
       actionsField.disabled = !enabled;
       nextField.disabled = !enabled;
-      updateCopyButton();
+      updateFormattedNote();
     });
 
-    // Enable/Disable COPY button based on both checkboxes
-    complaintClosed.addEventListener('change', updateCopyButton);
-    complaintRaised.addEventListener('change', updateCopyButton);
+    // Add event listeners for auto-updating
+    const fieldsToWatch = ['initials', 'issue', 'actions', 'next', 'number'];
+    fieldsToWatch.forEach(id => {
+      document.getElementById(id).addEventListener('input', updateFormattedNote);
+    });
 
-    function updateCopyButton() {
-      copyBtn.disabled = !(complaintRaised.checked && complaintClosed.checked);
-    }
+    // Add listeners for checkboxes and radio buttons
+    document.getElementById('complaintClosed').addEventListener('change', updateFormattedNote);
+    document.getElementById('checkin').addEventListener('change', updateFormattedNote);
+    document.getElementById('valLow').addEventListener('change', updateFormattedNote);
+    document.getElementById('valHigh').addEventListener('change', updateFormattedNote);
 
     function expandShorthand(text) {
       return text.replace(/\b\w+\b/g, word => {
@@ -195,11 +205,20 @@
       return "";
     }
 
-    function generateAndCopy() {
+    function updateFormattedNote() {
+      // Get initials
+      const initials = document.getElementById('initials').value.trim() || "GM";
+
       // Get raw inputs, trim whitespace
       const rawIssue = document.getElementById('issue').value.trim();
       const rawActions = document.getElementById('actions').value.trim();
       const rawNext = document.getElementById('next').value.trim();
+
+      // Only generate note if we have at least an issue
+      if (!rawIssue) {
+        document.getElementById('output').textContent = '';
+        return;
+      }
 
       // Expand shorthand first
       const issueExpanded = expandShorthand(rawIssue);
@@ -217,20 +236,25 @@
       const checkinChecked = document.getElementById('checkin').checked;
       const number = document.getElementById('number').value.trim();
 
-      let note = `GM@HomeTech\nIssue - ${issue}\nActions - ${validationPrefix}${actions}\nNext Actions - ${next}`;
+      let note = `${initials}@HomeTech\nIssue - ${issue}`;
+      
+      if (actions) {
+        note += `\nActions - ${validationPrefix}${actions}`;
+      }
+      
+      if (next) {
+        note += `\nNext Actions - ${next}`;
+      }
 
       if (checkinChecked && number) {
         note += `\n#checkin #${number}`;
       }
 
       document.getElementById('output').textContent = note;
-
-      navigator.clipboard.writeText(note)
-        .then(() => alert("Note copied to clipboard."))
-        .catch(err => alert("Failed to copy: " + err));
     }
 
     function clearAll() {
+      document.getElementById('initials').value = '';
       document.getElementById('issue').value = '';
       actionsField.value = '';
       nextField.value = '';
@@ -243,9 +267,11 @@
       document.getElementById('valLow').checked = false;
       actionsField.disabled = true;
       nextField.disabled = true;
-      copyBtn.disabled = true;
       document.getElementById('output').textContent = '';
     }
+
+    // Initialize with empty note
+    updateFormattedNote();
   </script>
 
 </body>
