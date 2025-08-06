@@ -7,42 +7,50 @@
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
+      transition: all 0.3s ease;
     }
 
-    /* EE Theme */
+    /* Theme styles */
     body.ee-theme {
-      background-color: #f0fff0;
+      background-color: white;
       color: #003F2D;
     }
 
     body.ee-theme textarea,
     body.ee-theme input[type="text"] {
-      border: 2px solid #00E100;
-      background-color: white;
+      border: 2px solid #019ba5;
+      background-color: #ffffff;
     }
 
     body.ee-theme button {
-      background-color: #00E100;
-      color: #003F2D;
+      background-color: #019ba5;
+      color: white;
       border: none;
     }
 
-    /* BT Theme */
+    body.ee-theme fieldset {
+      border: 2px solid #edf33b;
+    }
+
     body.bt-theme {
-      background-color: #f5f0fa;
+      background-color: white;
       color: #2E004F;
     }
 
     body.bt-theme textarea,
     body.bt-theme input[type="text"] {
-      border: 2px solid #6400AA;
-      background-color: white;
+      border: 2px solid #5614b4;
+      background-color: #ffffff;
     }
 
     body.bt-theme button {
-      background-color: #6400AA;
+      background-color: #5614b4;
       color: white;
       border: none;
+    }
+
+    body.bt-theme fieldset {
+      border: 2px solid #ff64fe;
     }
 
     .container {
@@ -60,7 +68,8 @@
       width: 350px;
     }
 
-    textarea, input[type="text"] {
+    textarea,
+    input[type="text"] {
       width: 100%;
       padding: 10px;
       margin-bottom: 15px;
@@ -88,7 +97,10 @@
       font-weight: bold;
     }
 
-    .checkin-row, .validation-row, .complaint-row, .initials-row {
+    .checkin-row,
+    .validation-row,
+    .complaint-row,
+    .initials-row {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -137,20 +149,26 @@
       width: 50px;
       margin-right: 6px;
     }
+
+    select {
+      padding: 5px;
+      font-size: 16px;
+      margin-left: 10px;
+    }
   </style>
 </head>
-<body>
+<body class="ee-theme">
+
+  <h2>BT/EE HomeTech Interaction Note Helper</h2>
 
   <!-- Theme selector -->
   <div style="margin-bottom: 15px;">
     <label for="themeSelect"><strong>Theme:</strong></label>
     <select id="themeSelect">
+      <option value="ee" selected>EE</option>
       <option value="bt">BT</option>
-      <option value="ee">EE</option>
     </select>
   </div>
-
-  <h2>BT/EE HomeTech Interaction Note Helper</h2>
 
   <!-- Initials Row -->
   <div class="initials-row">
@@ -236,24 +254,11 @@
 
   <script>
     const replacements = {
-      "cust": "customer",
-      "rtr": "router",
-      "bb": "broadband",
-      "conn": "connection",
-      "res": "resolution",
-      "adv": "advised",
-      "chk": "checked",
-      "rep": "replaced",
-      "cfg": "configured",
-      "appt": "appointment",
-      "nfa": "no further action",
-      "eng": "engineer",
-      "sw": "software",
-      "hw": "hardware",
-      "cx": "customer",
-      "escal": "escalated",
-      "rebt": "rebooted",
-      "hc": "home checks completed",
+      "cust": "customer", "rtr": "router", "bb": "broadband", "conn": "connection",
+      "res": "resolution", "adv": "advised", "chk": "checked", "rep": "replaced",
+      "cfg": "configured", "appt": "appointment", "nfa": "no further action",
+      "eng": "engineer", "sw": "software", "hw": "hardware", "cx": "customer",
+      "escal": "escalated", "rebt": "rebooted", "hc": "home checks completed",
       "sa": "smart assistant"
     };
 
@@ -277,9 +282,7 @@
     }
 
     function toSentenceCase(text) {
-      return text
-        .toLowerCase()
-        .replace(/(^\s*\w|[\.\!\?]\s*\w)/g, c => c.toUpperCase());
+      return text.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, c => c.toUpperCase());
     }
 
     function getValidationLabel() {
@@ -315,13 +318,10 @@
       const number = document.getElementById('number').value.trim();
 
       let note = `${initials}@HomeTech\nIssue - ${issue}`;
-
       if (actions) {
         note += `\nActions - ${validationPrefix}${actions}`;
       }
-
       note += `\nNext Actions - ${next}`;
-
       if (checkinChecked && number) {
         note += `\n#checkin #${number}`;
       }
@@ -346,23 +346,17 @@
       updateFormattedNote();
     }
 
-    // Theme selector logic
     document.getElementById('themeSelect').addEventListener('change', function () {
+      const theme = this.value;
       document.body.classList.remove('bt-theme', 'ee-theme');
-      if (this.value === 'bt') {
-        document.body.classList.add('bt-theme');
-      } else {
-        document.body.classList.add('ee-theme');
-      }
+      document.body.classList.add(`${theme}-theme`);
     });
 
-    // Default to EE theme
     window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('themeSelect').value = 'ee';
       document.body.classList.add('ee-theme');
-      updateFormattedNote();
     });
-  </script>
 
+    updateFormattedNote();
+  </script>
 </body>
 </html>
