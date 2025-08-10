@@ -212,7 +212,8 @@
       margin-bottom: 10px;
     }
 
-    .validation-guide {
+    .validation-guide,
+    .shortcuts-guide {
       margin-top: 15px;
       margin-bottom: 15px;
       background: white;
@@ -223,18 +224,21 @@
       position: relative;
     }
 
-    body.bt-theme .validation-guide {
+    body.bt-theme .validation-guide,
+    body.bt-theme .shortcuts-guide {
       border-color: #5614b4;
     }
 
-    .validation-guide h3 {
+    .validation-guide h3,
+    .shortcuts-guide h3 {
       margin-top: 0;
       margin-bottom: 15px;
       color: #019ba5;
       font-size: 18px;
     }
 
-    body.bt-theme .validation-guide h3 {
+    body.bt-theme .validation-guide h3,
+    body.bt-theme .shortcuts-guide h3 {
       color: #5614b4;
     }
 
@@ -269,6 +273,42 @@
     .validation-section li {
       margin-bottom: 4px;
       font-size: 13px;
+    }
+
+    .shortcuts-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .shortcut-item {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      background-color: #f8f9fa;
+      border-radius: 4px;
+      border-left: 3px solid #019ba5;
+      font-size: 13px;
+    }
+
+    body.bt-theme .shortcut-item {
+      border-left-color: #5614b4;
+    }
+
+    .shortcut-key {
+      font-weight: bold;
+      color: #019ba5;
+      margin-right: 8px;
+      min-width: 40px;
+    }
+
+    body.bt-theme .shortcut-key {
+      color: #5614b4;
+    }
+
+    .shortcut-value {
+      color: #333;
     }
 
     .close-guide {
@@ -351,12 +391,118 @@
 
       <div class="button-row">
         <button onclick="clearAll()">CLEAR</button>
+        <button onclick="showShortcutsGuide()">SHORTCUTS</button>
       </div>
 
       <!-- Formatted Note section moved here -->
       <div class="formatted-notes">
         <h3>Formatted Note:</h3>
         <div id="output"></div>
+      </div>
+
+      <!-- Shortcuts Guide Box -->
+      <div class="shortcuts-guide" id="shortcutsGuide">
+        <button class="close-guide" onclick="closeShortcutsGuide()">×</button>
+        <h3>Shortcuts Reference</h3>
+        
+        <div class="shortcuts-list">
+          <div class="shortcut-item">
+            <span class="shortcut-key">adv</span>
+            <span class="shortcut-value">advised</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">appt</span>
+            <span class="shortcut-value">appointment</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">bb</span>
+            <span class="shortcut-value">broadband</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">bk</span>
+            <span class="shortcut-value">booked</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">cfg</span>
+            <span class="shortcut-value">configured</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">chk</span>
+            <span class="shortcut-value">checked</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">conn</span>
+            <span class="shortcut-value">connection</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">cust</span>
+            <span class="shortcut-value">customer</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">cx</span>
+            <span class="shortcut-value">customer</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">eng</span>
+            <span class="shortcut-value">engineer</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">escal</span>
+            <span class="shortcut-value">escalated</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">fr</span>
+            <span class="shortcut-value">factory reset</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">hc</span>
+            <span class="shortcut-value">home checks completed</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">hw</span>
+            <span class="shortcut-value">hardware</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">inhome</span>
+            <span class="shortcut-value">in-home tech expert</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">nfa</span>
+            <span class="shortcut-value">no further action</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">nw</span>
+            <span class="shortcut-value">network</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">reb</span>
+            <span class="shortcut-value">rebooted</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">rep</span>
+            <span class="shortcut-value">replaced</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">res</span>
+            <span class="shortcut-value">resolution</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">rtr</span>
+            <span class="shortcut-value">router</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">sa</span>
+            <span class="shortcut-value">smart assistant</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">sip</span>
+            <span class="shortcut-value">SIP regen completed</span>
+          </div>
+          <div class="shortcut-item">
+            <span class="shortcut-key">sw</span>
+            <span class="shortcut-value">software</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -491,6 +637,14 @@
       document.getElementById('validationGuide').style.display = 'none';
     }
 
+    function showShortcutsGuide() {
+      document.getElementById('shortcutsGuide').style.display = 'block';
+    }
+
+    function closeShortcutsGuide() {
+      document.getElementById('shortcutsGuide').style.display = 'none';
+    }
+
     function updateValidationDisplay() {
       const thirdPartyRow = document.getElementById('thirdPartyRow');
       if (document.getElementById('valThirdParty').checked) {
@@ -597,13 +751,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
