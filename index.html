@@ -512,10 +512,10 @@
     }
 
     function getValidationLabel() {
-      if (document.getElementById('valNone').checked) return "Did not pass security validation, general queries";
+      if (document.getElementById('valNone').checked) return "Did not pass security validation; general queries.";
       if (document.getElementById('valThirdParty').checked) {
         const thirdPartyName = document.getElementById('thirdPartyName').value.trim();
-        return thirdPartyName ? `Spoke to third party ${thirdPartyName}` : "Third Party";
+        return thirdPartyName ? `Spoke to third party ${thirdPartyName}.` : "Spoke to third party.";
       }
       if (document.getElementById('valAccountHolder').checked) return "Spoke to account holder, highly validated.";
       return "";
@@ -596,6 +596,7 @@
   </script>
 </body>
 </html>
+
 
 
 
