@@ -373,12 +373,12 @@
     }
 
     function getValidationLabel() {
-      if (document.getElementById('valNone').checked) return "Did not pass security validation";
+      if (document.getElementById('valNone').checked) return "Did not pass security validation, general queries";
       if (document.getElementById('valThirdParty').checked) {
         const thirdPartyName = document.getElementById('thirdPartyName').value.trim();
-        return thirdPartyName ? `Third Party ${thirdPartyName}` : "Third Party";
+        return thirdPartyName ? `Spoke to third party ${thirdPartyName}` : "Third Party";
       }
-      if (document.getElementById('valAccountHolder').checked) return "Highly validated account holder";
+      if (document.getElementById('valAccountHolder').checked) return "Spoke to account holder, highly validated.";
       return "";
     }
 
@@ -457,3 +457,4 @@
   </script>
 </body>
 </html>
+
