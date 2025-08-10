@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+</div><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -14,48 +14,43 @@
     }
 
     /* Theme styles */
-    body.ee-theme {
+    body {
       background-color: white;
-      color: #003F2D;
+      color: #333;
     }
 
-    body.ee-theme .comparison-table {
+    .ee-table {
       border: 3px solid #edf33b;
     }
 
-    body.ee-theme .comparison-table th {
+    .ee-table th {
       background-color: #019ba5;
       color: white;
     }
 
-    body.ee-theme .comparison-table tr:nth-child(even) {
+    .ee-table tr:nth-child(even) {
       background-color: #f8fdfe;
     }
 
-    body.ee-theme .package-header {
+    .ee-table .package-header {
       background-color: #019ba5;
       color: white;
     }
 
-    body.bt-theme {
-      background-color: white;
-      color: #2E004F;
-    }
-
-    body.bt-theme .comparison-table {
+    .bt-table {
       border: 3px solid #ff64fe;
     }
 
-    body.bt-theme .comparison-table th {
+    .bt-table th {
       background-color: #5614b4;
       color: white;
     }
 
-    body.bt-theme .comparison-table tr:nth-child(even) {
+    .bt-table tr:nth-child(even) {
       background-color: #faf8ff;
     }
 
-    body.bt-theme .package-header {
+    .bt-table .package-header {
       background-color: #5614b4;
       color: white;
     }
@@ -149,12 +144,12 @@
       border-bottom: 3px solid;
     }
 
-    body.ee-theme .provider-title {
+    .ee-provider-title {
       border-bottom-color: #edf33b;
       color: #019ba5;
     }
 
-    body.bt-theme .provider-title {
+    .bt-provider-title {
       border-bottom-color: #ff64fe;
       color: #5614b4;
     }
@@ -201,29 +196,20 @@
   <div class="container">
     <h2>BT/EE Package Comparison Tool</h2>
 
-    <!-- Theme selector -->
-    <div style="margin-bottom: 25px;">
-      <label for="themeSelect"><strong>Theme:</strong></label>
-      <select id="themeSelect">
-        <option value="ee" selected>EE</option>
-        <option value="bt">BT</option>
-      </select>
-    </div>
-
     <!-- EE Packages Section -->
     <div class="provider-section">
-      <h3 class="provider-title">EE Broadband Packages</h3>
+      <h3 class="provider-title ee-provider-title">EE Broadband Packages</h3>
       
       <div class="table-wrapper">
-        <table class="comparison-table">
+        <table class="comparison-table ee-table">
           <thead>
             <tr>
               <th class="feature-name">Feature</th>
-              <th class="package-header">Essentials<div class="speed-info">Up to 100Mbps</div><div class="price-info">From £29.99/mo</div></th>
-              <th class="package-header">All Rounder<div class="speed-info">Up to 500Mbps</div><div class="price-info">From £39.99/mo</div></th>
-              <th class="package-header">Full Works<div class="speed-info">Up to 900Mbps</div><div class="price-info">From £49.99/mo</div></th>
-              <th class="package-header">Made for Gamers<div class="speed-info">Up to 900Mbps</div><div class="price-info">From £59.99/mo</div></th>
-              <th class="package-header">Busiest Home Bundle<div class="speed-info">Up to 900Mbps</div><div class="price-info">From £69.99/mo</div></th>
+              <th class="package-header">Essentials<div class="speed-info">Up to 100Mbps</div></th>
+              <th class="package-header">All Rounder<div class="speed-info">Up to 500Mbps</div></th>
+              <th class="package-header">Full Works<div class="speed-info">Up to 900Mbps</div></th>
+              <th class="package-header">Busiest Home Bundle<div class="speed-info">Up to 900Mbps</div></th>
+              <th class="package-header">Made for Gamers<div class="speed-info">Up to 900Mbps</div></th>
             </tr>
           </thead>
           <tbody>
@@ -233,22 +219,6 @@
               <td class="tick">✓</td>
               <td class="tick">✓</td>
               <td class="tick">✓</td>
-              <td class="tick">✓</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Wi-Fi 6 Router</td>
-              <td class="cross">✗</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-              <td class="cross">✗</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Wi-Fi 7 Router</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
               <td class="tick">✓</td>
             </tr>
             <tr>
@@ -284,60 +254,20 @@
               <td class="tick">✓</td>
             </tr>
             <tr>
-              <td class="feature-name">Unlimited Watch Data SIM</td>
+              <td class="feature-name">Entertainment Bundle (Apple TV 4K, TNT Sports, Netflix Premium, Amazon Prime)</td>
+              <td class="cross">✗</td>
+              <td class="cross">✗</td>
+              <td class="cross">✗</td>
               <td class="tick">✓</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
+              <td class="cross">✗</td>
             </tr>
             <tr>
               <td class="feature-name">Xbox Game Pass Ultimate</td>
               <td class="cross">✗</td>
               <td class="cross">✗</td>
               <td class="cross">✗</td>
-              <td class="tick">✓</td>
-              <td class="cross">✗</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Apple TV 4K</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
               <td class="cross">✗</td>
               <td class="tick">✓</td>
-            </tr>
-            <tr>
-              <td class="feature-name">TNT Sports</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="tick">✓</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Netflix Premium</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="tick">✓</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Amazon Prime</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="tick">✓</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Home Phone</td>
-              <td class="partial">Optional</td>
-              <td class="partial">Optional</td>
-              <td class="partial">Optional</td>
-              <td class="partial">Optional</td>
-              <td class="partial">Optional</td>
             </tr>
             <tr>
               <td class="feature-name">Complete Wi-Fi Guarantee</td>
@@ -352,129 +282,60 @@
       </div>
     </div>
 
-    <!-- BT Packages Section -->
+    <!-- BT Halo Comparison Section -->
     <div class="provider-section">
-      <h3 class="provider-title">BT Broadband Packages</h3>
+      <h3 class="provider-title bt-provider-title">BT Halo Add-on Comparison</h3>
       
       <div class="table-wrapper">
-        <table class="comparison-table">
+        <table class="comparison-table bt-table">
           <thead>
             <tr>
               <th class="feature-name">Feature</th>
-              <th class="package-header">Fibre Essential<div class="speed-info">36Mbps avg</div><div class="price-info">From £28.99/mo</div></th>
-              <th class="package-header">Fibre 1<div class="speed-info">50Mbps avg</div><div class="price-info">From £34.99/mo</div></th>
-              <th class="package-header">Fibre 2<div class="speed-info">74Mbps avg</div><div class="price-info">From £39.99/mo</div></th>
-              <th class="package-header">Full Fibre 100<div class="speed-info">100Mbps</div><div class="price-info">From £32.99/mo</div></th>
-              <th class="package-header">Full Fibre 500<div class="speed-info">500Mbps</div><div class="price-info">From £42.99/mo</div></th>
-              <th class="package-header">Full Fibre 900<div class="speed-info">900Mbps</div><div class="price-info">From £52.99/mo</div></th>
+              <th class="package-header">No Halo<div class="speed-info">Standard Service</div></th>
+              <th class="package-header">BT Halo 3<div class="speed-info">Enhanced Service</div></th>
+              <th class="package-header">BT Halo 3+<div class="speed-info">Premium Service</div></th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="feature-name">Full Fibre</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Standard Router</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-            </tr>
-            <tr>
               <td class="feature-name">Smart Hub 2</td>
-              <td class="partial">Halo 3+ only</td>
-              <td class="partial">Halo 3+ only</td>
-              <td class="partial">Halo 3+ only</td>
-              <td class="partial">Halo 3+ only</td>
-              <td class="partial">Halo 3+ only</td>
-              <td class="partial">Halo 3+ only</td>
-            </tr>
-            <tr>
-              <td class="feature-name">BT Halo 3 (Add-on)</td>
-              <td class="partial">+£4/mo</td>
-              <td class="partial">+£4/mo</td>
-              <td class="partial">+£4/mo</td>
-              <td class="partial">+£4/mo</td>
-              <td class="partial">+£4/mo</td>
-              <td class="partial">+£4/mo</td>
-            </tr>
-            <tr>
-              <td class="feature-name">BT Halo 3+ (Add-on)</td>
-              <td class="partial">+£9/mo</td>
-              <td class="partial">+£9/mo</td>
-              <td class="partial">+£9/mo</td>
-              <td class="partial">+£9/mo</td>
-              <td class="partial">+£9/mo</td>
-              <td class="partial">+£9/mo</td>
+              <td class="cross">✗</td>
+              <td class="tick">✓</td>
+              <td class="tick">✓</td>
             </tr>
             <tr>
               <td class="feature-name">4G Backup (Hybrid Connect)</td>
               <td class="cross">✗</td>
               <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="partial">Halo 3+ only</td>
-              <td class="partial">Halo 3+ only</td>
-              <td class="partial">Halo 3+ only</td>
+              <td class="tick">✓</td>
             </tr>
             <tr>
               <td class="feature-name">Keep Connected Promise</td>
-              <td class="partial">Halo only</td>
-              <td class="partial">Halo only</td>
-              <td class="partial">Halo only</td>
-              <td class="partial">Halo only</td>
-              <td class="partial">Halo only</td>
-              <td class="partial">Halo only</td>
+              <td class="cross">✗</td>
+              <td class="tick">✓</td>
+              <td class="tick">✓</td>
             </tr>
             <tr>
               <td class="feature-name">Complete Wi-Fi</td>
-              <td class="partial">Halo only</td>
-              <td class="partial">Halo only</td>
-              <td class="partial">Halo only</td>
-              <td class="partial">Halo only</td>
-              <td class="partial">Halo only</td>
-              <td class="partial">Halo only</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Home Phone</td>
-              <td class="partial">+£5/mo</td>
-              <td class="partial">+£5/mo</td>
-              <td class="partial">+£5/mo</td>
-              <td class="partial">+£5/mo</td>
-              <td class="partial">+£5/mo</td>
-              <td class="partial">+£5/mo</td>
-            </tr>
-            <tr>
-              <td class="feature-name">BT TV</td>
-              <td class="partial">Optional</td>
-              <td class="partial">Optional</td>
-              <td class="partial">Optional</td>
-              <td class="partial">Optional</td>
-              <td class="partial">Optional</td>
-              <td class="partial">Optional</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Full Fibre Promise</td>
-              <td class="cross">✗</td>
               <td class="cross">✗</td>
               <td class="tick">✓</td>
               <td class="tick">✓</td>
+            </tr>
+            <tr>
+              <td class="feature-name">Priority Tech Support</td>
+              <td class="cross">✗</td>
               <td class="tick">✓</td>
               <td class="tick">✓</td>
             </tr>
             <tr>
-              <td class="feature-name">Digital Voice</td>
+              <td class="feature-name">Wi-Fi Guarantee</td>
+              <td class="cross">✗</td>
               <td class="tick">✓</td>
               <td class="tick">✓</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
+            </tr>
+            <tr>
+              <td class="feature-name">Speed Guarantee</td>
+              <td class="cross">✗</td>
               <td class="tick">✓</td>
               <td class="tick">✓</td>
             </tr>
@@ -483,28 +344,12 @@
       </div>
     </div>
 
-    <div class="note">
-      <strong>Notes:</strong><br>
-      • Prices shown are typical starting prices and may vary by location and current promotions<br>
-      • BT Halo is an optional add-on service available across all BT packages<br>
-      • EE packages include mobile elements as part of their "EE One" bundled offerings<br>
-      • Full Fibre availability varies by location - check postcode for availability<br>
-      • All prices subject to annual increases (typically CPI + 3.9%)
-    </div>
+
 
   </div>
 
   <script>
-    document.getElementById('themeSelect').addEventListener('change', function () {
-      const theme = this.value;
-      document.body.classList.remove('bt-theme', 'ee-theme');
-      document.body.classList.add(`${theme}-theme`);
-    });
-
-    // Set initial theme
-    window.addEventListener('DOMContentLoaded', () => {
-      document.body.classList.add('ee-theme');
-    });
+    // No theme toggle needed - colors are now fixed per section
   </script>
 </body>
 </html>
