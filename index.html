@@ -391,19 +391,20 @@
 
       <div class="button-row">
         <button onclick="clearAll()">CLEAR</button>
-        <button onclick="showShortcutsGuide()">SHORTCUTS</button>
       </div>
 
       <!-- Formatted Note section moved here -->
       <div class="formatted-notes">
         <h3>Formatted Note:</h3>
         <div id="output"></div>
-      </div>
-
-      <!-- Shortcuts Guide Box -->
-      <div class="shortcuts-guide" id="shortcutsGuide">
-        <button class="close-guide" onclick="closeShortcutsGuide()">×</button>
-        <h3>Shortcuts Reference</h3>
+        
+        <!-- Shortcuts Button -->
+        <button id="shortcutsButton" onclick="showShortcutsGuide()" style="margin-top: 10px;">SHORTCUTS</button>
+        
+        <!-- Shortcuts Guide Box -->
+        <div class="shortcuts-guide" id="shortcutsGuide">
+          <button class="close-guide" onclick="closeShortcutsGuide()">×</button>
+          <h3>Shortcuts Reference</h3>
         
         <div class="shortcuts-list">
           <div class="shortcut-item">
@@ -503,6 +504,8 @@
             <span class="shortcut-value">software</span>
           </div>
         </div>
+      </div>
+      
       </div>
     </div>
 
@@ -638,11 +641,13 @@
     }
 
     function showShortcutsGuide() {
+      document.getElementById('shortcutsButton').style.display = 'none';
       document.getElementById('shortcutsGuide').style.display = 'block';
     }
 
     function closeShortcutsGuide() {
       document.getElementById('shortcutsGuide').style.display = 'none';
+      document.getElementById('shortcutsButton').style.display = 'inline-block';
     }
 
     function updateValidationDisplay() {
