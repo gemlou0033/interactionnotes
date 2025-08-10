@@ -202,6 +202,14 @@
       font-size: 16px;
       margin-left: 10px;
     }
+
+    .formatted-notes {
+      margin-top: 20px;
+    }
+
+    .formatted-notes h3 {
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body class="ee-theme">
@@ -261,6 +269,12 @@
       <div class="button-row">
         <button onclick="clearAll()">CLEAR</button>
       </div>
+
+      <!-- Formatted Note section moved here -->
+      <div class="formatted-notes">
+        <h3>Formatted Note:</h3>
+        <div id="output"></div>
+      </div>
     </div>
 
     <!-- Right side (Extra info) -->
@@ -315,9 +329,6 @@
       </fieldset>
     </div>
   </div>
-
-  <h3>Formatted Note:</h3>
-  <div id="output"></div>
 
   <script>
     const replacements = {
@@ -457,7 +468,3 @@
   </script>
 </body>
 </html>
-
-
-
-
