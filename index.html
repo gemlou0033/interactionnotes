@@ -213,6 +213,7 @@
 
     .validation-guide {
       margin-top: 15px;
+      margin-bottom: 15px;
       background: white;
       border: 2px solid #019ba5;
       border-radius: 8px;
@@ -363,6 +364,31 @@
       <label for="extra">Extra Info (not included in notes):</label>
       <textarea id="extra" rows="10" placeholder="Thank you for calling Home Tech in Newcastle. My name is __ and I will be your guide. Can I start by taking your name please?"></textarea>
 
+      <!-- Validation Guide Box - Now positioned above Quick Links -->
+      <div class="validation-guide" id="validationGuide">
+        <button class="close-guide" onclick="closeValidationGuide()">×</button>
+        <h3>Validation Guide</h3>
+        
+        <div class="validation-section">
+          <h4>Openreach Engineer</h4>
+          <ul>
+            <li><strong>EIN</strong></li>
+            <li><strong>OUC</strong></li>
+            <li><strong>Name</strong></li>
+            <li><strong>Manager's Name</strong></li>
+          </ul>
+        </div>
+
+        <div class="validation-section">
+          <h4>Internal</h4>
+          <ul>
+            <li><strong>EIN</strong></li>
+            <li><strong>Name</strong></li>
+            <li><strong>Manager's Name</strong></li>
+          </ul>
+        </div>
+      </div>
+
       <fieldset style="margin-top: 15px;">
         <legend><strong>Quick Links</strong></legend>
         <div class="quick-links-grid">
@@ -406,31 +432,6 @@
           <li>Advisor Hub/I'm All Done</li>
         </ol>
       </fieldset>
-
-      <!-- Validation Guide Box -->
-      <div class="validation-guide" id="validationGuide">
-        <button class="close-guide" onclick="closeValidationGuide()">×</button>
-        <h3>Validation Guide</h3>
-        
-        <div class="validation-section">
-          <h4>Openreach Engineer</h4>
-          <ul>
-            <li><strong>EIN</strong></li>
-            <li><strong>OUC</strong></li>
-            <li><strong>Name</strong></li>
-            <li><strong>Manager's Name</strong></li>
-          </ul>
-        </div>
-
-        <div class="validation-section">
-          <h4>Internal</h4>
-          <ul>
-            <li><strong>EIN</strong></li>
-            <li><strong>Name</strong></li>
-            <li><strong>Manager's Name</strong></li>
-          </ul>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -592,5 +593,3 @@
   </script>
 </body>
 </html>
-
-
