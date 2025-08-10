@@ -106,6 +106,7 @@
       font-size: 16px;
       cursor: pointer;
       margin-right: 10px;
+      box-sizing: border-box;
     }
 
     .quick-links-grid {
@@ -352,6 +353,7 @@
   <div class="initials-row">
     <label for="initials">Initials:</label>
     <input type="text" id="initials" maxlength="5">
+    <button onclick="clearAll()" style="margin-left: 60px; transform: translateY(-8px);">CLEAR</button>
   </div>
 
   <!-- Validation Row -->
@@ -387,10 +389,6 @@
         <input type="checkbox" id="checkin">
         <label for="checkin">#checkin</label>
         <input type="text" id="number" placeholder="Phone number">
-      </div>
-
-      <div class="button-row">
-        <button onclick="clearAll()">CLEAR</button>
       </div>
 
       <!-- Formatted Note section moved here -->
