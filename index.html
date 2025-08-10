@@ -455,11 +455,24 @@
     });
 
     document.getElementById('checkin').addEventListener('change', updateFormattedNote);
+    
+    // Fixed the validation event listeners
     document.getElementById('valNone').addEventListener('change', function() {
       updateValidationDisplay();
       updateFormattedNote();
+    });
+    
+    document.getElementById('valThirdParty').addEventListener('change', function() {
+      updateValidationDisplay();
+      updateFormattedNote();
+    });
+    
+    document.getElementById('valAccountHolder').addEventListener('change', function() {
+      updateValidationDisplay();
+      updateFormattedNote();
+    });
 
-    // Directory link click handler
+    // Directory link click handler - Fixed!
     document.getElementById('directoryLink').addEventListener('click', function(e) {
       // The link will open in new tab normally, but we also want to show the validation guide
       setTimeout(() => {
@@ -474,15 +487,6 @@
     function closeValidationGuide() {
       document.getElementById('validationGuide').style.display = 'none';
     }
-    });
-    document.getElementById('valThirdParty').addEventListener('change', function() {
-      updateValidationDisplay();
-      updateFormattedNote();
-    });
-    document.getElementById('valAccountHolder').addEventListener('change', function() {
-      updateValidationDisplay();
-      updateFormattedNote();
-    });
 
     function updateValidationDisplay() {
       const thirdPartyRow = document.getElementById('thirdPartyRow');
