@@ -31,6 +31,16 @@
       border: none;
     }
 
+    body.ee-theme .quick-link {
+      background-color: #019ba5;
+      color: white;
+      border: 1px solid #017a82;
+    }
+
+    body.ee-theme .quick-link:hover {
+      background-color: #017a82;
+    }
+
     body.ee-theme fieldset {
       border: 2px solid #edf33b;
     }
@@ -50,6 +60,16 @@
       background-color: #5614b4;
       color: white;
       border: none;
+    }
+
+    body.bt-theme .quick-link {
+      background-color: #5614b4;
+      color: white;
+      border: 1px solid #441096;
+    }
+
+    body.bt-theme .quick-link:hover {
+      background-color: #441096;
     }
 
     body.bt-theme fieldset {
@@ -85,6 +105,30 @@
       font-size: 16px;
       cursor: pointer;
       margin-right: 10px;
+    }
+
+    .quick-links-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .quick-link {
+      padding: 8px 12px;
+      font-size: 13px;
+      text-decoration: none;
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: block;
+      font-weight: 500;
+    }
+
+    .quick-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     #output {
@@ -182,10 +226,18 @@
   <!-- Validation Row -->
   <div class="validation-row">
     <label>Validation:</label>
-    <input type="radio" name="validation" id="valLow">
-    <label for="valLow">None</label>
-    <input type="radio" name="validation" id="valHigh">
-    <label for="valHigh">High</label>
+    <input type="radio" name="validation" id="valNone">
+    <label for="valNone">None</label>
+    <input type="radio" name="validation" id="valThirdParty">
+    <label for="valThirdParty">Third Party</label>
+    <input type="radio" name="validation" id="valAccountHolder">
+    <label for="valAccountHolder">Account Holder</label>
+  </div>
+
+  <!-- Third Party Name Input (hidden by default) -->
+  <div id="thirdPartyRow" class="validation-row" style="display: none; margin-top: -10px; margin-left: 20px;">
+    <label for="thirdPartyName">Name:</label>
+    <input type="text" id="thirdPartyName" placeholder="Third party name (optional)" style="width: 200px;">
   </div>
 
   <div class="container">
@@ -215,6 +267,18 @@
     <div class="extra">
       <label for="extra">Extra Info (not included in notes):</label>
       <textarea id="extra" rows="10" placeholder="Thank you for calling Home Tech in Newcastle. My name is __ and I will be your guide. Can I start by taking your name please?"></textarea>
+
+      <fieldset style="margin-top: 15px;">
+        <legend><strong>Quick Links</strong></legend>
+        <div class="quick-links-grid">
+          <a href="https://www.bt.com/content/dam/bt/help/digital-voice/essential-phone/BT-Essential-Digital-Home-Phone-UserGuide.pdf" target="_blank" class="quick-link">Digital Voice Manual</a>
+          <a href="#" target="_blank" class="quick-link">Link 2</a>
+          <a href="#" target="_blank" class="quick-link">Link 3</a>
+          <a href="#" target="_blank" class="quick-link">Link 4</a>
+          <a href="#" target="_blank" class="quick-link">Link 5</a>
+          <a href="#" target="_blank" class="quick-link">Link 6</a>
+        </div>
+      </fieldset>
 
       <fieldset style="margin-top: 15px;">
         <legend><strong>Reminders</strong></legend>
@@ -268,14 +332,34 @@
     const actionsField = document.getElementById('actions');
     const nextField = document.getElementById('next');
 
-    const fieldsToWatch = ['initials', 'issue', 'actions', 'next', 'number'];
+    const fieldsToWatch = ['initials', 'issue', 'actions', 'next', 'number', 'thirdPartyName'];
     fieldsToWatch.forEach(id => {
       document.getElementById(id).addEventListener('input', updateFormattedNote);
     });
 
     document.getElementById('checkin').addEventListener('change', updateFormattedNote);
-    document.getElementById('valLow').addEventListener('change', updateFormattedNote);
-    document.getElementById('valHigh').addEventListener('change', updateFormattedNote);
+    document.getElementById('valNone').addEventListener('change', function() {
+      updateValidationDisplay();
+      updateFormattedNote();
+    });
+    document.getElementById('valThirdParty').addEventListener('change', function() {
+      updateValidationDisplay();
+      updateFormattedNote();
+    });
+    document.getElementById('valAccountHolder').addEventListener('change', function() {
+      updateValidationDisplay();
+      updateFormattedNote();
+    });
+
+    function updateValidationDisplay() {
+      const thirdPartyRow = document.getElementById('thirdPartyRow');
+      if (document.getElementById('valThirdParty').checked) {
+        thirdPartyRow.style.display = 'flex';
+      } else {
+        thirdPartyRow.style.display = 'none';
+        document.getElementById('thirdPartyName').value = '';
+      }
+    }
 
     function expandShorthand(text) {
       return text.replace(/\b\w+\b/g, word => {
@@ -289,8 +373,12 @@
     }
 
     function getValidationLabel() {
-      if (document.getElementById('valHigh').checked) return "Highly validated";
-      if (document.getElementById('valLow').checked) return "Not able to validate";
+      if (document.getElementById('valNone').checked) return "Did not pass security validation";
+      if (document.getElementById('valThirdParty').checked) {
+        const thirdPartyName = document.getElementById('thirdPartyName').value.trim();
+        return thirdPartyName ? `Third Party ${thirdPartyName}` : "Third Party";
+      }
+      if (document.getElementById('valAccountHolder').checked) return "Highly validated account holder";
       return "";
     }
 
@@ -315,14 +403,17 @@
       const next = toSentenceCase(nextExpandedShorthand);
 
       const validationLabel = getValidationLabel();
-      const validationPrefix = validationLabel ? validationLabel + ". " : "";
 
       const checkinChecked = document.getElementById('checkin').checked;
       const number = document.getElementById('number').value.trim();
 
-      let note = `${initials}@HomeTech\nIssue - ${issue}`;
+      let note = `${initials}@HomeTech`;
+      if (validationLabel) {
+        note += `\n${validationLabel}`;
+      }
+      note += `\nIssue - ${issue}`;
       if (actions) {
-        note += `\nActions - ${validationPrefix}${actions}`;
+        note += `\nActions - ${actions}`;
       }
       note += `\nNext Actions - ${next}`;
       if (checkinChecked && number) {
@@ -339,13 +430,16 @@
       document.getElementById('extra').value = '';
       document.getElementById('checkin').checked = false;
       document.getElementById('number').value = '';
-      document.getElementById('valHigh').checked = false;
-      document.getElementById('valLow').checked = false;
+      document.getElementById('valNone').checked = false;
+      document.getElementById('valThirdParty').checked = false;
+      document.getElementById('valAccountHolder').checked = false;
+      document.getElementById('thirdPartyName').value = '';
       document.getElementById('billPaidCheckbox').checked = false;
       document.getElementById('faultOpenCheckbox').checked = false;
       document.getElementById('faultCloseCheckbox').checked = false;
       document.getElementById('complaintOpenCheckbox').checked = false;
       document.getElementById('complaintCloseCheckbox').checked = false;
+      updateValidationDisplay();
       updateFormattedNote();
     }
 
@@ -363,6 +457,3 @@
   </script>
 </body>
 </html>
-
-
-
