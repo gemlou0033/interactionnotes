@@ -210,6 +210,87 @@
     .formatted-notes h3 {
       margin-bottom: 10px;
     }
+
+    .validation-guide {
+      margin-top: 15px;
+      background: white;
+      border: 2px solid #019ba5;
+      border-radius: 8px;
+      padding: 15px;
+      display: none;
+      position: relative;
+    }
+
+    body.bt-theme .validation-guide {
+      border-color: #5614b4;
+    }
+
+    .validation-guide h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #019ba5;
+      font-size: 18px;
+    }
+
+    body.bt-theme .validation-guide h3 {
+      color: #5614b4;
+    }
+
+    .validation-section {
+      margin-bottom: 15px;
+      padding: 12px;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      border-left: 3px solid #019ba5;
+    }
+
+    body.bt-theme .validation-section {
+      border-left-color: #5614b4;
+    }
+
+    .validation-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .validation-section h4 {
+      margin: 0 0 8px 0;
+      color: #333;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .validation-section ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .validation-section li {
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    .close-guide {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #666;
+      width: 25px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .close-guide:hover {
+      color: #333;
+      background-color: #f0f0f0;
+    }
   </style>
 </head>
 <body class="ee-theme">
@@ -287,7 +368,7 @@
         <div class="quick-links-grid">
           <a href="https://www.bt.com/content/dam/bt/help/digital-voice/essential-phone/BT-Essential-Digital-Home-Phone-UserGuide.pdf" target="_blank" class="quick-link">Digital Voice Manual</a>
           <a href="packages/index.html" target="_blank" rel="noopener noreferrer" class="quick-link">Packages</a>
-          <a href="#" target="_blank" class="quick-link">Link 3</a>
+          <a href="https://google.com" target="_blank" class="quick-link" id="directoryLink">Directory</a>
           <a href="#" target="_blank" class="quick-link">Link 4</a>
           <a href="#" target="_blank" class="quick-link">Link 5</a>
           <a href="#" target="_blank" class="quick-link">Link 6</a>
@@ -327,6 +408,31 @@
           <li>Advisor Hub/I'm All Done</li>
         </ol>
       </fieldset>
+
+      <!-- Validation Guide Box -->
+      <div class="validation-guide" id="validationGuide">
+        <button class="close-guide" onclick="closeValidationGuide()">×</button>
+        <h3>Engineer Validation Guide</h3>
+        
+        <div class="validation-section">
+          <h4>Openreach Engineer</h4>
+          <ul>
+            <li><strong>EIN</strong> (Employee Identification Number)</li>
+            <li><strong>OUC</strong> (Operational Unit Code)</li>
+            <li><strong>Name</strong></li>
+            <li><strong>Manager's Name</strong></li>
+          </ul>
+        </div>
+
+        <div class="validation-section">
+          <h4>Internal Engineer</h4>
+          <ul>
+            <li><strong>EIN</strong> (Employee Identification Number)</li>
+            <li><strong>Name</strong></li>
+            <li><strong>Manager's Name</strong></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -352,6 +458,22 @@
     document.getElementById('valNone').addEventListener('change', function() {
       updateValidationDisplay();
       updateFormattedNote();
+
+    // Directory link click handler
+    document.getElementById('directoryLink').addEventListener('click', function(e) {
+      // The link will open in new tab normally, but we also want to show the validation guide
+      setTimeout(() => {
+        showValidationGuide();
+      }, 100); // Small delay to ensure the new tab opens first
+    });
+
+    function showValidationGuide() {
+      document.getElementById('validationGuide').style.display = 'block';
+    }
+
+    function closeValidationGuide() {
+      document.getElementById('validationGuide').style.display = 'none';
+    }
     });
     document.getElementById('valThirdParty').addEventListener('change', function() {
       updateValidationDisplay();
