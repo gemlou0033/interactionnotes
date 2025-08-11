@@ -180,6 +180,63 @@
       transform: scale(1.02);
     }
 
+    .hub-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hub-name {
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      color: #333;
+    }
+
+    .hub-controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .hub-arrow {
+      background: #f0f0f0;
+      border: 2px solid #ccc;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+      color: #666;
+      transition: all 0.2s ease;
+    }
+
+    .hub-arrow:hover {
+      background: #e0e0e0;
+      border-color: #999;
+      color: #333;
+      transform: scale(1.1);
+    }
+
+    body.ee-theme .hub-arrow:hover {
+      border-color: #019ba5;
+      color: #019ba5;
+    }
+
+    body.bt-theme .hub-arrow:hover {
+      border-color: #5614b4;
+      color: #5614b4;
+    }
+
+    .hub-arrow:active {
+      transform: scale(0.95);
+    }
+
     .speed-info {
       font-size: 11px;
       font-style: italic;
@@ -311,7 +368,14 @@
       <h3 class="provider-title ee-provider-title">EE Broadband Packages</h3>
 
       <div class="table-container">
-        <img src="../images/bt_complete_wifi.jpg" alt="EE Broadband Services" class="provider-image" onclick="openModal(this)">
+        <div class="hub-container">
+          <img id="ee-hub-image" src="../images/bt_complete_wifi.jpg" alt="EE Broadband Services" class="provider-image" onclick="openModal(this)">
+          <div class="hub-name" id="ee-hub-name">EE Hub 1</div>
+          <div class="hub-controls">
+            <button class="hub-arrow" onclick="changeHub('ee', 'prev')">‹</button>
+            <button class="hub-arrow" onclick="changeHub('ee', 'next')">›</button>
+          </div>
+        </div>
         
         <div class="table-wrapper">
           <table class="comparison-table ee-table">
@@ -351,7 +415,7 @@
                 <td class="feature-name">
                   <div class="feature-with-icon">
                     Smart WiFi (Extenders)
-                    <img src="../images/bt_complete_wifi.jpg" alt="Smart WiFi" class="feature-icon" onclick="openModal(this)">
+                    <img id="ee-extender-image" src="../images/bt_complete_wifi.jpg" alt="Smart WiFi" class="feature-icon" onclick="openModal(this)">
                   </div>
                 </td>
                 <td class="addon" style="color: grey;">Add-on</td>
@@ -400,7 +464,14 @@
       <h3 class="provider-title bt-provider-title">BT Halo Comparison</h3>
 
       <div class="table-container">
-        <img src="../images/bt_complete_wifi.jpg" alt="BT Halo Services" class="provider-image" onclick="openModal(this)">
+        <div class="hub-container">
+          <img id="bt-hub-image" src="../images/bt_complete_wifi.jpg" alt="BT Halo Services" class="provider-image" onclick="openModal(this)">
+          <div class="hub-name" id="bt-hub-name">BT Hub 1</div>
+          <div class="hub-controls">
+            <button class="hub-arrow" onclick="changeHub('bt', 'prev')">‹</button>
+            <button class="hub-arrow" onclick="changeHub('bt', 'next')">›</button>
+          </div>
+        </div>
         
         <div class="table-wrapper">
           <table class="comparison-table bt-table">
@@ -479,6 +550,52 @@
   </div>
 
   <script>
+    // Hub data for toggling
+    const hubData = {
+      ee: {
+        hubs: [
+          { name: 'EE Hub 1', image: '../images/bt_complete_wifi.jpg', extender: '../images/bt_complete_wifi.jpg' },
+          { name: 'EE Hub 2', image: '../images/bt_complete_wifi.jpg', extender: '../images/bt_complete_wifi.jpg' },
+          { name: 'EE Hub 3', image: '../images/bt_complete_wifi.jpg', extender: '../images/bt_complete_wifi.jpg' }
+        ],
+        currentIndex: 0
+      },
+      bt: {
+        hubs: [
+          { name: 'BT Hub 1', image: '../images/bt_complete_wifi.jpg' },
+          { name: 'BT Hub 2', image: '../images/bt_complete_wifi.jpg' },
+          { name: 'BT Hub 3', image: '../images/bt_complete_wifi.jpg' }
+        ],
+        currentIndex: 0
+      }
+    };
+
+    function changeHub(provider, direction) {
+      const data = hubData[provider];
+      
+      if (direction === 'next') {
+        data.currentIndex = (data.currentIndex + 1) % data.hubs.length;
+      } else {
+        data.currentIndex = (data.currentIndex - 1 + data.hubs.length) % data.hubs.length;
+      }
+
+      const currentHub = data.hubs[data.currentIndex];
+      
+      // Update hub image and name
+      const hubImage = document.getElementById(`${provider}-hub-image`);
+      const hubName = document.getElementById(`${provider}-hub-name`);
+      
+      hubImage.src = currentHub.image;
+      hubImage.alt = currentHub.name;
+      hubName.textContent = currentHub.name;
+
+      // Update extender image for EE only
+      if (provider === 'ee') {
+        const extenderImage = document.getElementById('ee-extender-image');
+        extenderImage.src = currentHub.extender;
+      }
+    }
+
     function openModal(imgElement) {
       const modal = document.getElementById('imageModal');
       const modalImg = document.getElementById('modalImage');
