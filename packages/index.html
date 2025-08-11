@@ -86,8 +86,34 @@
     .feature-name {
       text-align: left !important;
       font-weight: 600;
-      width: 200px;
-      min-width: 200px;
+      width: 250px;
+      min-width: 250px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .feature-text {
+      flex: 1;
+    }
+
+    .feature-image {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      border: 2px solid transparent;
+    }
+
+    .feature-image:hover {
+      transform: scale(1.1);
+      border-color: #019ba5;
+    }
+
+    .bt-table .feature-image:hover {
+      border-color: #5614b4;
     }
 
     .package-header {
@@ -188,6 +214,192 @@
     body.bt-theme .note {
       border-left-color: #5614b4;
     }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      border-radius: 12px;
+      padding: 30px;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      margin: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: slideIn 0.3s ease;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #eee;
+    }
+
+    .modal-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #019ba5;
+    }
+
+    .bt-modal .modal-title {
+      color: #5614b4;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #666;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+
+    .close-btn:hover {
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    .model-selector {
+      margin-bottom: 25px;
+    }
+
+    .model-selector label {
+      font-weight: bold;
+      margin-right: 10px;
+      color: #333;
+    }
+
+    .model-selector select {
+      padding: 8px 12px;
+      border: 2px solid #019ba5;
+      border-radius: 6px;
+      font-size: 16px;
+      background-color: white;
+    }
+
+    .bt-modal .model-selector select {
+      border-color: #5614b4;
+    }
+
+    .image-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .image-section {
+      text-align: center;
+    }
+
+    .image-section h4 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .device-image {
+      width: 100%;
+      max-width: 350px;
+      height: 280px;
+      object-fit: contain;
+      border: 3px solid #eee;
+      border-radius: 12px;
+      background-color: #f9f9f9;
+      transition: transform 0.2s ease;
+    }
+
+    .device-image:hover {
+      transform: scale(1.02);
+    }
+
+    .device-specs {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      text-align: left;
+    }
+
+    .device-specs h5 {
+      margin-bottom: 10px;
+      color: #019ba5;
+      font-weight: bold;
+    }
+
+    .bt-modal .device-specs h5 {
+      color: #5614b4;
+    }
+
+    .device-specs ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .device-specs li {
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { 
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .image-gallery {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .modal-content {
+        margin: 10px;
+        padding: 20px;
+      }
+      
+      .device-image {
+        height: 220px;
+      }
+    }
   </style>
 </head>
 <body class="ee-theme">
@@ -212,7 +424,10 @@
           </thead>
           <tbody>
             <tr>
-              <td class="feature-name">One Free Home Tech Expert Visit</td>
+              <td class="feature-name">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iIzAxOWJhNSIvPgo8cGF0aCBkPSJNMTAgMTVIMzBWMjVIMTBWMTVaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTIgMTdIMjhWMTlIMTJWMTdaIiBmaWxsPSIjMDE5YmE1Ii8+CjxwYXRoIGQ9Ik0xMiAyMUgyOFYyM0gxMlYyMVoiIGZpbGw9IiMwMTliYTUiLz4KPHN2Zz4K" alt="Home Tech Expert" class="feature-image" onclick="openModal('homeTech', 'ee')" />
+                <span class="feature-text">One Free Home Tech Expert Visit</span>
+              </td>
               <td class="cross">✗</td>
               <td class="tick">✓</td>
               <td class="tick">✓</td>
@@ -220,7 +435,10 @@
               <td class="cross">✗</td>
             </tr>
             <tr>
-              <td class="feature-name">Keep Connected Promise (Mini Hub)</td>
+              <td class="feature-name">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iIzAxOWJhNSIvPgo8cmVjdCB4PSI4IiB5PSIxMiIgd2lkdGg9IjI0IiBoZWlnaHQ9IjE2IiByeD0iNCIgZmlsbD0id2hpdGUiLz4KPHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIxNCIgeT0iMTQiPgo8cGF0aCBkPSJNMiA2QzIgNy42NTY4NSAzLjM0MzE1IDkgNSA5QzYuNjU2ODUgOSA4IDcuNjU2ODUgOCA2QzggNC4zNDMxNSA2LjY1Njg1IDMgNSAzQzMuMzQzMTUgMyAyIDQuMzQzMTUgMiA2WiIgZmlsbD0iIzAxOWJhNSIvPgo8L3N2Zz4KPHN2Zz4K" alt="Mini Hub" class="feature-image" onclick="openModal('miniHub', 'ee')" />
+                <span class="feature-text">Keep Connected Promise (Mini Hub)</span>
+              </td>
               <td class="cross">✗</td>
               <td class="tick">✓</td>
               <td class="tick">✓</td>
@@ -228,7 +446,10 @@
               <td class="cross">✗</td>
             </tr>
             <tr>
-              <td class="feature-name">Smart WiFi (Extenders)</td>
+              <td class="feature-name">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iIzAxOWJhNSIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSI4IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iNCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+CjxjaXJjbGUgY3g9IjIwIiBjeT0iMjAiIHI9IjEyIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiLz4KPHN2Zz4K" alt="Smart WiFi Extenders" class="feature-image" onclick="openModal('smartWifi', 'ee')" />
+                <span class="feature-text">Smart WiFi (Extenders)</span>
+              </td>
               <td class="addon" style="color: grey;">Add-on</td>
               <td class="addon" style="color: grey;">Add-on</td>
               <td class="addon" style="color: grey;">Add-on</td>
@@ -236,7 +457,10 @@
               <td class="tick">✓</td>
             </tr>
             <tr>
-              <td class="feature-name">Smart Hybrid Connect (4G Backup)</td>
+              <td class="feature-name">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iIzAxOWJhNSIvPgo8cmVjdCB4PSI4IiB5PSIxNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjEyIiByeD0iMiIgZmlsbD0id2hpdGUiLz4KPHJlY3QgeD0iMTAiIHk9IjE2IiB3aWR0aD0iNiIgaGVpZ2h0PSI4IiByeD0iMSIgZmlsbD0iIzAxOWJhNSIvPgo8cmVjdCB4PSIxOCIgeT0iMTYiIHdpZHRoPSI2IiBoZWlnaHQ9IjgiIHJ4PSIxIiBmaWxsPSIjMDE5YmE1Ii8+CjxyZWN0IHg9IjI2IiB5PSIxNiIgd2lkdGg9IjQiIGhlaWdodD0iOCIgcng9IjEiIGZpbGw9IiMwMTliYTUiLz4KPHN2Zz4K" alt="4G Backup" class="feature-image" onclick="openModal('hybridConnect', 'ee')" />
+                <span class="feature-text">Smart Hybrid Connect (4G Backup)</span>
+              </td>
               <td class="addon" style="color: grey;">Add-on</td>
               <td class="addon" style="color: grey;">Add-on</td>
               <td class="addon" style="color: grey;">Add-on</td>
@@ -244,7 +468,10 @@
               <td class="addon" style="color: grey;">Add-on</td>
             </tr>
             <tr>
-              <td class="feature-name">WiFi Enhancer (In App)</td>
+              <td class="feature-name">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iIzAxOWJhNSIvPgo8cmVjdCB4PSIxMCIgeT0iMTAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgcng9IjQiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xNSAxNUgyNVYxN0gxNVYxNVoiIGZpbGw9IiMwMTliYTUiLz4KPHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIxNSIgeT0iMjAiPgo8cGF0aCBkPSJNNSAyQzMuMzQzMTUgMiAyIDMuMzQzMTUgMiA1QzIgNi42NTY4NSAzLjM0MzE1IDggNSA4QzYuNjU2ODUgOCA4IDYuNjU2ODUgOCA1QzggMy4zNDMxNSA2LjY1Njg1IDIgNSAyWiIgZmlsbD0iIzAxOWJhNSIvPgo8L3N2Zz4KPHN2Zz4K" alt="WiFi Enhancer" class="feature-image" onclick="openModal('wifiEnhancer', 'ee')" />
+                <span class="feature-text">WiFi Enhancer (In App)</span>
+              </td>
               <td class="addon" style="color: grey;">Add-on</td>
               <td class="addon" style="color: grey;">Add-on</td>
               <td class="addon" style="color: grey;">Add-on</td>
@@ -252,7 +479,10 @@
               <td class="tick">✓</td>
             </tr>
             <tr>
-              <td class="feature-name">Xbox Game Pass Ultimate</td>
+              <td class="feature-name">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iIzI4YTc0NSIvPgo8cmVjdCB4PSI4IiB5PSIxMiIgd2lkdGg9IjI0IiBoZWlnaHQ9IjE2IiByeD0iNCIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTE0IDE3SDE5VjE5SDE0VjE3WiIgZmlsbD0iIzI4YTc0NSIvPgo8cGF0aCBkPSJNMTQgMjFIMjZWMjNIMTRWMjFaIiBmaWxsPSIjMjhhNzQ1Ii8+Cjx0ZXh0IHg9IjIxIiB5PSIyMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjYiIGZpbGw9IiMyOGE3NDUiPng8L3RleHQ+CjxzdmcgPgo8L3N2Zz4K" alt="Xbox Game Pass" class="feature-image" onclick="openModal('gamePass', 'ee')" />
+                <span class="feature-text">Xbox Game Pass Ultimate</span>
+              </td>
               <td class="cross">✗</td>
               <td class="cross">✗</td>
               <td class="cross">✗</td>
@@ -282,7 +512,10 @@
           </thead>
           <tbody>
             <tr>
-              <td class="feature-name">One Free Home Tech Expert Visit</td>
+              <td class="feature-name">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iIzU2MTRiNCIvPgo8cGF0aCBkPSJNMTAgMTVIMzBWMjVIMTBWMTVaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTIgMTdIMjhWMTlIMTJWMTdaIiBmaWxsPSIjNTYxNGI0Ii8+CjxwYXRoIGQ9Ik0xMiAyMUgyOFYyM0gxMlYyMVoiIGZpbGw9IiM1NjE0YjQiLz4KPHN2Zz4K" alt="Home Tech Expert" class="feature-image" onclick="openModal('homeTech', 'bt')" />
+                <span class="feature-text">One Free Home Tech Expert Visit</span>
+              </td>
               <td class="cross">✗</td>
               <td class="tick">✓</td>
               <td class="tick">✓</td>
@@ -290,38 +523,5 @@
               <td class="tick">✓</td>
             </tr>
             <tr>
-              <td class="feature-name">Keep Connected Promise (Mini Hub)</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="tick">✓</td>
-              <td class="cross">✗</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Complete WiFi (Extenders)</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="tick">✓</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Hybrid Connect (4G Backup)</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="tick">✓</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-
-  <script>
-    // No theme toggle needed - colors are now fixed per section
-  </script>
-</body>
-</html>
+              <td class="feature-name">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iIzU2MTRiNCIvPgo8cmVjdCB4PSI4IiB5PSIxMiIgd2lkdGg9IjI0IiBo
