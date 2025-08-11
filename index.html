@@ -404,103 +404,8 @@
           <button class="close-guide" onclick="closeShortcutsGuide()">×</button>
           <h3>Shortcuts Reference</h3>
         
-        <div class="shortcuts-list">
-          <div class="shortcut-item">
-            <span class="shortcut-key">adv</span>
-            <span class="shortcut-value">advised</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">appt</span>
-            <span class="shortcut-value">appointment</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">bb</span>
-            <span class="shortcut-value">broadband</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">bk</span>
-            <span class="shortcut-value">booked</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">cfg</span>
-            <span class="shortcut-value">configured</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">chk</span>
-            <span class="shortcut-value">checked</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">conn</span>
-            <span class="shortcut-value">connection</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">cust</span>
-            <span class="shortcut-value">customer</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">cx</span>
-            <span class="shortcut-value">customer</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">eng</span>
-            <span class="shortcut-value">engineer</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">escal</span>
-            <span class="shortcut-value">escalated</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">fr</span>
-            <span class="shortcut-value">factory reset</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">hc</span>
-            <span class="shortcut-value">home checks completed</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">hw</span>
-            <span class="shortcut-value">hardware</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">inhome</span>
-            <span class="shortcut-value">in-home tech expert</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">nfa</span>
-            <span class="shortcut-value">no further action</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">nw</span>
-            <span class="shortcut-value">network</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">reb</span>
-            <span class="shortcut-value">rebooted</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">rep</span>
-            <span class="shortcut-value">replaced</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">res</span>
-            <span class="shortcut-value">resolution</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">rtr</span>
-            <span class="shortcut-value">router</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">sa</span>
-            <span class="shortcut-value">smart assistant</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">sip</span>
-            <span class="shortcut-value">SIP regen completed</span>
-          </div>
-          <div class="shortcut-item">
-            <span class="shortcut-key">sw</span>
-            <span class="shortcut-value">software</span>
-          </div>
+        <div class="shortcuts-list" id="shortcutsList">
+          <!-- Shortcuts will be populated by JavaScript -->
         </div>
       </div>
       
@@ -586,17 +491,52 @@
   </div>
 
   <script>
-    const replacements = {
-      "cust": "customer", "rtr": "router", "bb": "broadband", "conn": "connection",
-      "res": "resolution", "adv": "advised", "chk": "checked", "rep": "replaced",
-      "cfg": "configured", "appt": "appointment", "nfa": "no further action",
-      "eng": "engineer", "sw": "software", "hw": "hardware", "cx": "customer",
-      "escal": "escalated", "reb": "rebooted", "hc": "home checks completed",
-      "sa": "smart assistant", "nw": "network", "fr": "factory reset", 
-      "sip": "SIP regen completed", "bk": "booked", "inhome": "in-home tech expert",
-      "ah": "account holder", "pponr": "past the point of no return", 
-      "dv": "digital voice"
+    // Single source of truth for shortcuts - add new shortcuts here only!
+    const shortcuts = {
+      "adv": "advised",
+      "ah": "account holder", 
+      "appt": "appointment",
+      "bb": "broadband",
+      "bk": "booked",
+      "cfg": "configured",
+      "chk": "checked",
+      "conn": "connection",
+      "cust": "customer",
+      "cx": "customer",
+      "dv": "digital voice",
+      "eng": "engineer",
+      "escal": "escalated",
+      "fr": "factory reset",
+      "hc": "home checks completed",
+      "hw": "hardware",
+      "inhome": "in-home tech expert",
+      "nfa": "no further action",
+      "nw": "network",
+      "pponr": "past the point of no return",
+      "reb": "rebooted",
+      "rep": "replaced",
+      "res": "resolution",
+      "rtr": "router",
+      "sa": "smart assistant",
+      "sip": "SIP regen completed",
+      "sw": "software"
     };
+
+    // Function to populate shortcuts display
+    function populateShortcutsDisplay() {
+      const shortcutsList = document.getElementById('shortcutsList');
+      shortcutsList.innerHTML = '';
+      
+      Object.entries(shortcuts).forEach(([key, value]) => {
+        const shortcutDiv = document.createElement('div');
+        shortcutDiv.className = 'shortcut-item';
+        shortcutDiv.innerHTML = `
+          <span class="shortcut-key">${key}</span>
+          <span class="shortcut-value">${value}</span>
+        `;
+        shortcutsList.appendChild(shortcutDiv);
+      });
+    }
 
     const actionsField = document.getElementById('actions');
     const nextField = document.getElementById('next');
@@ -663,7 +603,7 @@
     function expandShorthand(text) {
       return text.replace(/\b\w+\b/g, word => {
         const lower = word.toLowerCase();
-        return replacements[lower] || word;
+        return shortcuts[lower] || word; // Now uses the shortcuts object directly
       });
     }
 
@@ -748,12 +688,12 @@
       document.body.classList.add(`${theme}-theme`);
     });
 
+    // Initialize on page load
     window.addEventListener('DOMContentLoaded', () => {
       document.body.classList.add('ee-theme');
+      populateShortcutsDisplay(); // Populate shortcuts on load
+      updateFormattedNote();
     });
-
-    updateFormattedNote();
   </script>
 </body>
 </html>
-
