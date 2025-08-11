@@ -133,6 +133,8 @@
 
     .provider-section {
       margin: 40px 0;
+      display: flex;
+      flex-direction: column;
     }
 
     .provider-title {
@@ -153,9 +155,23 @@
       color: #5614b4;
     }
 
+    .table-container {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
     .table-wrapper {
       overflow-x: auto;
-      margin: 20px 0;
+      flex: 1;
+    }
+
+    .provider-image {
+      width: 200px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      flex-shrink: 0;
     }
 
     .speed-info {
@@ -188,6 +204,31 @@
     body.bt-theme .note {
       border-left-color: #5614b4;
     }
+
+    .feature-with-icon {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+
+    @media (max-width: 768px) {
+      .table-container {
+        flex-direction: column;
+      }
+      
+      .provider-image {
+        width: 100%;
+        max-width: 300px;
+        align-self: center;
+      }
+    }
   </style>
 </head>
 <body class="ee-theme">
@@ -199,69 +240,88 @@
     <div class="provider-section">
       <h3 class="provider-title ee-provider-title">EE Broadband Packages</h3>
 
-      <div class="table-wrapper">
-        <table class="comparison-table ee-table">
-          <thead>
-            <tr>
-              <th class="feature-name">Feature</th>
-              <th class="package-header">Essentials<div class="speed-info">Up to 150Mbps</div></th>
-              <th class="package-header">All Rounder<div class="speed-info">Up to 500Mbps</div></th>
-              <th class="package-header">Full Works<div class="speed-info">Up to 900Mbps</div></th>
-              <th class="package-header">Busiest Home Bundle<div class="speed-info">Up to 1.6Gbps</div></th>
-              <th class="package-header">Made for Gamers<div class="speed-info">Up to 1.6Gbps</div></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="feature-name">One Free Home Tech Expert Visit</td>
-              <td class="cross">✗</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Keep Connected Promise (Mini Hub)</td>
-              <td class="cross">✗</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Smart WiFi (Extenders)</td>
-              <td class="addon" style="color: grey;">Add-on</td>
-              <td class="addon" style="color: grey;">Add-on</td>
-              <td class="addon" style="color: grey;">Add-on</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Smart Hybrid Connect (4G Backup)</td>
-              <td class="addon" style="color: grey;">Add-on</td>
-              <td class="addon" style="color: grey;">Add-on</td>
-              <td class="addon" style="color: grey;">Add-on</td>
-              <td class="addon" style="color: grey;">Add-on</td>
-              <td class="addon" style="color: grey;">Add-on</td>
-            </tr>
-            <tr>
-              <td class="feature-name">WiFi Enhancer (In App)</td>
-              <td class="addon" style="color: grey;">Add-on</td>
-              <td class="addon" style="color: grey;">Add-on</td>
-              <td class="addon" style="color: grey;">Add-on</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Xbox Game Pass Ultimate</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="tick">✓</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="table-container">
+        <img src="images/bt_complete_wifi.jpg" alt="EE Broadband Services" class="provider-image">
+        
+        <div class="table-wrapper">
+          <table class="comparison-table ee-table">
+            <thead>
+              <tr>
+                <th class="feature-name">Feature</th>
+                <th class="package-header">Essentials<div class="speed-info">Up to 150Mbps</div></th>
+                <th class="package-header">All Rounder<div class="speed-info">Up to 500Mbps</div></th>
+                <th class="package-header">Full Works<div class="speed-info">Up to 900Mbps</div></th>
+                <th class="package-header">Busiest Home Bundle<div class="speed-info">Up to 1.6Gbps</div></th>
+                <th class="package-header">Made for Gamers<div class="speed-info">Up to 1.6Gbps</div></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="feature-name">One Free Home Tech Expert Visit</td>
+                <td class="cross">✗</td>
+                <td class="tick">✓</td>
+                <td class="tick">✓</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+              </tr>
+              <tr>
+                <td class="feature-name">
+                  <div class="feature-with-icon">
+                    <img src="images/bt_complete_wifi.jpg" alt="Keep Connected" class="feature-icon">
+                    Keep Connected Promise (Mini Hub)
+                  </div>
+                </td>
+                <td class="cross">✗</td>
+                <td class="tick">✓</td>
+                <td class="tick">✓</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+              </tr>
+              <tr>
+                <td class="feature-name">
+                  <div class="feature-with-icon">
+                    <img src="images/bt_complete_wifi.jpg" alt="Smart WiFi" class="feature-icon">
+                    Smart WiFi (Extenders)
+                  </div>
+                </td>
+                <td class="addon" style="color: grey;">Add-on</td>
+                <td class="addon" style="color: grey;">Add-on</td>
+                <td class="addon" style="color: grey;">Add-on</td>
+                <td class="tick">✓</td>
+                <td class="tick">✓</td>
+              </tr>
+              <tr>
+                <td class="feature-name">
+                  <div class="feature-with-icon">
+                    <img src="images/bt_complete_wifi.jpg" alt="Hybrid Connect" class="feature-icon">
+                    Smart Hybrid Connect (4G Backup)
+                  </div>
+                </td>
+                <td class="addon" style="color: grey;">Add-on</td>
+                <td class="addon" style="color: grey;">Add-on</td>
+                <td class="addon" style="color: grey;">Add-on</td>
+                <td class="addon" style="color: grey;">Add-on</td>
+                <td class="addon" style="color: grey;">Add-on</td>
+              </tr>
+              <tr>
+                <td class="feature-name">WiFi Enhancer (In App)</td>
+                <td class="addon" style="color: grey;">Add-on</td>
+                <td class="addon" style="color: grey;">Add-on</td>
+                <td class="addon" style="color: grey;">Add-on</td>
+                <td class="tick">✓</td>
+                <td class="tick">✓</td>
+              </tr>
+              <tr>
+                <td class="feature-name">Xbox Game Pass Ultimate</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="tick">✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -269,53 +329,72 @@
     <div class="provider-section">
       <h3 class="provider-title bt-provider-title">BT Halo Comparison</h3>
 
-      <div class="table-wrapper">
-        <table class="comparison-table bt-table">
-          <thead>
-            <tr>
-              <th class="feature-name">Feature</th>
-              <th class="package-header">No Halo<div class="speed-info">Standard Service</div></th>
-              <th class="package-header">Halo 1<div class="speed-info">Not Offered to New Customers</div></th>
-              <th class="package-header">Halo 2<div class="speed-info">Not Offered to New Customers</div></th>
-              <th class="package-header">Halo 3<div class="speed-info">Enhanced Service</div></th>
-              <th class="package-header">Halo 3+<div class="speed-info">Premium Service</div></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="feature-name">One Free Home Tech Expert Visit</td>
-              <td class="cross">✗</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-              <td class="tick">✓</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Keep Connected Promise (Mini Hub)</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="tick">✓</td>
-              <td class="cross">✗</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Complete WiFi (Extenders)</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="tick">✓</td>
-            </tr>
-            <tr>
-              <td class="feature-name">Hybrid Connect (4G Backup)</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="cross">✗</td>
-              <td class="tick">✓</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="table-container">
+        <img src="images/bt_complete_wifi.jpg" alt="BT Halo Services" class="provider-image">
+        
+        <div class="table-wrapper">
+          <table class="comparison-table bt-table">
+            <thead>
+              <tr>
+                <th class="feature-name">Feature</th>
+                <th class="package-header">No Halo<div class="speed-info">Standard Service</div></th>
+                <th class="package-header">Halo 1<div class="speed-info">Not Offered to New Customers</div></th>
+                <th class="package-header">Halo 2<div class="speed-info">Not Offered to New Customers</div></th>
+                <th class="package-header">Halo 3<div class="speed-info">Enhanced Service</div></th>
+                <th class="package-header">Halo 3+<div class="speed-info">Premium Service</div></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="feature-name">One Free Home Tech Expert Visit</td>
+                <td class="cross">✗</td>
+                <td class="tick">✓</td>
+                <td class="tick">✓</td>
+                <td class="tick">✓</td>
+                <td class="tick">✓</td>
+              </tr>
+              <tr>
+                <td class="feature-name">
+                  <div class="feature-with-icon">
+                    <img src="images/bt_complete_wifi.jpg" alt="Keep Connected" class="feature-icon">
+                    Keep Connected Promise (Mini Hub)
+                  </div>
+                </td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="tick">✓</td>
+                <td class="cross">✗</td>
+              </tr>
+              <tr>
+                <td class="feature-name">
+                  <div class="feature-with-icon">
+                    <img src="images/bt_complete_wifi.jpg" alt="Complete WiFi" class="feature-icon">
+                    Complete WiFi (Extenders)
+                  </div>
+                </td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="tick">✓</td>
+              </tr>
+              <tr>
+                <td class="feature-name">
+                  <div class="feature-with-icon">
+                    <img src="images/bt_complete_wifi.jpg" alt="Hybrid Connect" class="feature-icon">
+                    Hybrid Connect (4G Backup)
+                  </div>
+                </td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="cross">✗</td>
+                <td class="tick">✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
