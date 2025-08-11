@@ -370,7 +370,7 @@
       <div class="table-container">
         <div class="hub-container">
           <img id="ee-hub-image" src="../images/bt_complete_wifi.jpg" alt="EE Broadband Services" class="provider-image" onclick="openModal(this)">
-          <div class="hub-name" id="ee-hub-name">EE Hub 1</div>
+          <div class="hub-name" id="ee-hub-name">EE Smart Hub</div>
           <div class="hub-controls">
             <button class="hub-arrow" onclick="changeHub('ee', 'prev')">‹</button>
             <button class="hub-arrow" onclick="changeHub('ee', 'next')">›</button>
@@ -402,7 +402,7 @@
                 <td class="feature-name">
                   <div class="feature-with-icon">
                     Keep Connected Promise (Mini Hub)
-                    <img src="../images/bt_complete_wifi.jpg" alt="Keep Connected" class="feature-icon" onclick="openModal(this)">
+                    <img src="../images/ee_mini_hub.jpg" alt="Keep Connected" class="feature-icon" onclick="openModal(this)">
                   </div>
                 </td>
                 <td class="cross">✗</td>
@@ -415,7 +415,7 @@
                 <td class="feature-name">
                   <div class="feature-with-icon">
                     Smart WiFi (Extenders)
-                    <img id="ee-extender-image" src="../images/bt_complete_wifi.jpg" alt="Smart WiFi" class="feature-icon" onclick="openModal(this)">
+                    <img id="ee-extender-image" src="../images/ee_smart_wifi.jpg" alt="Smart WiFi" class="feature-icon" onclick="openModal(this)">
                   </div>
                 </td>
                 <td class="addon" style="color: grey;">Add-on</td>
@@ -428,7 +428,7 @@
                 <td class="feature-name">
                   <div class="feature-with-icon">
                     Smart Hybrid Connect (4G Backup)
-                    <img src="../images/bt_complete_wifi.jpg" alt="Hybrid Connect" class="feature-icon" onclick="openModal(this)">
+                    <img src="../images/ee_smart_hybrid_connect.jpg" alt="Hybrid Connect" class="feature-icon" onclick="openModal(this)">
                   </div>
                 </td>
                 <td class="addon" style="color: grey;">Add-on</td>
@@ -465,8 +465,8 @@
 
       <div class="table-container">
         <div class="hub-container">
-          <img id="bt-hub-image" src="../images/bt_complete_wifi.jpg" alt="BT Halo Services" class="provider-image" onclick="openModal(this)">
-          <div class="hub-name" id="bt-hub-name">BT Hub 1</div>
+          <img id="bt-hub-image" src="../images/bt_smart_hub_2.jpg" alt="BT Halo Services" class="provider-image" onclick="openModal(this)">
+          <div class="hub-name" id="bt-hub-name">BT Smart Hub 2</div>
           <div class="hub-controls">
             <button class="hub-arrow" onclick="changeHub('bt', 'prev')">‹</button>
             <button class="hub-arrow" onclick="changeHub('bt', 'next')">›</button>
@@ -498,7 +498,7 @@
                 <td class="feature-name">
                   <div class="feature-with-icon">
                     Keep Connected Promise (Mini Hub)
-                    <img src="../images/bt_complete_wifi.jpg" alt="Keep Connected" class="feature-icon" onclick="openModal(this)">
+                    <img src="../images/bt_mini_hub.jpg" alt="Keep Connected" class="feature-icon" onclick="openModal(this)">
                   </div>
                 </td>
                 <td class="cross">✗</td>
@@ -524,7 +524,7 @@
                 <td class="feature-name">
                   <div class="feature-with-icon">
                     Hybrid Connect (4G Backup)
-                    <img src="../images/bt_complete_wifi.jpg" alt="Hybrid Connect" class="feature-icon" onclick="openModal(this)">
+                    <img src="../images/bt_hybrid_connect.jpg" alt="Hybrid Connect" class="feature-icon" onclick="openModal(this)">
                   </div>
                 </td>
                 <td class="cross">✗</td>
@@ -554,15 +554,15 @@
     const hubData = {
       ee: {
         hubs: [
-          { name: 'EE Hub 1', image: '../images/bt_complete_wifi.jpg', extender: '../images/bt_complete_wifi.jpg' },
-          { name: 'EE Hub 2', image: '../images/bt_complete_wifi.jpg', extender: '../images/bt_complete_wifi.jpg' },
-          { name: 'EE Hub 3', image: '../images/bt_complete_wifi.jpg', extender: '../images/bt_complete_wifi.jpg' }
+          { name: 'EE Smart Hub', image: '../images/bt_complete_wifi.jpg', extender: '../images/ee_smart_wifi.jpg' },
+          { name: 'EE Smart Hub Plus', image: '../images/bt_complete_wifi.jpg', extender: '../images/ee_smart_wifi_plus.jpg' },
+          { name: 'EE Smart Hub Pro', image: '../images/bt_complete_wifi.jpg', extender: '../images/ee_smart_wifi_pro.jpg' }
         ],
         currentIndex: 0
       },
       bt: {
         hubs: [
-          { name: 'BT Hub 1', image: '../images/bt_complete_wifi.jpg' },
+          { name: 'BT Smart Hub 2', image: '../images/bt_smart_hub_2.jpg' },
           { name: 'BT Hub 2', image: '../images/bt_complete_wifi.jpg' },
           { name: 'BT Hub 3', image: '../images/bt_complete_wifi.jpg' }
         ],
