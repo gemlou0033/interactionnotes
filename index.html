@@ -103,11 +103,7 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
-    body.bt-theme .household-solutions-trigger img {
-      border: 2px solid #5614b4;
-    }
-
-    .household-solutions-trigger:hover {
+    .household-solutions-trigger:hover img {
       transform: scale(1.05);
       box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
@@ -231,6 +227,15 @@
     .close-household-solutions:hover {
       color: #333;
       background-color: #f0f0f0;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .household-solutions {
+        position: static;
+        width: 100%;
+        margin-bottom: 20px;
+      }
     }
 
     .container {
@@ -491,15 +496,6 @@
       color: #333;
       background-color: #f0f0f0;
     }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .household-solutions {
-        position: static;
-        width: 100%;
-        margin-bottom: 20px;
-      }
-    }
   </style>
 </head>
 <body class="ee-theme">
@@ -507,7 +503,7 @@
   <!-- Household Solutions Widget -->
   <div class="household-solutions">
     <button class="household-solutions-trigger" onclick="toggleHouseholdSolutions()">
-      <img src="/images/household_solutions.jpg" alt="Household Solutions">
+      <img src="../images/household_solutions.jpg" alt="Household Solutions">
     </button>
     <div class="household-solutions-panel" id="householdSolutionsPanel">
       <button class="close-household-solutions" onclick="closeHouseholdSolutions()">×</button>
