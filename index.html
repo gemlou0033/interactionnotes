@@ -12,6 +12,7 @@
       font-family: 'Raleway', sans-serif;
       margin: 20px;
       transition: all 0.3s ease;
+      position: relative;
     }
 
     /* Theme styles */
@@ -77,10 +78,173 @@
       border: 2px solid #ff64fe;
     }
 
+    /* Household Solutions Styles */
+    .household-solutions {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 350px;
+      z-index: 1000;
+    }
+
+    .household-solutions-trigger {
+      width: 80px;
+      height: 80px;
+      background: none;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .household-solutions-trigger img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    body.bt-theme .household-solutions-trigger img {
+      border: 2px solid #5614b4;
+    }
+
+    .household-solutions-trigger:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .household-solutions-panel {
+      display: none;
+      background: white;
+      border: 2px solid #019ba5;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 10px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    body.bt-theme .household-solutions-panel {
+      border-color: #5614b4;
+    }
+
+    .household-solutions-panel h3 {
+      margin: 0 0 15px 0;
+      color: #019ba5;
+      font-size: 16px;
+      text-align: center;
+      border-bottom: 2px solid #019ba5;
+      padding-bottom: 10px;
+    }
+
+    body.bt-theme .household-solutions-panel h3 {
+      color: #5614b4;
+      border-bottom-color: #5614b4;
+    }
+
+    .collapsible-section {
+      margin-bottom: 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .collapsible-header {
+      background: #f5f5f5;
+      padding: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .collapsible-header:hover {
+      background: #e8e8e8;
+    }
+
+    .collapsible-arrow {
+      transition: transform 0.3s ease;
+      font-size: 12px;
+    }
+
+    .collapsible-arrow.expanded {
+      transform: rotate(180deg);
+    }
+
+    .collapsible-content {
+      padding: 12px;
+      font-size: 12px;
+      line-height: 1.4;
+      display: none;
+    }
+
+    .collapsible-content ul {
+      margin: 5px 0;
+      padding-left: 15px;
+    }
+
+    .collapsible-content li {
+      margin-bottom: 4px;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .benefit-item {
+      background: #f8f9fa;
+      padding: 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      text-align: center;
+      border-left: 3px solid #019ba5;
+    }
+
+    body.bt-theme .benefit-item {
+      border-left-color: #5614b4;
+    }
+
+    .close-household-solutions {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #666;
+      width: 25px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .close-household-solutions:hover {
+      color: #333;
+      background-color: #f0f0f0;
+    }
+
     .container {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
+      margin-top: 20px;
     }
 
     .main {
@@ -334,9 +498,99 @@
       color: #333;
       background-color: #f0f0f0;
     }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .household-solutions {
+        position: static;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
   </style>
 </head>
 <body class="ee-theme">
+
+  <!-- Household Solutions Widget -->
+  <div class="household-solutions">
+    <button class="household-solutions-trigger" onclick="toggleHouseholdSolutions()">
+      <img src="../images/household_solutions.jpg" alt="Household Solutions">
+    </button>
+    <div class="household-solutions-panel" id="householdSolutionsPanel">
+      <button class="close-household-solutions" onclick="closeHouseholdSolutions()">×</button>
+      <h3>Ways to Start the Household Solutions Conversation</h3>
+      
+      <div class="collapsible-section">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+          <span>During OTP or Mobile Discussion</span>
+          <span class="collapsible-arrow">▼</span>
+        </div>
+        <div class="collapsible-content">
+          <ul>
+            <li>Who is your mobile with?</li>
+            <li>Are you with us for your mobile?</li>
+            <li>What's your mobile coverage like?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="collapsible-section">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+          <span>Broadband</span>
+          <span class="collapsible-arrow">▼</span>
+        </div>
+        <div class="collapsible-content">
+          <ul>
+            <li>Do you have a broadband backup?</li>
+            <li>Do you have a way you can stay connected?</li>
+            <li>Because you're a broadband customer, you are entitled to discounts and benefits with mobile, is this something you'd be interested in?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="collapsible-section">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+          <span>TV</span>
+          <span class="collapsible-arrow">▼</span>
+        </div>
+        <div class="collapsible-content">
+          <ul>
+            <li>You can watch using the Discovery+ app on your mobile, who is your mobile with?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="collapsible-section">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+          <span>Landline/Digital Voice</span>
+          <span class="collapsible-arrow">▼</span>
+        </div>
+        <div class="collapsible-content">
+          <ul>
+            <li>Do you also use your mobile to make calls? Who is your mobile with?</li>
+            <li>I just want to make you aware you are entitled to discounts on mobile.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="collapsible-section">
+        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+          <span>The Benefits</span>
+          <span class="collapsible-arrow">▼</span>
+        </div>
+        <div class="collapsible-content">
+          <div class="benefits-grid">
+            <div class="benefit-item">Stay connected using tethering and hotspots</div>
+            <div class="benefit-item">From £11.50 each month</div>
+            <div class="benefit-item">No contract, cancel anytime</div>
+            <div class="benefit-item">Unlimited data to secure connection if broadband goes down</div>
+            <div class="benefit-item">Savings</div>
+            <div class="benefit-item">Everything under one umbrella</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <h2>BT/EE HomeTech Interaction Note Helper</h2>
 
@@ -534,6 +788,35 @@
       "sw": "software"
     };
 
+    // Household Solutions Functions
+    function toggleHouseholdSolutions() {
+      const panel = document.getElementById('householdSolutionsPanel');
+      const trigger = document.querySelector('.household-solutions-trigger');
+      
+      if (panel.style.display === 'block') {
+        panel.style.display = 'none';
+      } else {
+        panel.style.display = 'block';
+      }
+    }
+
+    function closeHouseholdSolutions() {
+      document.getElementById('householdSolutionsPanel').style.display = 'none';
+    }
+
+    function toggleCollapsible(header) {
+      const content = header.nextElementSibling;
+      const arrow = header.querySelector('.collapsible-arrow');
+      
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+        arrow.classList.remove('expanded');
+      } else {
+        content.style.display = 'block';
+        arrow.classList.add('expanded');
+      }
+    }
+
     // Function to populate shortcuts display
     function populateShortcutsDisplay() {
       const shortcutsList = document.getElementById('shortcutsList');
@@ -613,108 +896,4 @@
     }
 
     function expandShorthand(text) {
-      return text.replace(/\b\w+\b/g, word => {
-        const lower = word.toLowerCase();
-        return shortcuts[lower] || word; // Now uses the shortcuts object directly
-      });
-    }
-
-    function toSentenceCase(text) {
-      return text.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, c => c.toUpperCase());
-    }
-
-    function getValidationLabel() {
-      if (document.getElementById('valNone').checked) return "Did not pass security validation; general queries.";
-      if (document.getElementById('valThirdParty').checked) {
-        const thirdPartyName = document.getElementById('thirdPartyName').value.trim();
-        return thirdPartyName ? `Spoke to third party: ${thirdPartyName}.` : "Spoke to third party.";
-      }
-      if (document.getElementById('valAccountHolder').checked) return "Spoke to account holder, highly validated.";
-      return "";
-    }
-
-    function updateFormattedNote() {
-      const initials = document.getElementById('initials').value.trim() || "GM";
-      const rawIssue = document.getElementById('issue').value.trim();
-      const rawActions = document.getElementById('actions').value.trim();
-      const rawNext = document.getElementById('next').value.trim();
-
-      if (!rawIssue) {
-        document.getElementById('output').textContent = '';
-        return;
-      }
-
-      const issueExpanded = expandShorthand(rawIssue);
-      const actionsExpanded = expandShorthand(rawActions);
-      const nextExpanded = rawNext || "Check if issue resolved";
-      const nextExpandedShorthand = expandShorthand(nextExpanded);
-
-      const issue = toSentenceCase(issueExpanded);
-      const actions = toSentenceCase(actionsExpanded);
-      const next = toSentenceCase(nextExpandedShorthand);
-
-      const validationLabel = getValidationLabel();
-
-      const checkinChecked = document.getElementById('checkin').checked;
-      const number = document.getElementById('number').value.trim();
-
-      let note = `${initials}@HomeTech`;
-      if (validationLabel) {
-        note += `\n${validationLabel}`;
-      }
-      note += `\nIssue - ${issue}`;
-      if (actions) {
-        note += `\nActions - ${actions}`;
-      }
-      note += `\nNext Actions - ${next}`;
-      if (checkinChecked && number) {
-        note += `\n#checkin #${number}`;
-      }
-
-      document.getElementById('output').textContent = note;
-    }
-
-    function clearAll() {
-      document.getElementById('issue').value = '';
-      actionsField.value = '';
-      nextField.value = '';
-      document.getElementById('extra').value = '';
-      document.getElementById('checkin').checked = false;
-      document.getElementById('number').value = '';
-      document.getElementById('valNone').checked = false;
-      document.getElementById('valThirdParty').checked = false;
-      document.getElementById('valAccountHolder').checked = false;
-      document.getElementById('thirdPartyName').value = '';
-      document.getElementById('billPaidCheckbox').checked = false;
-      document.getElementById('faultOpenCheckbox').checked = false;
-      document.getElementById('faultCloseCheckbox').checked = false;
-      document.getElementById('complaintOpenCheckbox').checked = false;
-      document.getElementById('complaintCloseCheckbox').checked = false;
-      updateValidationDisplay();
-      updateFormattedNote();
-    }
-
-    document.getElementById('themeSelect').addEventListener('change', function () {
-      const theme = this.value;
-      document.body.classList.remove('bt-theme', 'ee-theme');
-      document.body.classList.add(`${theme}-theme`);
-    });
-
-    // Initialize on page load
-    window.addEventListener('DOMContentLoaded', () => {
-      document.body.classList.add('ee-theme');
-      populateShortcutsDisplay(); // Populate shortcuts on load
-      updateFormattedNote();
-    });
-  </script>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
+      return text.replace(/\b\w+\b/g
