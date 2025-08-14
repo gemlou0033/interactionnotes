@@ -507,7 +507,7 @@
   <!-- Household Solutions Widget -->
   <div class="household-solutions">
     <button class="household-solutions-trigger" onclick="toggleHouseholdSolutions()">
-      <img src="../images/household_solutions.jpg" alt="Household Solutions">
+      <img src="/images/household_solutions.jpg" alt="Household Solutions">
     </button>
     <div class="household-solutions-panel" id="householdSolutionsPanel">
       <button class="close-household-solutions" onclick="closeHouseholdSolutions()">×</button>
@@ -784,12 +784,11 @@
     // Household Solutions Functions
     function toggleHouseholdSolutions() {
       const panel = document.getElementById('householdSolutionsPanel');
-      const trigger = document.querySelector('.household-solutions-trigger');
       
-      if (panel.style.display === 'block') {
-        panel.style.display = 'none';
-      } else {
+      if (panel.style.display === 'none' || panel.style.display === '') {
         panel.style.display = 'block';
+      } else {
+        panel.style.display = 'none';
       }
     }
 
@@ -889,4 +888,99 @@
     }
 
     function expandShorthand(text) {
-      return text.replace(/\b\w+\b/g
+      return text.replace(/\b\w+\b/g, word => {
+        const lower = word.toLowerCase();
+        return shortcuts[lower] || word; // Now uses the shortcuts object directly
+      });
+    }
+
+    function toSentenceCase(text) {
+      return text.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, c => c.toUpperCase());
+    }
+
+    function getValidationLabel() {
+      if (document.getElementById('valNone').checked) return "Did not pass security validation; general queries.";
+      if (document.getElementById('valThirdParty').checked) {
+        const thirdPartyName = document.getElementById('thirdPartyName').value.trim();
+        return thirdPartyName ? `Spoke to third party: ${thirdPartyName}.` : "Spoke to third party.";
+      }
+      if (document.getElementById('valAccountHolder').checked) return "Spoke to account holder, highly validated.";
+      return "";
+    }
+
+    function updateFormattedNote() {
+      const initials = document.getElementById('initials').value.trim() || "GM";
+      const rawIssue = document.getElementById('issue').value.trim();
+      const rawActions = document.getElementById('actions').value.trim();
+      const rawNext = document.getElementById('next').value.trim();
+
+      if (!rawIssue) {
+        document.getElementById('output').textContent = '';
+        return;
+      }
+
+      const issueExpanded = expandShorthand(rawIssue);
+      const actionsExpanded = expandShorthand(rawActions);
+      const nextExpanded = rawNext || "Check if issue resolved";
+      const nextExpandedShorthand = expandShorthand(nextExpanded);
+
+      const issue = toSentenceCase(issueExpanded);
+      const actions = toSentenceCase(actionsExpanded);
+      const next = toSentenceCase(nextExpandedShorthand);
+
+      const validationLabel = getValidationLabel();
+
+      const checkinChecked = document.getElementById('checkin').checked;
+      const number = document.getElementById('number').value.trim();
+
+      let note = `${initials}@HomeTech`;
+      if (validationLabel) {
+        note += `\n${validationLabel}`;
+      }
+      note += `\nIssue - ${issue}`;
+      if (actions) {
+        note += `\nActions - ${actions}`;
+      }
+      note += `\nNext Actions - ${next}`;
+      if (checkinChecked && number) {
+        note += `\n#checkin #${number}`;
+      }
+
+      document.getElementById('output').textContent = note;
+    }
+
+    function clearAll() {
+      document.getElementById('issue').value = '';
+      actionsField.value = '';
+      nextField.value = '';
+      document.getElementById('extra').value = '';
+      document.getElementById('checkin').checked = false;
+      document.getElementById('number').value = '';
+      document.getElementById('valNone').checked = false;
+      document.getElementById('valThirdParty').checked = false;
+      document.getElementById('valAccountHolder').checked = false;
+      document.getElementById('thirdPartyName').value = '';
+      document.getElementById('billPaidCheckbox').checked = false;
+      document.getElementById('faultOpenCheckbox').checked = false;
+      document.getElementById('faultCloseCheckbox').checked = false;
+      document.getElementById('complaintOpenCheckbox').checked = false;
+      document.getElementById('complaintCloseCheckbox').checked = false;
+      updateValidationDisplay();
+      updateFormattedNote();
+    }
+
+    document.getElementById('themeSelect').addEventListener('change', function () {
+      const theme = this.value;
+      document.body.classList.remove('bt-theme', 'ee-theme');
+      document.body.classList.add(`${theme}-theme`);
+    });
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('ee-theme');
+      populateShortcutsDisplay(); // Populate shortcuts on load
+      updateFormattedNote();
+    });
+  </script>
+</body>
+</html>
