@@ -588,7 +588,7 @@ label {
   <div class="initials-row">
     <label for="initials">Initials:</label>
     <input type="text" id="initials" maxlength="5">
-    <button onclick="clearAll()" style="margin-left: 60px; transform: translateY(-8px);">CLEAR</button>
+    <button onclick="()" style="margin-left: 60px; transform: translateY(-8px);">CLEAR</button>
   </div>
 
   <!-- Validation Row -->
@@ -924,11 +924,6 @@ label {
       document.getElementById('valThirdParty').checked = false;
       document.getElementById('valAccountHolder').checked = false;
       document.getElementById('thirdPartyName').value = '';
-      document.getElementById('billPaidCheckbox').checked = false;
-      document.getElementById('faultOpenCheckbox').checked = false;
-      document.getElementById('faultCloseCheckbox').checked = false;
-      document.getElementById('complaintOpenCheckbox').checked = false;
-      document.getElementById('complaintCloseCheckbox').checked = false;
       updateValidationDisplay();
       updateFormattedNote();
     }
@@ -948,6 +943,7 @@ label {
   </script>
 </body>
 </html>
+
 
 
 
