@@ -1,12 +1,11 @@
-<!-- https://gemlou0033.github.io/interactionnotes/ -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>BT/EE HomeTech Interaction Note Helper</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Raleway', sans-serif;
@@ -78,312 +77,353 @@
       border: 2px solid #ff64fe;
     }
 
+    /* Household Solutions Styles */
+    .household-solutions {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 200px;
+      height: 120px;
+      z-index: 1000;
+    }
 
+    .household-solutions-trigger {
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
 
-/* Household Solutions Styles */
-.household-solutions {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 200px;
-  height: 120px;
-  z-index: 1000;
-}
+    .household-solutions-trigger img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
 
-.household-solutions-trigger {
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-}
+    .household-solutions-trigger:hover img {
+      transform: scale(1.02);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
 
-.household-solutions-trigger img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  border-radius: 8px;
-}
+    .household-solutions-panel {
+      display: none;
+      background: white;
+      border: 2px solid #019ba5;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      max-height: 70vh;
+      overflow-y: auto;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 350px;
+      box-sizing: border-box;
+    }
 
-.household-solutions-trigger:hover img {
-  transform: scale(1.02);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-}
+    body.bt-theme .household-solutions-panel {
+      border-color: #5614b4;
+    }
 
-.household-solutions-panel {
-  display: none;
-  background: white;
-  border: 2px solid #019ba5;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-  max-height: 70vh;
-  overflow-y: auto;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 200%;
-  box-sizing: border-box;
-}
+    .household-solutions-panel h3 {
+      margin: 0 0 15px 0;
+      color: #019ba5;
+      font-size: 16px;
+      text-align: center;
+      border-bottom: 2px solid #019ba5;
+      padding-bottom: 10px;
+    }
 
-body.bt-theme .household-solutions-panel {
-  border-color: #5614b4;
-}
+    body.bt-theme .household-solutions-panel h3 {
+      color: #5614b4;
+      border-bottom-color: #5614b4;
+    }
 
-.household-solutions-panel h3 {
-  margin: 0 0 15px 0;
-  color: #019ba5;
-  font-size: 16px;
-  text-align: center;
-  border-bottom: 2px solid #019ba5;
-  padding-bottom: 10px;
-}
+    /* Navigation buttons */
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
 
-body.bt-theme .household-solutions-panel h3 {
-  color: #5614b4;
-  border-bottom-color: #5614b4;
-}
+    .nav-back {
+      background: #6c757d;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
 
-.hs-step {
-  display: none;
-  display: grid; /* Grid layout for buttons */
-  grid-template-columns: 1fr 1fr; /* 2 buttons per row */
-  gap: 10px; /* spacing between buttons */
-}
+    .nav-back:hover {
+      background: #5a6268;
+    }
 
-.hs-step.active {
-  display: grid;
-}
+    .close-household-solutions {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #666;
+      width: 25px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
 
-.hs-step button {
-  display: block;
-  width: 100%;
-  padding: 10px 12px;
-  font-size: 14px;
-  border: 1px solid #019ba5;
-  border-radius: 6px;
-  background: #f0f8fa;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
+    .close-household-solutions:hover {
+      color: #333;
+      background-color: #f0f0f0;
+    }
 
-body.bt-theme .hs-step button {
-  border-color: #5614b4;
-  background: #f7f0fc;
-}
+    /* Steps */
+    .hs-step {
+      display: none;
+    }
 
-.hs-step button:hover {
-  background: #d9f0f2;
-}
+    .hs-step.active {
+      display: block;
+    }
 
-body.bt-theme .hs-step button:hover {
-  background: #f0e0fc;
-}
+    /* Main menu buttons */
+    .main-menu-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
 
-.close-household-solutions {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  background: none;
-  border: none;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  color: #666;
-  width: 25px;
-  height: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-}
+    .menu-button {
+      background: #019ba5;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
 
-.close-household-solutions:hover {
-  color: #333;
-  background-color: #f0f0f0;
-}
+    body.bt-theme .menu-button {
+      background: #5614b4;
+    }
 
-.household-solutions.panel-open .household-solutions-trigger {
-  display: none;
-}
+    .menu-button:hover {
+      background: #017a82;
+    }
 
-/* Benefits grid */
-.benefits-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 8px;
-}
+    body.bt-theme .menu-button:hover {
+      background: #441096;
+    }
 
-.benefit-item {
-  background: #f8f9fa;
-  padding: 6px;
-  border-radius: 4px;
-  font-size: 11px;
-  text-align: center;
-  border-left: 3px solid #019ba5;
-}
+    /* Content sections */
+    .hs-content {
+      margin-bottom: 15px;
+    }
 
-body.bt-theme .benefit-item {
-  border-left-color: #5614b4;
-}
+    .hs-content ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
 
-/* Collapsible styles */
-.collapsible-section {
-  margin-bottom: 10px;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  overflow: hidden;
-}
+    .hs-content li {
+      background: #f8f9fa;
+      margin-bottom: 8px;
+      padding: 10px;
+      border-radius: 5px;
+      border-left: 3px solid #019ba5;
+      font-size: 14px;
+      line-height: 1.4;
+    }
 
-.collapsible-header {
-  background: #f5f5f5;
-  padding: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background-color 0.2s ease;
-}
+    body.bt-theme .hs-content li {
+      border-left-color: #5614b4;
+    }
 
-.collapsible-header:hover {
-  background: #e8e8e8;
-}
+    /* Pushbacks specific styling */
+    .pushback-item {
+      margin-bottom: 12px;
+    }
 
-.collapsible-arrow {
-  transition: transform 0.3s ease;
-  font-size: 12px;
-}
+    .pushback-title {
+      font-weight: bold;
+      color: #019ba5;
+      margin-bottom: 4px;
+    }
 
-.collapsible-arrow.expanded {
-  transform: rotate(180deg);
-}
+    body.bt-theme .pushback-title {
+      color: #5614b4;
+    }
 
-.collapsible-content {
-  padding: 12px;
-  font-size: 12px;
-  line-height: 1.4;
-  display: none;
-}
+    .pushback-solution {
+      font-weight: normal;
+      color: #333;
+    }
 
-.collapsible-content ul {
-  margin: 5px 0;
-  padding-left: 15px;
-}
+    /* Benefits section */
+    .benefits-section {
+      border-top: 2px solid #019ba5;
+      padding-top: 15px;
+      margin-top: 15px;
+    }
 
-.collapsible-content li {
-  margin-bottom: 4px;
-}
+    body.bt-theme .benefits-section {
+      border-top-color: #5614b4;
+    }
 
-.collapsible-content li.pushback {
-  font-weight: bold;
-}
+    .benefits-dropdown {
+      background: none;
+      border: 1px solid #019ba5;
+      color: #019ba5;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .household-solutions {
-    position: static;
-    width: 100%;
-    margin-bottom: 20px;
-  }
+    body.bt-theme .benefits-dropdown {
+      border-color: #5614b4;
+      color: #5614b4;
+    }
 
-  .household-solutions-panel {
-    width: 100%;
-  }
+    .benefits-dropdown:hover {
+      background: #f8f9fa;
+    }
 
-  .hs-step {
-    grid-template-columns: 1fr; /* stack buttons on small screens */
-  }
-}
+    .benefits-content {
+      display: none;
+      margin-top: 10px;
+    }
 
-/* End of Household Solutions */
+    .benefits-content.show {
+      display: block;
+    }
 
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
 
+    .benefit-item {
+      background: #f8f9fa;
+      padding: 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      text-align: center;
+      border-left: 3px solid #019ba5;
+    }
 
+    body.bt-theme .benefit-item {
+      border-left-color: #5614b4;
+    }
 
+    /* Responsive */
+    @media (max-width: 768px) {
+      .household-solutions {
+        position: static;
+        width: 100%;
+        margin-bottom: 20px;
+      }
 
+      .household-solutions-panel {
+        width: 100%;
+      }
 
+      .main-menu-buttons {
+        grid-template-columns: 1fr;
+      }
+    }
 
+    .container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
 
+    .main {
+      flex: 1;
+      min-width: 300px;
+    }
 
+    .extra {
+      width: 350px;
+    }
 
+    textarea,
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
 
-    
-.container {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right: 10px;
+      box-sizing: border-box;
+    }
 
-.main {
-  flex: 1;
-  min-width: 300px;
-}
+    .quick-links-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 10px 0;
+    }
 
-.extra {
-  width: 350px;
-}
+    .quick-link {
+      padding: 8px 12px;
+      font-size: 13px;
+      text-decoration: none;
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: block;
+      font-weight: 500;
+    }
 
-textarea,
-input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  font-size: 16px;
-  box-sizing: border-box;
-}
+    .quick-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
 
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-right: 10px;
-  box-sizing: border-box;
-}
+    #output {
+      white-space: pre-wrap;
+      background: #f5f5f5;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-top: 20px;
+      min-height: 100px;
+    }
 
-.quick-links-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin: 10px 0;
-}
+    label {
+      font-weight: bold;
+    }
 
-.quick-link {
-  padding: 8px 12px;
-  font-size: 13px;
-  text-decoration: none;
-  border-radius: 4px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: block;
-  font-weight: 500;
-}
-
-.quick-link:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-#output {
-  white-space: pre-wrap;
-  background: #f5f5f5;
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin-top: 20px;
-  min-height: 100px;
-}
-
-    
-label {
-  font-weight: bold;
-}
     .checkin-row,
     .validation-row,
     .initials-row {
@@ -553,254 +593,71 @@ label {
       background-color: #f0f0f0;
     }
   </style>
-</head>
-<body class="ee-theme">
-
-
-
-  
-<!-- Household Solutions Widget -->
-<div class="household-solutions">
-  <button class="household-solutions-trigger" onclick="openPanel()">
-    <img src="images/household_solutions.jpg" alt="Household Solutions">
-  </button>
-
-  <div class="household-solutions-panel" id="householdSolutionsPanel">
-    <button class="close-household-solutions" onclick="closeHouseholdSolutions()">×</button>
-    <h3>Ways to Start the Household Solutions Conversation</h3>
-
-    <!-- MENU STEP -->
-<div class="hs-step active" id="hs-main">
-  <button onclick="goToTopic('otp')">OTP</button>
-  <button onclick="goToTopic('broadband')">Broadband</button>
-  <button onclick="goToTopic('tv')">TV</button>
-  <button onclick="goToTopic('landline')">Landline</button>
-  <button onclick="goToTopic('help')">HELP</button>
-</div>
-
-<!-- HELP STEP -->
-<div class="hs-step" id="hs-help">
-  <button onclick="goBack('hs-main')">Back</button>
-  <ul>
-    <li><strong>I don't use my mobile</strong> – Be curious and ask what they use/pay</li>
-    <li><strong>In contract</strong> – How long? Explore the home. If customer doesn't know, pass to new sales</li>
-  </ul>
-</div>
-
-
-    <!-- OTP STEP -->
-    <div class="hs-step" id="hs-otp">
-      <button onclick="goBack('hs-main')">Back</button>
-      <ul>
-        <li>Who is your mobile with?</li>
-        <li>Are you with us for your mobile?</li>
-        <li>What's your mobile coverage like?</li>
-      </ul>
-    </div>
-
-    <!-- Broadband STEP -->
-    <div class="hs-step" id="hs-broadband">
-      <button onclick="goBack('hs-main')">Back</button>
-      <ul>
-        <li>Do you have a broadband backup?</li>
-        <li>Do you have a way you can stay connected?</li>
-      </ul>
-    </div>
-
-    <!-- TV STEP -->
-    <div class="hs-step" id="hs-tv">
-      <button onclick="goBack('hs-main')">Back</button>
-      <ul>
-        <li>You can watch using the Discovery+ app on your mobile, who is your mobile with?</li>
-      </ul>
-    </div>
-
-    <!-- Landline STEP -->
-    <div class="hs-step" id="hs-landline">
-      <button onclick="goBack('hs-main')">Back</button>
-      <ul>
-        <li>Do you also use your mobile to make calls? Who is your mobile with?</li>
-      </ul>
-    </div>
-
-    <!-- SINGLE HELP SECTION -->
-    <div id="helpSection" style="display:none; padding:10px; border:1px solid #019ba5; margin-top:10px; border-radius:6px;">
-      <p><strong>I don't use my mobile</strong> – Be curious and ask what they use/pay</p>
-      <p><strong>In contract</strong> – How long? Explore the home. If customer doesn't know pass to new sales</p>
-    </div>
-
-    <!-- BENEFITS SECTION -->
-    <div class="collapsible-section">
-      <div class="collapsible-header" onclick="toggleCollapsible(this)">
-        <span>The Benefits</span>
-        <span class="collapsible-arrow">▼</span>
-      </div>
-      <div class="collapsible-content">
-        <div class="benefits-grid">
-          <div class="benefit-item">Stay connected using tethering and hotspots</div>
-          <div class="benefit-item">From £11.50 each month</div>
-          <div class="benefit-item">No contract, cancel anytime</div>
-          <div class="benefit-item">Unlimited data to secure connection if broadband goes down</div>
-          <div class="benefit-item">Savings</div>
-          <div class="benefit-item">Everything under one umbrella</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- End of Household Solutions -->
-
-
-
-
-
-  
-
-  
-  <h2>BT/EE HomeTech Interaction Note Helper</h2>
-
-  <!-- Theme selector -->
-  <div style="margin-bottom: 15px;">
-    <label for="themeSelect"><strong>Theme:</strong></label>
-    <select id="themeSelect">
-      <option value="ee" selected>EE</option>
-      <option value="bt">BT</option>
-    </select>
-  </div>
-
-  <!-- Initials Row -->
-  <div class="initials-row">
-    <label for="initials">Initials:</label>
-    <input type="text" id="initials" maxlength="5">
-    <button onclick="clearAll()" style="margin-left: 60px; transform: translateY(-8px);">CLEAR</button>
-  </div>
-
-  <!-- Validation Row -->
-  <div class="validation-row">
-    <label>Validation:</label>
-    <input type="radio" name="validation" id="valNone">
-    <label for="valNone">None</label>
-    <input type="radio" name="validation" id="valThirdParty">
-    <label for="valThirdParty">Third Party</label>
-    <input type="radio" name="validation" id="valAccountHolder">
-    <label for="valAccountHolder">Account Holder</label>
-  </div>
-
-  <!-- Third Party Name Input (hidden by default) -->
-  <div id="thirdPartyRow" class="validation-row" style="display: none; margin-top: -10px; margin-left: 20px;">
-    <label for="thirdPartyName">Name:</label>
-    <input type="text" id="thirdPartyName" placeholder="Optional" style="width: 200px;">
-  </div>
-
-  <div class="container">
-    <!-- Left side (Main form) -->
-    <div class="main">
-      <label for="issue">Issue:</label>
-      <textarea id="issue" rows="3"></textarea>
-
-      <label for="actions">Actions:</label>
-      <textarea id="actions" rows="3"></textarea>
-
-      <label for="next">Next Actions:</label>
-      <textarea id="next" rows="3" placeholder="Check if issue resolved"></textarea>
-
-      <div class="checkin-row">
-        <input type="checkbox" id="checkin">
-        <label for="checkin">#checkin</label>
-        <input type="text" id="number" placeholder="Phone number">
-      </div>
-
-      <!-- Formatted Note section moved here -->
-      <div class="formatted-notes">
-        <h3>Formatted Note:</h3>
-        <div id="output"></div>
-        
-        <!-- Shortcuts Button -->
-        <button id="shortcutsButton" onclick="showShortcutsGuide()" style="margin-top: 10px;">SHORTCUTS</button>
-        
-        <!-- Shortcuts Guide Box -->
-        <div class="shortcuts-guide" id="shortcutsGuide">
-          <button class="close-guide" onclick="closeShortcutsGuide()">×</button>
-          <h3>Shortcuts Reference</h3>
-        
-        <div class="shortcuts-list" id="shortcutsList">
-          <!-- Shortcuts will be populated by JavaScript -->
-        </div>
-      </div>
-      
-      </div>
-    </div>
-
-    <!-- Right side (Extra info) -->
-    <div class="extra">
-      <label for="extra">Extra Info (not included in notes):</label>
-      <textarea id="extra" rows="10" placeholder="Thank you for calling Home Tech in Newcastle. My name is __ and I will be your guide today. Can I start by taking your name please?"></textarea>
-
-      <!-- Validation Guide Box - Now positioned above Quick Links -->
-      <div class="validation-guide" id="validationGuide">
-        <button class="close-guide" onclick="closeValidationGuide()">×</button>
-        <h3>Validation Guide</h3>
-        
-        <div class="validation-section">
-          <h4>Openreach Engineer</h4>
-          <ul>
-            <li><strong>EIN</strong></li>
-            <li><strong>OUC</strong></li>
-            <li><strong>Name</strong></li>
-            <li><strong>Manager's Name</strong></li>
-          </ul>
-        </div>
-
-        <div class="validation-section">
-          <h4>Internal</h4>
-          <ul>
-            <li><strong>EIN</strong></li>
-            <li><strong>Name</strong></li>
-            <li><strong>Manager's Name</strong></li>
-          </ul>
-        </div>
-      </div>
-
-      <fieldset style="margin-top: 15px;">
-  <legend><strong>Quick Links</strong></legend>
-  
-  <!-- Top 4 links -->
-  <div class="quick-links-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 30px;">
-    <a href="broadband/index.html" target="_blank" rel="noopener noreferrer" class="quick-link">Broadband</a>
-    <a href="https://www.bt.com/content/dam/bt/help/digital-voice/essential-phone/BT-Essential-Digital-Home-Phone-UserGuide.pdf" target="_blank" class="quick-link">Digital Voice Manual</a>
-    <a href="tv/index.html" target="_blank" rel="noopener noreferrer" class="quick-link">TV</a>
-    <a href="https://ee.co.uk/help/tv-sport/manage-use/channel-guide" target="_blank" class="quick-link">Channel Guide</a>
-  </div>
-  
-  <!-- Directory centered -->
-  <div style="text-align: center; margin-bottom: 15px;">
-    <a href="https://directory.intra.bt.com/" target="_blank" class="quick-link" id="directoryLink">Directory</a>
-  </div>
-  
-  <!-- Bottom 3 links -->
-  <div class="quick-links-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
-    <a href="https://ee-wifi.ee.co.uk/public/ee/find/index.htm" target="_blank" class="quick-link">Hotspot Finder</a>
-    <a href="https://ee.co.uk/help/mobile-coverage-checker" target="_blank" class="quick-link">Mobile Coverage Checker</a>
-    <a href="https://www.openreach.com/fibre-checker" target="_blank" class="quick-link">FTTP Checker</a>
-  </div>
-</fieldset>
-
-      <fieldset style="margin-top: 15px;">
-        <legend><strong>Order of Close</strong></legend>
-        <ol style="margin: 10px 0; padding-left: 20px;">
-          <li>Home View Door Button</li>
-          <li>Albert Flow/Finished</li>
-          <li>Consumer End Interaction with notes</li>
-          <li>Advisor Hub/I'm All Done</li>
-        </ol>
-      </fieldset>
-    </div>
-  </div>
 
   <script>
-    // Single source of truth for shortcuts - add new shortcuts here only!
+    // Define all functions first
+    function openHouseholdSolutions() {
+      document.getElementById('householdSolutionsPanel').style.display = 'block';
+    }
+
+    function closeHouseholdSolutions() {
+      document.getElementById('householdSolutionsPanel').style.display = 'none';
+      showSection('main');
+    }
+
+    function showSection(sectionName) {
+      const steps = document.querySelectorAll('.hs-step');
+      steps.forEach(step => step.classList.remove('active'));
+      document.getElementById('hs-' + sectionName).classList.add('active');
+    }
+
+    function toggleBenefits() {
+      const benefitsContent = document.getElementById('benefitsContent');
+      const arrow = document.getElementById('benefitsArrow');
+      
+      if (benefitsContent.classList.contains('show')) {
+        benefitsContent.classList.remove('show');
+        arrow.textContent = '▼';
+      } else {
+        benefitsContent.classList.add('show');
+        arrow.textContent = '▲';
+      }
+    }
+
+    function showValidationGuide() {
+      document.getElementById('validationGuide').style.display = 'block';
+    }
+
+    function closeValidationGuide() {
+      document.getElementById('validationGuide').style.display = 'none';
+    }
+
+    function showShortcutsGuide() {
+      document.getElementById('shortcutsButton').style.display = 'none';
+      document.getElementById('shortcutsGuide').style.display = 'block';
+    }
+
+    function closeShortcutsGuide() {
+      document.getElementById('shortcutsGuide').style.display = 'none';
+      document.getElementById('shortcutsButton').style.display = 'inline-block';
+    }
+
+    function clearAll() {
+      document.getElementById('issue').value = '';
+      document.getElementById('actions').value = '';
+      document.getElementById('next').value = '';
+      document.getElementById('extra').value = '';
+      document.getElementById('checkin').checked = false;
+      document.getElementById('number').value = '';
+      document.getElementById('valNone').checked = false;
+      document.getElementById('valThirdParty').checked = false;
+      document.getElementById('valAccountHolder').checked = false;
+      document.getElementById('thirdPartyName').value = '';
+      updateValidationDisplay();
+      updateFormattedNote();
+    }
+
+    // Single source of truth for shortcuts
     const shortcuts = {
       "adv": "advised",
       "ah": "account holder", 
@@ -831,53 +688,6 @@ label {
       "sw": "software"
     };
 
-   // Household Solutions Functions
-function openPanel() {
-  document.getElementById('householdSolutionsPanel').style.display = 'block';
-  document.querySelector('.household-solutions').classList.add('panel-open');
-}
-
-function closeHouseholdSolutions() {
-  document.getElementById('householdSolutionsPanel').style.display = 'none';
-  document.querySelector('.household-solutions').classList.remove('panel-open');
-  showStep('hs-main');
-}
-
-function goToTopic(topic) {
-  showStep('hs-' + topic);
-}
-
-function goBack(stepId) {
-  showStep(stepId);
-}
-
-function showStep(stepId) {
-  const steps = document.querySelectorAll('.hs-step');
-  steps.forEach(step => step.classList.remove('active'));
-  document.getElementById(stepId).classList.add('active');
-}
-
-function togglePushbacks() {
-  const pushbacks = document.getElementById('helpSection'); // Always target the single HELP section
-  const buttons = document.querySelectorAll('.help-button'); // Update all HELP buttons text
-  if (pushbacks.style.display === "block") {
-    pushbacks.style.display = "none";
-    buttons.forEach(btn => btn.textContent = "HELP");
-  } else {
-    pushbacks.style.display = "block";
-    buttons.forEach(btn => btn.textContent = "HIDE HELP");
-  }
-}
-
-function toggleCollapsible(el) {
-  const content = el.nextElementSibling;
-  content.style.display = content.style.display === 'block' ? 'none' : 'block';
-  const arrow = el.querySelector('.collapsible-arrow');
-  arrow.classList.toggle('expanded');
-}
-
-
-    // Function to populate shortcuts display
     function populateShortcutsDisplay() {
       const shortcutsList = document.getElementById('shortcutsList');
       shortcutsList.innerHTML = '';
@@ -893,58 +703,6 @@ function toggleCollapsible(el) {
       });
     }
 
-    const actionsField = document.getElementById('actions');
-    const nextField = document.getElementById('next');
-
-    const fieldsToWatch = ['initials', 'issue', 'actions', 'next', 'number', 'thirdPartyName'];
-    fieldsToWatch.forEach(id => {
-      document.getElementById(id).addEventListener('input', updateFormattedNote);
-    });
-
-    document.getElementById('checkin').addEventListener('change', updateFormattedNote);
-    
-    // Fixed the validation event listeners
-    document.getElementById('valNone').addEventListener('change', function() {
-      updateValidationDisplay();
-      updateFormattedNote();
-    });
-    
-    document.getElementById('valThirdParty').addEventListener('change', function() {
-      updateValidationDisplay();
-      updateFormattedNote();
-    });
-    
-    document.getElementById('valAccountHolder').addEventListener('change', function() {
-      updateValidationDisplay();
-      updateFormattedNote();
-    });
-
-    // Directory link click handler - Fixed!
-    document.getElementById('directoryLink').addEventListener('click', function(e) {
-      // The link will open in new tab normally, but we also want to show the validation guide
-      setTimeout(() => {
-        showValidationGuide();
-      }, 100); // Small delay to ensure the new tab opens first
-    });
-
-    function showValidationGuide() {
-      document.getElementById('validationGuide').style.display = 'block';
-    }
-
-    function closeValidationGuide() {
-      document.getElementById('validationGuide').style.display = 'none';
-    }
-
-    function showShortcutsGuide() {
-      document.getElementById('shortcutsButton').style.display = 'none';
-      document.getElementById('shortcutsGuide').style.display = 'block';
-    }
-
-    function closeShortcutsGuide() {
-      document.getElementById('shortcutsGuide').style.display = 'none';
-      document.getElementById('shortcutsButton').style.display = 'inline-block';
-    }
-
     function updateValidationDisplay() {
       const thirdPartyRow = document.getElementById('thirdPartyRow');
       if (document.getElementById('valThirdParty').checked) {
@@ -958,7 +716,7 @@ function toggleCollapsible(el) {
     function expandShorthand(text) {
       return text.replace(/\b\w+\b/g, word => {
         const lower = word.toLowerCase();
-        return shortcuts[lower] || word; // Now uses the shortcuts object directly
+        return shortcuts[lower] || word;
       });
     }
 
@@ -1017,52 +775,319 @@ function toggleCollapsible(el) {
       document.getElementById('output').textContent = note;
     }
 
-    function clearAll() {
-      document.getElementById('issue').value = '';
-      actionsField.value = '';
-      nextField.value = '';
-      document.getElementById('extra').value = '';
-      document.getElementById('checkin').checked = false;
-      document.getElementById('number').value = '';
-      document.getElementById('valNone').checked = false;
-      document.getElementById('valThirdParty').checked = false;
-      document.getElementById('valAccountHolder').checked = false;
-      document.getElementById('thirdPartyName').value = '';
-      updateValidationDisplay();
-      updateFormattedNote();
-    }
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      const fieldsToWatch = ['initials', 'issue', 'actions', 'next', 'number', 'thirdPartyName'];
+      fieldsToWatch.forEach(id => {
+        document.getElementById(id).addEventListener('input', updateFormattedNote);
+      });
 
-    document.getElementById('themeSelect').addEventListener('change', function () {
-      const theme = this.value;
-      document.body.classList.remove('bt-theme', 'ee-theme');
-      document.body.classList.add(`${theme}-theme`);
-    });
+      document.getElementById('checkin').addEventListener('change', updateFormattedNote);
+      
+      document.getElementById('valNone').addEventListener('change', function() {
+        updateValidationDisplay();
+        updateFormattedNote();
+      });
+      
+      document.getElementById('valThirdParty').addEventListener('change', function() {
+        updateValidationDisplay();
+        updateFormattedNote();
+      });
+      
+      document.getElementById('valAccountHolder').addEventListener('change', function() {
+        updateValidationDisplay();
+        updateFormattedNote();
+      });
 
-    // Initialize on page load
-    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('directoryLink').addEventListener('click', function(e) {
+        setTimeout(() => {
+          showValidationGuide();
+        }, 100);
+      });
+
+      document.getElementById('themeSelect').addEventListener('change', function () {
+        const theme = this.value;
+        document.body.classList.remove('bt-theme', 'ee-theme');
+        document.body.classList.add(`${theme}-theme`);
+      });
+
+      // Initialize
       document.body.classList.add('ee-theme');
-      populateShortcutsDisplay(); // Populate shortcuts on load
+      populateShortcutsDisplay();
       updateFormattedNote();
     });
   </script>
+</head>
+<body class="ee-theme">
+
+<!-- Household Solutions Widget -->
+<div class="household-solutions">
+  <button class="household-solutions-trigger" onclick="openHouseholdSolutions()">
+    <img src="https://via.placeholder.com/200x120/019ba5/ffffff?text=Household+Solutions" alt="Household Solutions">
+  </button>
+
+  <div class="household-solutions-panel" id="householdSolutionsPanel">
+    <button class="close-household-solutions" onclick="closeHouseholdSolutions()">×</button>
+    
+    <!-- Main Menu Step -->
+    <div class="hs-step active" id="hs-main">
+      <h3>Household Solutions</h3>
+      
+      <div class="main-menu-buttons">
+        <button class="menu-button" onclick="showSection('otp')">OTP/Mobile</button>
+        <button class="menu-button" onclick="showSection('broadband')">Broadband</button>
+        <button class="menu-button" onclick="showSection('tv')">TV/Sports</button>
+        <button class="menu-button" onclick="showSection('landline')">Landline/Digital Voice</button>
+        <button class="menu-button" onclick="showSection('pushbacks')" style="grid-column: 1 / -1;">Pushbacks</button>
+      </div>
+    </div>
+
+    <!-- OTP/Mobile Section -->
+    <div class="hs-step" id="hs-otp">
+      <div class="nav-buttons">
+        <button class="nav-back" onclick="showSection('main')">← Back</button>
+      </div>
+      
+      <h3>OTP/Mobile</h3>
+      
+      <div class="hs-content">
+        <ul>
+          <li>Who is your mobile with?</li>
+          <li>Are you with us for your mobile?</li>
+          <li>What's your mobile coverage like?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Broadband Section -->
+    <div class="hs-step" id="hs-broadband">
+      <div class="nav-buttons">
+        <button class="nav-back" onclick="showSection('main')">← Back</button>
+      </div>
+      
+      <h3>Broadband</h3>
+      
+      <div class="hs-content">
+        <ul>
+          <li>Do you have a broadband backup?</li>
+          <li>Do you have a way you can stay connected?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TV/Sports Section -->
+    <div class="hs-step" id="hs-tv">
+      <div class="nav-buttons">
+        <button class="nav-back" onclick="showSection('main')">← Back</button>
+      </div>
+      
+      <h3>TV/Sports</h3>
+      
+      <div class="hs-content">
+        <ul>
+          <li>You can watch using the Discovery+ app on your mobile, who is your mobile with?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Landline/Digital Voice Section -->
+    <div class="hs-step" id="hs-landline">
+      <div class="nav-buttons">
+        <button class="nav-back" onclick="showSection('main')">← Back</button>
+      </div>
+      
+      <h3>Landline/Digital Voice</h3>
+      
+      <div class="hs-content">
+        <ul>
+          <li>Do you also use your mobile to make calls? Who is your mobile with?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Pushbacks Section -->
+    <div class="hs-step" id="hs-pushbacks">
+      <div class="nav-buttons">
+        <button class="nav-back" onclick="showSection('main')">← Back</button>
+      </div>
+      
+      <h3>Pushbacks</h3>
+      
+      <div class="hs-content">
+        <div class="pushback-item">
+          <div class="pushback-title">I don't use my mobile</div>
+          <div class="pushback-solution">Be curious and ask what they use/pay</div>
+        </div>
+        
+        <div class="pushback-item">
+          <div class="pushback-title">In contract</div>
+          <div class="pushback-solution">How long? Explore the home. If customer doesn't know, pass to new sales</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Benefits Section (Always visible at bottom) -->
+    <div class="benefits-section">
+      <button class="benefits-dropdown" onclick="toggleBenefits()">
+        <span>The Benefits</span>
+        <span id="benefitsArrow">▼</span>
+      </button>
+      
+      <div class="benefits-content" id="benefitsContent">
+        <div class="benefits-grid">
+          <div class="benefit-item">Stay connected using tethering and hotspots</div>
+          <div class="benefit-item">From £11.50 each month</div>
+          <div class="benefit-item">No contract, cancel anytime</div>
+          <div class="benefit-item">Unlimited data to secure connection if broadband goes down</div>
+          <div class="benefit-item">Savings</div>
+          <div class="benefit-item">Everything under one umbrella</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- End of Household Solutions -->
+
+<h2>BT/EE HomeTech Interaction Note Helper</h2>
+
+<!-- Theme selector -->
+<div style="margin-bottom: 15px;">
+  <label for="themeSelect"><strong>Theme:</strong></label>
+  <select id="themeSelect">
+    <option value="ee" selected>EE</option>
+    <option value="bt">BT</option>
+  </select>
+</div>
+
+<!-- Initials Row -->
+<div class="initials-row">
+  <label for="initials">Initials:</label>
+  <input type="text" id="initials" maxlength="5">
+  <button onclick="clearAll()" style="margin-left: 60px; transform: translateY(-8px);">CLEAR</button>
+</div>
+
+<!-- Validation Row -->
+<div class="validation-row">
+  <label>Validation:</label>
+  <input type="radio" name="validation" id="valNone">
+  <label for="valNone">None</label>
+  <input type="radio" name="validation" id="valThirdParty">
+  <label for="valThirdParty">Third Party</label>
+  <input type="radio" name="validation" id="valAccountHolder">
+  <label for="valAccountHolder">Account Holder</label>
+</div>
+
+<!-- Third Party Name Input (hidden by default) -->
+<div id="thirdPartyRow" class="validation-row" style="display: none; margin-top: -10px; margin-left: 20px;">
+  <label for="thirdPartyName">Name:</label>
+  <input type="text" id="thirdPartyName" placeholder="Optional" style="width: 200px;">
+</div>
+
+<div class="container">
+  <!-- Left side (Main form) -->
+  <div class="main">
+    <label for="issue">Issue:</label>
+    <textarea id="issue" rows="3"></textarea>
+
+    <label for="actions">Actions:</label>
+    <textarea id="actions" rows="3"></textarea>
+
+    <label for="next">Next Actions:</label>
+    <textarea id="next" rows="3" placeholder="Check if issue resolved"></textarea>
+
+    <div class="checkin-row">
+      <input type="checkbox" id="checkin">
+      <label for="checkin">#checkin</label>
+      <input type="text" id="number" placeholder="Phone number">
+    </div>
+
+    <!-- Formatted Note section -->
+    <div class="formatted-notes">
+      <h3>Formatted Note:</h3>
+      <div id="output"></div>
+      
+      <!-- Shortcuts Button -->
+      <button id="shortcutsButton" onclick="showShortcutsGuide()" style="margin-top: 10px;">SHORTCUTS</button>
+      
+      <!-- Shortcuts Guide Box -->
+      <div class="shortcuts-guide" id="shortcutsGuide">
+        <button class="close-guide" onclick="closeShortcutsGuide()">×</button>
+        <h3>Shortcuts Reference</h3>
+      
+        <div class="shortcuts-list" id="shortcutsList">
+          <!-- Shortcuts will be populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right side (Extra info) -->
+  <div class="extra">
+    <label for="extra">Extra Info (not included in notes):</label>
+    <textarea id="extra" rows="10" placeholder="Thank you for calling Home Tech in Newcastle. My name is __ and I will be your guide today. Can I start by taking your name please?"></textarea>
+
+    <!-- Validation Guide Box -->
+    <div class="validation-guide" id="validationGuide">
+      <button class="close-guide" onclick="closeValidationGuide()">×</button>
+      <h3>Validation Guide</h3>
+      
+      <div class="validation-section">
+        <h4>Openreach Engineer</h4>
+        <ul>
+          <li><strong>EIN</strong></li>
+          <li><strong>OUC</strong></li>
+          <li><strong>Name</strong></li>
+          <li><strong>Manager's Name</strong></li>
+        </ul>
+      </div>
+
+      <div class="validation-section">
+        <h4>Internal</h4>
+        <ul>
+          <li><strong>EIN</strong></li>
+          <li><strong>Name</strong></li>
+          <li><strong>Manager's Name</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <fieldset style="margin-top: 15px;">
+      <legend><strong>Quick Links</strong></legend>
+      
+      <!-- Top 4 links -->
+      <div class="quick-links-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 30px;">
+        <a href="broadband/index.html" target="_blank" rel="noopener noreferrer" class="quick-link">Broadband</a>
+        <a href="https://www.bt.com/content/dam/bt/help/digital-voice/essential-phone/BT-Essential-Digital-Home-Phone-UserGuide.pdf" target="_blank" class="quick-link">Digital Voice Manual</a>
+        <a href="tv/index.html" target="_blank" rel="noopener noreferrer" class="quick-link">TV</a>
+        <a href="https://ee.co.uk/help/tv-sport/manage-use/channel-guide" target="_blank" class="quick-link">Channel Guide</a>
+      </div>
+      
+      <!-- Directory centered -->
+      <div style="text-align: center; margin-bottom: 15px;">
+        <a href="https://directory.intra.bt.com/" target="_blank" class="quick-link" id="directoryLink">Directory</a>
+      </div>
+      
+      <!-- Bottom 3 links -->
+      <div class="quick-links-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+        <a href="https://ee-wifi.ee.co.uk/public/ee/find/index.htm" target="_blank" class="quick-link">Hotspot Finder</a>
+        <a href="https://ee.co.uk/help/mobile-coverage-checker" target="_blank" class="quick-link">Mobile Coverage Checker</a>
+        <a href="https://www.openreach.com/fibre-checker" target="_blank" class="quick-link">FTTP Checker</a>
+      </div>
+    </fieldset>
+
+    <fieldset style="margin-top: 15px;">
+      <legend><strong>Order of Close</strong></legend>
+      <ol style="margin: 10px 0; padding-left: 20px;">
+        <li>Home View Door Button</li>
+        <li>Albert Flow/Finished</li>
+        <li>Consumer End Interaction with notes</li>
+        <li>Advisor Hub/I'm All Done</li>
+      </ol>
+    </fieldset>
+  </div>
+</div>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
