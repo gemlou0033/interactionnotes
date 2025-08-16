@@ -265,6 +265,7 @@ body.bt-theme .benefit-item {
 
 
 
+
     
 .container {
   display: flex;
@@ -513,14 +514,15 @@ label {
   
 <!-- Household Solutions Widget -->
 <div class="household-solutions">
-  <button class="household-solutions-trigger" onclick="toggleHouseholdSolutions()">
+  <button class="household-solutions-trigger" onclick="openPanel()">
     <img src="images/household_solutions.jpg" alt="Household Solutions">
   </button>
+
   <div class="household-solutions-panel" id="householdSolutionsPanel">
     <button class="close-household-solutions" onclick="closeHouseholdSolutions()">×</button>
     <h3>Ways to Start the Household Solutions Conversation</h3>
 
-    <!-- OTP / Mobile -->
+    <!-- OTP Section -->
     <div class="collapsible-section">
       <div class="collapsible-header" onclick="toggleCollapsible(this)">
         <span>During OTP or Mobile Discussion</span>
@@ -531,13 +533,12 @@ label {
           <li>Who is your mobile with?</li>
           <li>Are you with us for your mobile?</li>
           <li>What's your mobile coverage like?</li>
-          <li class="pushback">"I’m happy with my current provider"</li>
-          <li class="pushback">"I don’t want to change my plan"</li>
         </ul>
+        <button class="help-button" onclick="showHelp()">HELP</button>
       </div>
     </div>
 
-    <!-- Broadband -->
+    <!-- Broadband Section -->
     <div class="collapsible-section">
       <div class="collapsible-header" onclick="toggleCollapsible(this)">
         <span>Broadband</span>
@@ -547,14 +548,12 @@ label {
         <ul>
           <li>Do you have a broadband backup?</li>
           <li>Do you have a way you can stay connected?</li>
-          <li>Because you're a broadband customer, you are entitled to discounts and benefits with mobile, is this something you'd be interested in?</li>
-          <li class="pushback">"I’m satisfied with my current broadband"</li>
-          <li class="pushback">"I don’t want another bill"</li>
         </ul>
+        <button class="help-button" onclick="showHelp()">HELP</button>
       </div>
     </div>
 
-    <!-- TV -->
+    <!-- TV Section -->
     <div class="collapsible-section">
       <div class="collapsible-header" onclick="toggleCollapsible(this)">
         <span>TV</span>
@@ -563,13 +562,12 @@ label {
       <div class="collapsible-content">
         <ul>
           <li>You can watch using the Discovery+ app on your mobile, who is your mobile with?</li>
-          <li class="pushback">"I don’t watch TV often"</li>
-          <li class="pushback">"I have another streaming service"</li>
         </ul>
+        <button class="help-button" onclick="showHelp()">HELP</button>
       </div>
     </div>
 
-    <!-- Landline/Digital Voice -->
+    <!-- Landline Section -->
     <div class="collapsible-section">
       <div class="collapsible-header" onclick="toggleCollapsible(this)">
         <span>Landline/Digital Voice</span>
@@ -578,27 +576,19 @@ label {
       <div class="collapsible-content">
         <ul>
           <li>Do you also use your mobile to make calls? Who is your mobile with?</li>
-          <li>I just want to make you aware you are entitled to discounts on mobile.</li>
-          <li class="pushback">"I don’t use my landline"</li>
-          <li class="pushback">"I’m happy with my current provider"</li>
         </ul>
+        <button class="help-button" onclick="showHelp()">HELP</button>
       </div>
     </div>
 
-    <!-- HELP Section – always included -->
-    <div class="collapsible-section">
-      <div class="collapsible-header" onclick="toggleCollapsible(this)">
-        <span>HELP</span>
-        <span class="collapsible-arrow">▼</span>
-      </div>
-      <div class="collapsible-content">
-        <ul>
-          <li>Check customer eligibility before offering benefits.</li>
-          <li>Always be polite and listen first.</li>
-          <li>Provide guidance based on customer needs.</li>
-        </ul>
-      </div>
+    <!-- SINGLE HELP SECTION -->
+    <div id="helpSection" style="display:none; padding:10px; border:1px solid #019ba5; margin-top:10px; border-radius:6px;">
+      <p><strong>I don't use my mobile</strong> – Be curious and ask what they use/pay</p>
+      <p><strong>In contract</strong> – How long? Explore the home. If customer doesn't know pass to new sales</p>
     </div>
+  </div>
+</div>
+
 
     <!-- Benefits -->
     <div class="collapsible-section">
@@ -625,7 +615,8 @@ label {
 
 
 
- <!-- End of Household Solutions -->
+
+  
 
   
   <h2>BT/EE HomeTech Interaction Note Helper</h2>
@@ -826,16 +817,18 @@ function showStep(stepId) {
   document.getElementById(stepId).classList.add('active');
 }
 
-function togglePushbacks(button) {
-  const pushbacks = button.nextElementSibling;
-  if (pushbacks.style.display === "none") {
-    pushbacks.style.display = "block";
-    button.textContent = "HIDE HELP";
-  } else {
+function togglePushbacks() {
+  const pushbacks = document.getElementById('helpSection'); // Always target the single HELP section
+  const buttons = document.querySelectorAll('.help-button'); // Update all HELP buttons text
+  if (pushbacks.style.display === "block") {
     pushbacks.style.display = "none";
-    button.textContent = "HELP";
+    buttons.forEach(btn => btn.textContent = "HELP");
+  } else {
+    pushbacks.style.display = "block";
+    buttons.forEach(btn => btn.textContent = "HIDE HELP");
   }
 }
+
 
 function toggleCollapsible(header) {
   const content = header.nextElementSibling;
@@ -1019,6 +1012,7 @@ function toggleCollapsible(header) {
   </script>
 </body>
 </html>
+
 
 
 
