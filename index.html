@@ -80,6 +80,7 @@
 
 
 /* Household Solutions Styles */
+/* Household Solutions Styles */
 .household-solutions {
   position: absolute;
   top: 10px;
@@ -146,6 +147,63 @@ body.bt-theme .household-solutions-panel h3 {
   border-bottom-color: #5614b4;
 }
 
+.hs-step {
+  display: none;
+}
+
+.hs-step.active {
+  display: block;
+}
+
+.close-household-solutions {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #666;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close-household-solutions:hover {
+  color: #333;
+  background-color: #f0f0f0;
+}
+
+.household-solutions.panel-open .household-solutions-trigger {
+  display: none;
+}
+
+/* Benefits grid */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.benefit-item {
+  background: #f8f9fa;
+  padding: 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  text-align: center;
+  border-left: 3px solid #019ba5;
+}
+
+body.bt-theme .benefit-item {
+  border-left-color: #5614b4;
+}
+
+/* Collapsible styles */
 .collapsible-section {
   margin-bottom: 10px;
   border: 1px solid #e0e0e0;
@@ -198,60 +256,16 @@ body.bt-theme .household-solutions-panel h3 {
   font-weight: bold;
 }
 
-.benefits-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.benefit-item {
-  background: #f8f9fa;
-  padding: 6px;
-  border-radius: 4px;
-  font-size: 11px;
-  text-align: center;
-  border-left: 3px solid #019ba5;
-}
-
-body.bt-theme .benefit-item {
-  border-left-color: #5614b4;
-}
-
-.close-household-solutions {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  background: none;
-  border: none;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  color: #666;
-  width: 25px;
-  height: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-}
-
-.close-household-solutions:hover {
-  color: #333;
-  background-color: #f0f0f0;
-}
-
-/* Hide the trigger image when panel is open */
-.household-solutions.panel-open .household-solutions-trigger {
-  display: none;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .household-solutions {
     position: static;
     width: 100%;
     margin-bottom: 20px;
+  }
+
+  .household-solutions-panel {
+    width: 100%;
   }
 }
 
@@ -522,63 +536,48 @@ label {
     <button class="close-household-solutions" onclick="closeHouseholdSolutions()">×</button>
     <h3>Ways to Start the Household Solutions Conversation</h3>
 
-    <!-- OTP Section -->
-    <div class="collapsible-section">
-      <div class="collapsible-header" onclick="toggleCollapsible(this)">
-        <span>During OTP or Mobile Discussion</span>
-        <span class="collapsible-arrow">▼</span>
-      </div>
-      <div class="collapsible-content">
-        <ul>
-          <li>Who is your mobile with?</li>
-          <li>Are you with us for your mobile?</li>
-          <li>What's your mobile coverage like?</li>
-        </ul>
-        <button class="help-button" onclick="showHelp()">HELP</button>
-      </div>
+    <!-- MENU STEP -->
+    <div class="hs-step active" id="hs-main">
+      <button onclick="goToTopic('otp')">OTP</button>
+      <button onclick="goToTopic('broadband')">Broadband</button>
+      <button onclick="goToTopic('tv')">TV</button>
+      <button onclick="goToTopic('landline')">Landline</button>
+      <button class="help-button" onclick="togglePushbacks()">HELP</button>
     </div>
 
-    <!-- Broadband Section -->
-    <div class="collapsible-section">
-      <div class="collapsible-header" onclick="toggleCollapsible(this)">
-        <span>Broadband</span>
-        <span class="collapsible-arrow">▼</span>
-      </div>
-      <div class="collapsible-content">
-        <ul>
-          <li>Do you have a broadband backup?</li>
-          <li>Do you have a way you can stay connected?</li>
-        </ul>
-        <button class="help-button" onclick="showHelp()">HELP</button>
-      </div>
+    <!-- OTP STEP -->
+    <div class="hs-step" id="hs-otp">
+      <button onclick="goBack('hs-main')">Back</button>
+      <ul>
+        <li>Who is your mobile with?</li>
+        <li>Are you with us for your mobile?</li>
+        <li>What's your mobile coverage like?</li>
+      </ul>
     </div>
 
-    <!-- TV Section -->
-    <div class="collapsible-section">
-      <div class="collapsible-header" onclick="toggleCollapsible(this)">
-        <span>TV</span>
-        <span class="collapsible-arrow">▼</span>
-      </div>
-      <div class="collapsible-content">
-        <ul>
-          <li>You can watch using the Discovery+ app on your mobile, who is your mobile with?</li>
-        </ul>
-        <button class="help-button" onclick="showHelp()">HELP</button>
-      </div>
+    <!-- Broadband STEP -->
+    <div class="hs-step" id="hs-broadband">
+      <button onclick="goBack('hs-main')">Back</button>
+      <ul>
+        <li>Do you have a broadband backup?</li>
+        <li>Do you have a way you can stay connected?</li>
+      </ul>
     </div>
 
-    <!-- Landline Section -->
-    <div class="collapsible-section">
-      <div class="collapsible-header" onclick="toggleCollapsible(this)">
-        <span>Landline/Digital Voice</span>
-        <span class="collapsible-arrow">▼</span>
-      </div>
-      <div class="collapsible-content">
-        <ul>
-          <li>Do you also use your mobile to make calls? Who is your mobile with?</li>
-        </ul>
-        <button class="help-button" onclick="showHelp()">HELP</button>
-      </div>
+    <!-- TV STEP -->
+    <div class="hs-step" id="hs-tv">
+      <button onclick="goBack('hs-main')">Back</button>
+      <ul>
+        <li>You can watch using the Discovery+ app on your mobile, who is your mobile with?</li>
+      </ul>
+    </div>
+
+    <!-- Landline STEP -->
+    <div class="hs-step" id="hs-landline">
+      <button onclick="goBack('hs-main')">Back</button>
+      <ul>
+        <li>Do you also use your mobile to make calls? Who is your mobile with?</li>
+      </ul>
     </div>
 
     <!-- SINGLE HELP SECTION -->
@@ -586,11 +585,8 @@ label {
       <p><strong>I don't use my mobile</strong> – Be curious and ask what they use/pay</p>
       <p><strong>In contract</strong> – How long? Explore the home. If customer doesn't know pass to new sales</p>
     </div>
-  </div>
-</div>
 
-
-    <!-- Benefits -->
+    <!-- BENEFITS SECTION -->
     <div class="collapsible-section">
       <div class="collapsible-header" onclick="toggleCollapsible(this)">
         <span>The Benefits</span>
@@ -610,6 +606,7 @@ label {
 
   </div>
 </div>
+
 <!-- End of Household Solutions -->
 
 
@@ -791,8 +788,8 @@ label {
       "sw": "software"
     };
 
-    // Household Solutions Functions
-  function openPanel() {
+   // Household Solutions Functions
+function openPanel() {
   document.getElementById('householdSolutionsPanel').style.display = 'block';
   document.querySelector('.household-solutions').classList.add('panel-open');
 }
@@ -829,18 +826,13 @@ function togglePushbacks() {
   }
 }
 
-
-function toggleCollapsible(header) {
-  const content = header.nextElementSibling;
-  const arrow = header.querySelector('.collapsible-arrow');
-  if (content.style.display === "block") {
-    content.style.display = "none";
-    arrow.classList.remove('expanded');
-  } else {
-    content.style.display = "block";
-    arrow.classList.add('expanded');
-  }
+function toggleCollapsible(el) {
+  const content = el.nextElementSibling;
+  content.style.display = content.style.display === 'block' ? 'none' : 'block';
+  const arrow = el.querySelector('.collapsible-arrow');
+  arrow.classList.toggle('expanded');
 }
+
 
     // Function to populate shortcuts display
     function populateShortcutsDisplay() {
@@ -1012,6 +1004,7 @@ function toggleCollapsible(header) {
   </script>
 </body>
 </html>
+
 
 
 
