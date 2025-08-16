@@ -79,7 +79,7 @@
     }
 
 
-/* Household Solutions Styles - Flow Version */
+/* Household Solutions Styles */
 .household-solutions {
   position: absolute;
   top: 10px;
@@ -93,10 +93,10 @@
   background: none;
   border: none;
   cursor: pointer;
+  transition: all 0.3s ease;
   padding: 0;
   width: 100%;
   height: 100%;
-  transition: all 0.3s ease;
 }
 
 .household-solutions-trigger img {
@@ -146,33 +146,6 @@ body.bt-theme .household-solutions-panel h3 {
   border-bottom-color: #5614b4;
 }
 
-.hs-step {
-  display: none;
-}
-
-.hs-step.active {
-  display: block;
-}
-
-.flow-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 0;
-}
-
-button.flow-back {
-  background: #f0f0f0;
-  border: 1px solid #ccc;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-button.flow-back:hover {
-  background: #e0e0e0;
-}
-
 .collapsible-section {
   margin-bottom: 10px;
   border: 1px solid #e0e0e0;
@@ -210,6 +183,19 @@ button.flow-back:hover {
   font-size: 12px;
   line-height: 1.4;
   display: none;
+}
+
+.collapsible-content ul {
+  margin: 5px 0;
+  padding-left: 15px;
+}
+
+.collapsible-content li {
+  margin-bottom: 4px;
+}
+
+.collapsible-content li.pushback {
+  font-weight: bold;
 }
 
 .benefits-grid {
@@ -255,10 +241,12 @@ body.bt-theme .benefit-item {
   background-color: #f0f0f0;
 }
 
+/* Hide the trigger image when panel is open */
 .household-solutions.panel-open .household-solutions-trigger {
   display: none;
 }
 
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .household-solutions {
     position: static;
@@ -267,8 +255,9 @@ body.bt-theme .benefit-item {
   }
 }
 
-
 /* End of Household Solutions */
+
+
 
 
 
@@ -519,71 +508,99 @@ label {
 </head>
 <body class="ee-theme">
 
-  <!-- Household Solutions Widget -->
- <div class="household-solutions">
-  <button class="household-solutions-trigger" onclick="openPanel()">
+
+
+  
+<!-- Household Solutions Widget -->
+<div class="household-solutions">
+  <button class="household-solutions-trigger" onclick="toggleHouseholdSolutions()">
     <img src="images/household_solutions.jpg" alt="Household Solutions">
   </button>
-
   <div class="household-solutions-panel" id="householdSolutionsPanel">
     <button class="close-household-solutions" onclick="closeHouseholdSolutions()">×</button>
+    <h3>Ways to Start the Household Solutions Conversation</h3>
 
-    <div class="hs-step active" id="hs-main">
-      <h3>What is the call about?</h3>
-      <div class="flow-buttons">
-        <button onclick="goToTopic('broadband')">Broadband</button>
-        <button onclick="goToTopic('tv')">TV</button>
+    <!-- OTP / Mobile -->
+    <div class="collapsible-section">
+      <div class="collapsible-header" onclick="toggleCollapsible(this)">
+        <span>During OTP or Mobile Discussion</span>
+        <span class="collapsible-arrow">▼</span>
       </div>
-      <div class="flow-buttons">
-        <button onclick="goToTopic('landline')">Landline/Digital Voice</button>
-        <button onclick="goToTopic('otp')">OTP/Mobile</button>
-      </div>
-    </div>
-
-    <div class="hs-step" id="hs-broadband">
-      <button class="flow-back" onclick="goBack('hs-main')">← Back</button>
-      <h3>Broadband Suggestions</h3>
-      <ul>
-        <li>Do you have a broadband backup?</li>
-        <li>Do you have a way you can stay connected?</li>
-        <li>Because you're a broadband customer, you are entitled to discounts and benefits with mobile, is this something you'd be interested in?</li>
-      </ul>
-      <button onclick="togglePushbacks(this)">HELP</button>
-      <div class="pushbacks" style="display:none;">
+      <div class="collapsible-content">
         <ul>
-          <li>"My mobile is in contract" → Mention trade-in options or contract overlap benefits.</li>
-          <li>"I don’t want another plan" → Explain the simplicity of one account for everything.</li>
+          <li>Who is your mobile with?</li>
+          <li>Are you with us for your mobile?</li>
+          <li>What's your mobile coverage like?</li>
+          <li class="pushback">"I’m happy with my current provider"</li>
+          <li class="pushback">"I don’t want to change my plan"</li>
         </ul>
       </div>
     </div>
 
-    <div class="hs-step" id="hs-tv">
-      <button class="flow-back" onclick="goBack('hs-main')">← Back</button>
-      <h3>TV Suggestions</h3>
-      <ul>
-        <li>You can watch using the Discovery+ app on your mobile, who is your mobile with?</li>
-      </ul>
+    <!-- Broadband -->
+    <div class="collapsible-section">
+      <div class="collapsible-header" onclick="toggleCollapsible(this)">
+        <span>Broadband</span>
+        <span class="collapsible-arrow">▼</span>
+      </div>
+      <div class="collapsible-content">
+        <ul>
+          <li>Do you have a broadband backup?</li>
+          <li>Do you have a way you can stay connected?</li>
+          <li>Because you're a broadband customer, you are entitled to discounts and benefits with mobile, is this something you'd be interested in?</li>
+          <li class="pushback">"I’m satisfied with my current broadband"</li>
+          <li class="pushback">"I don’t want another bill"</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="hs-step" id="hs-landline">
-      <button class="flow-back" onclick="goBack('hs-main')">← Back</button>
-      <h3>Landline/Digital Voice Suggestions</h3>
-      <ul>
-        <li>Do you also use your mobile to make calls? Who is your mobile with?</li>
-        <li>I just want to make you aware you are entitled to discounts on mobile.</li>
-      </ul>
+    <!-- TV -->
+    <div class="collapsible-section">
+      <div class="collapsible-header" onclick="toggleCollapsible(this)">
+        <span>TV</span>
+        <span class="collapsible-arrow">▼</span>
+      </div>
+      <div class="collapsible-content">
+        <ul>
+          <li>You can watch using the Discovery+ app on your mobile, who is your mobile with?</li>
+          <li class="pushback">"I don’t watch TV often"</li>
+          <li class="pushback">"I have another streaming service"</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="hs-step" id="hs-otp">
-      <button class="flow-back" onclick="goBack('hs-main')">← Back</button>
-      <h3>OTP/Mobile Suggestions</h3>
-      <ul>
-        <li>Who is your mobile with?</li>
-        <li>Are you with us for your mobile?</li>
-        <li>What's your mobile coverage like?</li>
-      </ul>
+    <!-- Landline/Digital Voice -->
+    <div class="collapsible-section">
+      <div class="collapsible-header" onclick="toggleCollapsible(this)">
+        <span>Landline/Digital Voice</span>
+        <span class="collapsible-arrow">▼</span>
+      </div>
+      <div class="collapsible-content">
+        <ul>
+          <li>Do you also use your mobile to make calls? Who is your mobile with?</li>
+          <li>I just want to make you aware you are entitled to discounts on mobile.</li>
+          <li class="pushback">"I don’t use my landline"</li>
+          <li class="pushback">"I’m happy with my current provider"</li>
+        </ul>
+      </div>
     </div>
 
+    <!-- HELP Section – always included -->
+    <div class="collapsible-section">
+      <div class="collapsible-header" onclick="toggleCollapsible(this)">
+        <span>HELP</span>
+        <span class="collapsible-arrow">▼</span>
+      </div>
+      <div class="collapsible-content">
+        <ul>
+          <li>Check customer eligibility before offering benefits.</li>
+          <li>Always be polite and listen first.</li>
+          <li>Provide guidance based on customer needs.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Benefits -->
     <div class="collapsible-section">
       <div class="collapsible-header" onclick="toggleCollapsible(this)">
         <span>The Benefits</span>
@@ -603,6 +620,8 @@ label {
 
   </div>
 </div>
+<!-- End of Household Solutions -->
+
 
 
 
@@ -1000,6 +1019,7 @@ function toggleCollapsible(header) {
   </script>
 </body>
 </html>
+
 
 
 
