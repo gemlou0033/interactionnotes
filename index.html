@@ -79,7 +79,7 @@
     }
 
 
-/* Household Solutions Styles */
+
 /* Household Solutions Styles */
 .household-solutions {
   position: absolute;
@@ -149,10 +149,38 @@ body.bt-theme .household-solutions-panel h3 {
 
 .hs-step {
   display: none;
+  display: grid; /* Grid layout for buttons */
+  grid-template-columns: 1fr 1fr; /* 2 buttons per row */
+  gap: 10px; /* spacing between buttons */
 }
 
 .hs-step.active {
+  display: grid;
+}
+
+.hs-step button {
   display: block;
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #019ba5;
+  border-radius: 6px;
+  background: #f0f8fa;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+body.bt-theme .hs-step button {
+  border-color: #5614b4;
+  background: #f7f0fc;
+}
+
+.hs-step button:hover {
+  background: #d9f0f2;
+}
+
+body.bt-theme .hs-step button:hover {
+  background: #f0e0fc;
 }
 
 .close-household-solutions {
@@ -267,9 +295,14 @@ body.bt-theme .benefit-item {
   .household-solutions-panel {
     width: 100%;
   }
+
+  .hs-step {
+    grid-template-columns: 1fr; /* stack buttons on small screens */
+  }
 }
 
 /* End of Household Solutions */
+
 
 
 
@@ -537,13 +570,23 @@ label {
     <h3>Ways to Start the Household Solutions Conversation</h3>
 
     <!-- MENU STEP -->
-    <div class="hs-step active" id="hs-main">
-      <button onclick="goToTopic('otp')">OTP</button>
-      <button onclick="goToTopic('broadband')">Broadband</button>
-      <button onclick="goToTopic('tv')">TV</button>
-      <button onclick="goToTopic('landline')">Landline</button>
-      <button class="help-button" onclick="togglePushbacks()">HELP</button>
-    </div>
+<div class="hs-step active" id="hs-main">
+  <button onclick="goToTopic('otp')">OTP</button>
+  <button onclick="goToTopic('broadband')">Broadband</button>
+  <button onclick="goToTopic('tv')">TV</button>
+  <button onclick="goToTopic('landline')">Landline</button>
+  <button onclick="goToTopic('help')">HELP</button>
+</div>
+
+<!-- HELP STEP -->
+<div class="hs-step" id="hs-help">
+  <button onclick="goBack('hs-main')">Back</button>
+  <ul>
+    <li><strong>I don't use my mobile</strong> – Be curious and ask what they use/pay</li>
+    <li><strong>In contract</strong> – How long? Explore the home. If customer doesn't know, pass to new sales</li>
+  </ul>
+</div>
+
 
     <!-- OTP STEP -->
     <div class="hs-step" id="hs-otp">
@@ -1004,6 +1047,7 @@ function toggleCollapsible(el) {
   </script>
 </body>
 </html>
+
 
 
 
