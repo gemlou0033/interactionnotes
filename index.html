@@ -955,18 +955,6 @@
 
       <div class="hs-content">
         <ul>
-          <li>Have you thought about getting a backup for your lan
-
-    <!-- Landline/Digital Voice Section -->
-    <div class="hs-step" id="hs-landline">
-      <div class="nav-buttons">
-        <button class="nav-back" onclick="showSection('main')">← Back</button>
-      </div>
-      
-      <h3>Landline/Digital Voice</h3>
-      
-      <div class="hs-content">
-        <ul>
           <li>Have you thought about getting a backup for your landline so you always stay connected? You can get a discount as you're a BT customer.</li>
           <li>In the unlikely case your landline does stop working, have you thought about a backup for emergency calls? You can get a great discount on mobile as a BT customer.</li>
           <li>I can suggest a backup line so you won't be left without service if this happens again. From just £11.50 a month.</li>
@@ -979,15 +967,15 @@
       <div class="nav-buttons">
         <button class="nav-back" onclick="showSection('main')">← Back</button>
       </div>
-      
+
       <h3>Pushbacks</h3>
-      
+
       <div class="hs-content">
         <div class="pushback-item">
           <div class="pushback-title">Already with EE</div>
           <div class="pushback-solution">Explor the home. Is it Pay As You Go/Contract?</div>
         </div>
-        
+
         <div class="pushback-item">
           <div class="pushback-title">In contract</div>
           <div class="pushback-solution">How long? Explore the home. If customer doesn't know, pass to new sales</div>
@@ -1022,8 +1010,8 @@
           <div class="pushback-title">Bad experience</div>
           <div class="pushback-solution">Explain mobile uses signal and not the same as broadband</div>
         </div>
-        
-        
+
+
       </div>
     </div>
 
@@ -1033,7 +1021,7 @@
         <span>The Benefits</span>
         <span id="benefitsArrow">▼</span>
       </button>
-      
+
       <div class="benefits-content" id="benefitsContent">
         <div class="benefits-grid">
           <div class="benefit-item">Stay connected using tethering and hotspots</div>
@@ -1089,13 +1077,16 @@
 <div class="container">
   <!-- Left side (Main form) -->
   <div class="main">
-    <label for="issue">Issue:</label>
+    <label for="issue">Issues Customer is Facing:</label>
     <textarea id="issue" rows="3"></textarea>
 
-    <label for="actions">Actions:</label>
+    <label for="actions">Steps Taken To Resolve Issues:</label>
     <textarea id="actions" rows="3"></textarea>
 
-    <label for="next">Next Actions:</label>
+    <label for="results">Results from Steps Taken:</label>
+    <textarea id="results" rows="3"></textarea>
+
+    <label for="next">What Customer Should Expect Next/Steps To Be Taken Next:</label>
     <textarea id="next" rows="3" placeholder="Check if issue resolved"></textarea>
 
     <div class="checkin-row">
@@ -1107,16 +1098,23 @@
     <!-- Formatted Note section -->
     <div class="formatted-notes">
       <h3>Formatted Note:</h3>
-      <div id="output"></div>
-      
+      <div class="output-container">
+        <div class="output-box">
+          <div id="output"></div>
+        </div>
+        <div class="output-box">
+          <div id="recap"></div>
+        </div>
+      </div>
+
       <!-- Shortcuts Button -->
       <button id="shortcutsButton" onclick="showShortcutsGuide()" style="margin-top: 10px;">SHORTCUTS</button>
-      
+
       <!-- Shortcuts Guide Box -->
       <div class="shortcuts-guide" id="shortcutsGuide">
         <button class="close-guide" onclick="closeShortcutsGuide()">×</button>
         <h3>Shortcuts Reference</h3>
-      
+
         <div class="shortcuts-list" id="shortcutsList">
           <!-- Shortcuts will be populated by JavaScript -->
         </div>
@@ -1133,7 +1131,7 @@
     <div class="validation-guide" id="validationGuide">
       <button class="close-guide" onclick="closeValidationGuide()">×</button>
       <h3>Validation Guide</h3>
-      
+
       <div class="validation-section">
         <h4>Openreach Engineer</h4>
         <ul>
@@ -1156,7 +1154,7 @@
 
     <fieldset style="margin-top: 15px;">
       <legend><strong>Quick Links</strong></legend>
-      
+
       <!-- Top 4 links -->
       <div class="quick-links-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 30px;">
         <a href="broadband/index.html" target="_blank" rel="noopener noreferrer" class="quick-link">Broadband</a>
@@ -1164,12 +1162,12 @@
         <a href="tv/index.html" target="_blank" rel="noopener noreferrer" class="quick-link">TV</a>
         <a href="https://ee.co.uk/help/tv-sport/manage-use/channel-guide" target="_blank" class="quick-link">Channel Guide</a>
       </div>
-      
+
       <!-- Directory centered -->
       <div style="text-align: center; margin-bottom: 15px;">
         <a href="https://directory.intra.bt.com/" target="_blank" class="quick-link" id="directoryLink">Directory</a>
       </div>
-      
+
       <!-- Bottom 3 links -->
       <div class="quick-links-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
         <a href="https://ee-wifi.ee.co.uk/public/ee/find/index.htm" target="_blank" class="quick-link">Hotspot Finder</a>
@@ -1192,8 +1190,3 @@
 
 </body>
 </html>
-
-
-
-
-
