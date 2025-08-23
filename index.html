@@ -414,10 +414,40 @@
     #output {
       white-space: pre-wrap;
       background: #f5f5f5;
-      padding: 10px;
-      border: 1px solid #ccc;
+      padding: 15px;
+      border: 2px solid #019ba5;
+      border-radius: 8px;
       margin-top: 20px;
       min-height: 100px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+    }
+
+    body.bt-theme #output {
+      border-color: #5614b4;
+    }
+
+    #recap {
+      white-space: pre-wrap;
+      background: #e8f5e8;
+      padding: 15px;
+      border: 2px solid #28a745;
+      border-radius: 8px;
+      margin-top: 20px;
+      min-height: 100px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      margin-left: 20px;
+    }
+
+    .output-container {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .output-box {
+      flex: 1;
     }
 
     label {
@@ -614,7 +644,7 @@
     function toggleBenefits() {
       const benefitsContent = document.getElementById('benefitsContent');
       const arrow = document.getElementById('benefitsArrow');
-      
+
       if (benefitsContent.classList.contains('show')) {
         benefitsContent.classList.remove('show');
         arrow.textContent = '▼';
@@ -645,6 +675,7 @@
     function clearAll() {
       document.getElementById('issue').value = '';
       document.getElementById('actions').value = '';
+      document.getElementById('results').value = '';
       document.getElementById('next').value = '';
       document.getElementById('extra').value = '';
       document.getElementById('checkin').checked = false;
@@ -691,7 +722,7 @@
     function populateShortcutsDisplay() {
       const shortcutsList = document.getElementById('shortcutsList');
       shortcutsList.innerHTML = '';
-      
+
       Object.entries(shortcuts).forEach(([key, value]) => {
         const shortcutDiv = document.createElement('div');
         shortcutDiv.className = 'shortcut-item';
@@ -738,20 +769,24 @@
       const initials = document.getElementById('initials').value.trim() || "GM";
       const rawIssue = document.getElementById('issue').value.trim();
       const rawActions = document.getElementById('actions').value.trim();
+      const rawResults = document.getElementById('results').value.trim();
       const rawNext = document.getElementById('next').value.trim();
 
       if (!rawIssue) {
         document.getElementById('output').textContent = '';
+        document.getElementById('recap').textContent = '';
         return;
       }
 
       const issueExpanded = expandShorthand(rawIssue);
       const actionsExpanded = expandShorthand(rawActions);
+      const resultsExpanded = expandShorthand(rawResults);
       const nextExpanded = rawNext || "Check if issue resolved";
       const nextExpandedShorthand = expandShorthand(nextExpanded);
 
       const issue = toSentenceCase(issueExpanded);
       const actions = toSentenceCase(actionsExpanded);
+      const results = toSentenceCase(resultsExpanded);
       const next = toSentenceCase(nextExpandedShorthand);
 
       const validationLabel = getValidationLabel();
@@ -759,41 +794,54 @@
       const checkinChecked = document.getElementById('checkin').checked;
       const number = document.getElementById('number').value.trim();
 
+      // Formatted Note
       let note = `${initials}@HomeTech`;
       if (validationLabel) {
         note += `\n${validationLabel}`;
       }
-      note += `\nIssue - ${issue}`;
+      note += `\nIssues - ${issue}`;
       if (actions) {
-        note += `\nActions - ${actions}`;
+        note += `\nSteps Taken - ${actions}`;
       }
-      note += `\nNext Actions - ${next}`;
+      if (results) {
+        note += `\nResults - ${results}`;
+      }
+      note += `\nNext Steps - ${next}`;
       if (checkinChecked && number) {
         note += `\n#checkin #${number}`;
       }
 
       document.getElementById('output').textContent = note;
+
+      // Recap Note
+      let recap = `RECAP\n\nIn regards to the issues you had:\n${issue}\n\nI've taken the steps:\n${actions || 'N/A'}`;
+      if (results) {
+        recap += `\n\nResults from these steps:\n${results}`;
+      }
+      recap += `\n\nAnd now you can expect:\n${next}\n\nIs there anything else I can help you with?\nGreat, I'll go ahead and close that complaint.`;
+
+      document.getElementById('recap').textContent = recap;
     }
 
     // Initialize everything when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
-      const fieldsToWatch = ['initials', 'issue', 'actions', 'next', 'number', 'thirdPartyName'];
+      const fieldsToWatch = ['initials', 'issue', 'actions', 'results', 'next', 'number', 'thirdPartyName'];
       fieldsToWatch.forEach(id => {
         document.getElementById(id).addEventListener('input', updateFormattedNote);
       });
 
       document.getElementById('checkin').addEventListener('change', updateFormattedNote);
-      
+
       document.getElementById('valNone').addEventListener('change', function() {
         updateValidationDisplay();
         updateFormattedNote();
       });
-      
+
       document.getElementById('valThirdParty').addEventListener('change', function() {
         updateValidationDisplay();
         updateFormattedNote();
       });
-      
+
       document.getElementById('valAccountHolder').addEventListener('change', function() {
         updateValidationDisplay();
         updateFormattedNote();
@@ -828,11 +876,11 @@
 
   <div class="household-solutions-panel" id="householdSolutionsPanel">
     <button class="close-household-solutions" onclick="closeHouseholdSolutions()">×</button>
-    
+
     <!-- Main Menu Step -->
     <div class="hs-step active" id="hs-main">
       <h3>Household Solutions</h3>
-      
+
       <div class="main-menu-buttons">
         <button class="menu-button" onclick="showSection('otp')">OTP/Mobile</button>
         <button class="menu-button" onclick="showSection('broadband')">Broadband</button>
@@ -847,9 +895,9 @@
       <div class="nav-buttons">
         <button class="nav-back" onclick="showSection('main')">← Back</button>
       </div>
-      
+
       <h3>OTP/Mobile</h3>
-      
+
       <div class="hs-content">
         <ul>
           <li>Who is your mobile with?</li>
@@ -864,9 +912,9 @@
       <div class="nav-buttons">
         <button class="nav-back" onclick="showSection('main')">← Back</button>
       </div>
-      
+
       <h3>Broadband</h3>
-      
+
       <div class="hs-content">
         <ul>
           <li>Do you have a broadband backup?</li>
@@ -884,9 +932,9 @@
       <div class="nav-buttons">
         <button class="nav-back" onclick="showSection('main')">← Back</button>
       </div>
-      
+
       <h3>TV/Sports</h3>
-      
+
       <div class="hs-content">
         <ul>
           <li>I see you have a sports package. If you want to keep up with sports on the go, you can use the Discovery+ app using an EE SIM plan with unlimited data. BT customers get a discount.</li>
@@ -896,6 +944,18 @@
         </ul>
       </div>
     </div>
+
+    <!-- Landline/Digital Voice Section -->
+    <div class="hs-step" id="hs-landline">
+      <div class="nav-buttons">
+        <button class="nav-back" onclick="showSection('main')">← Back</button>
+      </div>
+
+      <h3>Landline/Digital Voice</h3>
+
+      <div class="hs-content">
+        <ul>
+          <li>Have you thought about getting a backup for your lan
 
     <!-- Landline/Digital Voice Section -->
     <div class="hs-step" id="hs-landline">
