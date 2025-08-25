@@ -417,7 +417,7 @@
       padding: 15px;
       border: 2px solid #019ba5;
       border-radius: 8px;
-      margin-top: 20px;
+      margin-top: 10px;
       min-height: 100px;
       font-family: 'Raleway', sans-serif;
       font-size: 14px;
@@ -433,28 +433,39 @@
       padding: 15px;
       border: 2px solid #28a745;
       border-radius: 8px;
-      margin-top: 20px;
+      margin-top: 10px;
       min-height: 100px;
       font-family: 'Raleway', sans-serif;
       font-size: 14px;
-      margin-left: 20px;
-    }
-
-    .recap-header {
-      font-weight: bold;
-      margin-bottom: 10px;
-      color: #28a745;
-      font-size: 16px;
     }
 
     .output-container {
       display: flex;
       gap: 20px;
       align-items: flex-start;
+      margin-top: 20px;
     }
 
     .output-box {
       flex: 1;
+    }
+
+    .output-header {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .formatted-note-header {
+      color: #019ba5;
+    }
+
+    body.bt-theme .formatted-note-header {
+      color: #5614b4;
+    }
+
+    .recap-header {
+      color: #28a745;
     }
 
     label {
@@ -498,14 +509,6 @@
       padding: 5px;
       font-size: 16px;
       margin-left: 10px;
-    }
-
-    .formatted-notes {
-      margin-top: 20px;
-    }
-
-    .formatted-notes h3 {
-      margin-bottom: 10px;
     }
 
     .validation-guide,
@@ -779,55 +782,87 @@
       const rawResults = document.getElementById('results').value.trim();
       const rawNext = document.getElementById('next').value.trim();
 
-      if (!rawIssue) {
+      // Clear outputs if no content
+      if (!rawIssue && !rawActions && !rawResults && !rawNext) {
         document.getElementById('output').textContent = '';
         document.getElementById('recap').textContent = '';
         return;
       }
 
-      const issueExpanded = expandShorthand(rawIssue);
-      const actionsExpanded = expandShorthand(rawActions);
-      const resultsExpanded = expandShorthand(rawResults);
-      const nextExpanded = rawNext || "Check if issue resolved";
-      const nextExpandedShorthand = expandShorthand(nextExpanded);
-
-      const issue = toSentenceCase(issueExpanded);
-      const actions = toSentenceCase(actionsExpanded);
-      const results = toSentenceCase(resultsExpanded);
-      const next = toSentenceCase(nextExpandedShorthand);
-
       const validationLabel = getValidationLabel();
-
       const checkinChecked = document.getElementById('checkin').checked;
       const number = document.getElementById('number').value.trim();
 
-      // Formatted Note
+      // Formatted Note - only include filled fields
       let note = `${initials}@HomeTech`;
+      
       if (validationLabel) {
         note += `\n${validationLabel}`;
       }
-      note += `\nIssues - ${issue}`;
-      if (actions) {
+
+      if (rawIssue) {
+        const issueExpanded = expandShorthand(rawIssue);
+        const issue = toSentenceCase(issueExpanded);
+        note += `\nIssues - ${issue}`;
+      }
+
+      if (rawActions) {
+        const actionsExpanded = expandShorthand(rawActions);
+        const actions = toSentenceCase(actionsExpanded);
         note += `\nSteps Taken - ${actions}`;
       }
-      if (results) {
+
+      if (rawResults) {
+        const resultsExpanded = expandShorthand(rawResults);
+        const results = toSentenceCase(resultsExpanded);
         note += `\nResults - ${results}`;
       }
-      note += `\nNext Steps - ${next}`;
+
+      if (rawNext) {
+        const nextExpanded = expandShorthand(rawNext);
+        const next = toSentenceCase(nextExpanded);
+        note += `\nNext Steps - ${next}`;
+      }
+
       if (checkinChecked && number) {
         note += `\n#checkin #${number}`;
       }
 
       document.getElementById('output').textContent = note;
 
-      // Recap Note
-      let recap = `In regards to the issues you had:\n${issue}\n\nI've taken the steps:\n${actions || 'N/A'}`;
-      if (results) {
-        recap += `\n\nResults from these steps:\n${results}`;
-      }
-      recap += `\n\nAnd now you can expect:\n${next}\n\n**HOUSEHOLD SOLUTIONS**\n\nIs there anything else I can help you with?\nGreat, I'll go ahead and close that complaint.`;
+      // Recap Note - only generate if we have issue
+      if (rawIssue) {
+        const issueExpanded = expandShorthand(rawIssue);
+        const issue = toSentenceCase(issueExpanded);
+        
+        let recap = `In regards to the issues you had:\n${issue}`;
+        
+        if (rawActions) {
+          const actionsExpanded = expandShorthand(rawActions);
+          const actions = toSentenceCase(actionsExpanded);
+          recap += `\n\nI've taken the steps:\n${actions}`;
+        } else {
+          recap += `\n\nI've taken the steps:\nN/A`;
+        }
 
-      document.getElementById('recap').textContent = recap;
+        if (rawResults) {
+          const resultsExpanded = expandShorthand(rawResults);
+          const results = toSentenceCase(resultsExpanded);
+          recap += `\n\nResults from these steps:\n${results}`;
+        }
+
+        if (rawNext) {
+          const nextExpanded = expandShorthand(rawNext);
+          const next = toSentenceCase(nextExpanded);
+          recap += `\n\nAnd now you can expect:\n${next}`;
+        }
+
+        recap += `\n\n**HOUSEHOLD SOLUTIONS**\n\nIs there anything else I can help you with?\nGreat, I'll go ahead and close that complaint.`;
+
+        document.getElementById('recap').textContent = recap;
+      } else {
+        document.getElementById('recap').textContent = '';
+      }
     }
 
     // Initialize everything when DOM is loaded
@@ -1092,7 +1127,7 @@
     <textarea id="results" rows="3"></textarea>
 
     <label for="next">What Customer Should Expect Next/Steps To Be Taken Next:</label>
-    <textarea id="next" rows="3" placeholder="Check if issue resolved"></textarea>
+    <textarea id="next" rows="3"></textarea>
 
     <div class="checkin-row">
       <input type="checkbox" id="checkin">
@@ -1100,30 +1135,28 @@
       <input type="text" id="number" placeholder="Phone number">
     </div>
 
-    <!-- Formatted Note section -->
-    <div class="formatted-notes">
-      <h3>Formatted Note:</h3>
-      <div class="output-container">
-        <div class="output-box">
-          <div id="output"></div>
-        </div>
-        <div class="output-box">
-          <div class="recap-header">RECAP</div>
-          <div id="recap"></div>
-        </div>
+    <!-- Formatted Notes section -->
+    <div class="output-container">
+      <div class="output-box">
+        <div class="output-header formatted-note-header">Formatted Note:</div>
+        <div id="output"></div>
       </div>
+      <div class="output-box">
+        <div class="output-header recap-header">Recap:</div>
+        <div id="recap"></div>
+      </div>
+    </div>
 
-      <!-- Shortcuts Button -->
-      <button id="shortcutsButton" onclick="showShortcutsGuide()" style="margin-top: 10px;">SHORTCUTS</button>
+    <!-- Shortcuts Button -->
+    <button id="shortcutsButton" onclick="showShortcutsGuide()" style="margin-top: 10px;">SHORTCUTS</button>
 
-      <!-- Shortcuts Guide Box -->
-      <div class="shortcuts-guide" id="shortcutsGuide">
-        <button class="close-guide" onclick="closeShortcutsGuide()">×</button>
-        <h3>Shortcuts Reference</h3>
+    <!-- Shortcuts Guide Box -->
+    <div class="shortcuts-guide" id="shortcutsGuide">
+      <button class="close-guide" onclick="closeShortcutsGuide()">×</button>
+      <h3>Shortcuts Reference</h3>
 
-        <div class="shortcuts-list" id="shortcutsList">
-          <!-- Shortcuts will be populated by JavaScript -->
-        </div>
+      <div class="shortcuts-list" id="shortcutsList">
+        <!-- Shortcuts will be populated by JavaScript -->
       </div>
     </div>
   </div>
