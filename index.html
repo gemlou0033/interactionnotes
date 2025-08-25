@@ -444,6 +444,10 @@
       border-color: #ff64fe;
     }
 
+    #recap strong {
+      font-weight: bold;
+    }
+
     .output-container {
       display: flex;
       gap: 20px;
@@ -698,6 +702,9 @@
       document.getElementById('next').value = '';
       document.getElementById('extra').value = '';
       document.getElementById('checkin').checked = false;
+      document.getElementById('linknetflix').checked = false;
+      document.getElementById('powersupply').checked = false;
+      document.getElementById('blankbox').value = '';
       document.getElementById('number').value = '';
       document.getElementById('valNone').checked = false;
       document.getElementById('valThirdParty').checked = false;
@@ -801,6 +808,9 @@
 
       const validationLabel = getValidationLabel();
       const checkinChecked = document.getElementById('checkin').checked;
+      const linknetflixChecked = document.getElementById('linknetflix').checked;
+      const powersupplyChecked = document.getElementById('powersupply').checked;
+      const blankboxValue = document.getElementById('blankbox').value.trim();
       const number = document.getElementById('number').value.trim();
 
       // Formatted Note - only include filled fields
@@ -834,8 +844,27 @@
         note += `\nNext Steps - ${next}`;
       }
 
+      // Build hashtag line
+      let hashtagLine = '';
       if (checkinChecked && number) {
-        note += `\n#checkin #${number}`;
+        hashtagLine += `#checkin`;
+        
+        // Add other hashtags between checkin and number
+        if (linknetflixChecked) {
+          hashtagLine += ` #linknetflix`;
+        }
+        if (powersupplyChecked) {
+          hashtagLine += ` #powersupply`;
+        }
+        if (blankboxValue) {
+          hashtagLine += ` #${blankboxValue}`;
+        }
+        
+        hashtagLine += ` #${number}`;
+      }
+
+      if (hashtagLine) {
+        note += `\n${hashtagLine}`;
       }
 
       document.getElementById('output').textContent = note;
@@ -869,12 +898,14 @@
 
     // Initialize everything when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
-      const fieldsToWatch = ['initials', 'issue', 'actions', 'results', 'next', 'number', 'thirdPartyName'];
+      const fieldsToWatch = ['initials', 'issue', 'actions', 'results', 'next', 'number', 'thirdPartyName', 'blankbox'];
       fieldsToWatch.forEach(id => {
         document.getElementById(id).addEventListener('input', updateFormattedNote);
       });
 
       document.getElementById('checkin').addEventListener('change', updateFormattedNote);
+      document.getElementById('linknetflix').addEventListener('change', updateFormattedNote);
+      document.getElementById('powersupply').addEventListener('change', updateFormattedNote);
 
       document.getElementById('valNone').addEventListener('change', function() {
         updateValidationDisplay();
@@ -1137,6 +1168,18 @@
       <input type="text" id="number" placeholder="Phone number">
     </div>
 
+    <div class="checkin-row">
+      <input type="checkbox" id="linknetflix">
+      <label for="linknetflix">#linknetflix</label>
+      <input type="checkbox" id="powersupply">
+      <label for="powersupply">#powersupply</label>
+    </div>
+
+    <div class="checkin-row">
+      <label for="blankbox">#</label>
+      <input type="text" id="blankbox" placeholder="Other hashtag">
+    </div>
+
     <!-- Formatted Notes section -->
     <div class="output-container">
       <div class="output-box">
@@ -1203,7 +1246,7 @@ Outbound: All calls are recorded for training and monitoring purposes. "></texta
         <a href="broadband/index.html" target="_blank" rel="noopener noreferrer" class="quick-link">Broadband</a>
         <a href="https://www.bt.com/content/dam/bt/help/digital-voice/essential-phone/BT-Essential-Digital-Home-Phone-UserGuide.pdf" target="_blank" class="quick-link">Digital Voice Manual</a>
         <a href="tv/index.html" target="_blank" rel="noopener noreferrer" class="quick-link">TV</a>
-        <a href="https://ee.co.uk/help/tv-sport/manage-use/channel-guide" target="_blank" class="quick-link">Channel Guide</a>
+        <a href="https://ee.co.uk/help/tv-sport/manage-use/channel-guide" target="_blank" class="quick-link" onclick="window.open('https://player.ee.co.uk/#/livetv/schedule', '_blank')">Channel Guide</a>
       </div>
 
       <!-- Directory centered -->
