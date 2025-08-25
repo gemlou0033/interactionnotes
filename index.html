@@ -429,14 +429,19 @@
 
     #recap {
       white-space: pre-wrap;
-      background: #e8f5e8;
+      background: #f5f5f5;
       padding: 15px;
-      border: 2px solid #28a745;
+      border: 2px solid #edf33b;
       border-radius: 8px;
       margin-top: 10px;
       min-height: 100px;
       font-family: 'Raleway', sans-serif;
       font-size: 14px;
+    }
+
+    body.bt-theme #recap {
+      background: #f5f5f5;
+      border-color: #ff64fe;
     }
 
     .output-container {
@@ -465,7 +470,11 @@
     }
 
     .recap-header {
-      color: #28a745;
+      color: #edf33b;
+    }
+
+    body.bt-theme .recap-header {
+      color: #ff64fe;
     }
 
     label {
@@ -841,14 +850,12 @@
           const actionsExpanded = expandShorthand(rawActions);
           const actions = toSentenceCase(actionsExpanded);
           recap += `\n\nI've taken the steps:\n${actions}`;
-        } else {
-          recap += `\n\nI've taken the steps:\nN/A`;
         }
 
         if (rawResults) {
           const resultsExpanded = expandShorthand(rawResults);
           const results = toSentenceCase(resultsExpanded);
-          recap += `\n\nResults from these steps:\n${results}`;
+          recap += `\n\nAnd from this we have:\n${results}`;
         }
 
         if (rawNext) {
@@ -1126,7 +1133,7 @@
     <label for="results">Results from Steps Taken:</label>
     <textarea id="results" rows="3"></textarea>
 
-    <label for="next">What Customer Should Expect Next/Steps To Be Taken Next:</label>
+    <label for="next">The Next Guide Should (If Applicable):</label>
     <textarea id="next" rows="3"></textarea>
 
     <div class="checkin-row">
