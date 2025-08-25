@@ -785,7 +785,8 @@
     }
 
     function updateFormattedNote() {
-      const initials = document.getElementById('initials').value.trim() || "GM";
+      const initialsValue = document.getElementById('initials').value.trim();
+      const initials = initialsValue || "";
       const rawIssue = document.getElementById('issue').value.trim();
       const rawActions = document.getElementById('actions').value.trim();
       const rawResults = document.getElementById('results').value.trim();
@@ -803,7 +804,7 @@
       const number = document.getElementById('number').value.trim();
 
       // Formatted Note - only include filled fields
-      let note = `${initials}@HomeTech`;
+      let note = initials ? `${initials}@HomeTech` : "HomeTech";
       
       if (validationLabel) {
         note += `\n${validationLabel}`;
@@ -858,13 +859,7 @@
           recap += `\n\nAnd from this we have:\n${results}`;
         }
 
-        if (rawNext) {
-          const nextExpanded = expandShorthand(rawNext);
-          const next = toSentenceCase(nextExpanded);
-          recap += `\n\nAnd now you can expect:\n${next}`;
-        }
-
-        recap += `\n\n**HOUSEHOLD SOLUTIONS**\n\nIs there anything else I can help you with?\nGreat, I'll go ahead and close that complaint.`;
+        recap += `\n\nHOUSEHOLD SOLUTIONS\n\nIs there anything else I can help you with?\nGreat, I'll go ahead and close that complaint.`;
 
         document.getElementById('recap').textContent = recap;
       } else {
